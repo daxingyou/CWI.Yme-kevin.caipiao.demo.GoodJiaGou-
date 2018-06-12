@@ -1,0 +1,16 @@
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Extension\bin\Release\Yme.Util.Extension.dll
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Extension\bin\Release\Yme.Util.Extension.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.csprojResolveAssemblyReference.cache
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.csproj.CoreCompileInputs.cache
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.dll
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.pdb
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Extension\bin\Release\Yme.Util.Extension.dll
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Extension\bin\Release\Yme.Util.Extension.pdb
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.csproj.CoreCompileInputs.cache
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.dll
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.pdb
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Extension\bin\Release\Yme.Util.Extension.dll
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Extension\bin\Release\Yme.Util.Extension.pdb
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.csproj.CoreCompileInputs.cache
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.dll
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Extension\obj\Release\Yme.Util.Extension.pdb

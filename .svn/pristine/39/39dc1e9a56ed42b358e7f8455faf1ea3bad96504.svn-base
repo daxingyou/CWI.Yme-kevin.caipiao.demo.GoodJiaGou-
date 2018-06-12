@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{88D89A14-6427-4A8C-B59A-D3D4762C9A6E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yme.Mcp.Mapping</RootNamespace>
+    <AssemblyName>Yme.Mcp.Mapping</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseManage\ShopMap.cs" />
+    <Compile Include="BaseManage\BilltemplateMap.cs" />
+    <Compile Include="BaseManage\MerchantMap.cs" />
+    <Compile Include="BaseManage\PlatformMap.cs" />
+    <Compile Include="BaseManage\PrinterConfigMap.cs" />
+    <Compile Include="BaseManage\ShopPlatformMap.cs" />
+    <Compile Include="BaseManage\ShopPrinterMap.cs" />
+    <Compile Include="DemoManage\DeviceMap.cs" />
+    <Compile Include="DemoManage\TaskMap.cs" />
+    <Compile Include="DemoManage\DeviceTaskMap.cs" />
+    <Compile Include="OrderManage\OrderDetailMap.cs" />
+    <Compile Include="OrderManage\OrderDishMap.cs" />
+    <Compile Include="OrderManage\OrderInvoiceMap.cs" />
+    <Compile Include="OrderManage\OrderMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportManage\CustomerDaystatisMap.cs" />
+    <Compile Include="ReportManage\OrderDaystatisMap.cs" />
+    <Compile Include="ReportManage\PlatformdishDaystatisMap.cs" />
+    <Compile Include="ReportManage\PlatformorderDaystatisMap.cs" />
+    <Compile Include="SystemManage\AreaMap.cs" />
+    <Compile Include="SystemManage\BlackListMap.cs" />
+    <Compile Include="SystemManage\DictCodeMap.cs" />
+    <Compile Include="SystemManage\LoginLogMap.cs" />
+    <Compile Include="SystemManage\LogMap.cs" />
+    <Compile Include="SystemManage\ParameterMap.cs" />
+    <Compile Include="SystemManage\SmsMap.cs" />
+    <Compile Include="SystemManage\VerifyCodeMap.cs" />
+    <Compile Include="WeChatManage\WxJsapiticketMap.cs" />
+    <Compile Include="WeChatManage\WxTokenMap.cs" />
+    <Compile Include="WeChatManage\WxUserMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Yme.Model\Yme.Mcp.Entity\Yme.Mcp.Entity.csproj">
+      <Project>{51642c1a-d01c-4f24-883a-0acdf72b4445}</Project>
+      <Name>Yme.Mcp.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

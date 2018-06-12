@@ -1,0 +1,10 @@
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\bin\Debug\PushSharp.Apple.dll
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\bin\Debug\PushSharp.Apple.pdb
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\bin\Debug\Newtonsoft.Json.dll
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\bin\Debug\PushSharp.Core.dll
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\bin\Debug\PushSharp.Core.pdb
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\bin\Debug\Newtonsoft.Json.xml
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\obj\Debug\PushSharp.Apple.csprojResolveAssemblyReference.cache
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\obj\Debug\PushSharp.Apple.csproj.CoreCompileInputs.cache
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\obj\Debug\PushSharp.Apple.dll
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Apple\obj\Debug\PushSharp.Apple.pdb

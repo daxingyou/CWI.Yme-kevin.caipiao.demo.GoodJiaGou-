@@ -1,0 +1,33 @@
+﻿using System.Collections.Generic;
+using System.Text;
+using System.Web.Http;
+using Yme.Mcp.BLL.BaseManage;
+using Yme.Mcp.BLL.SystemManage;
+using Yme.Mcp.Order.Controllers;
+using Yme.Mcp.Order.Handel;
+using Yme.Util;
+using Yme.Util.Log;
+using Yme.Util.Extension;
+
+namespace Yme.Mcp.Order.Controllers.Api
+{
+    /// <summary>
+    /// 系统控制器
+    /// </summary>
+    public class SystemController : ApiBaseController
+    {
+        [NonAuthorize]
+        [HttpGet]
+        public object GetSecondTicks()
+        {
+            return OK(TimeUtil.SecondTicks_1970);
+        }
+
+        [NonAuthorize]
+        [HttpGet]
+        public object GetWeekDateTime(long timestamp)
+        {
+            return OK(TimeUtil.GetWeekDateTime(timestamp));
+        }
+    }
+}

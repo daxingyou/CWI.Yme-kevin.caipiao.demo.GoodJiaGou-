@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>更换绑定电话</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container">
+	<form action="" id="form">
+	<div class="row">
+		<div class="cells cells-table pd-l-15 br-b-1">
+			<div class="cell">
+				<div class="cell-text br-b-1 pd-offset-l">原手机号</div>
+				<div class="cell-item br-b-1"><input type="tel" maxlength="11"  class="form-control" name="Mobile"  oninput="this.value=this.value.replace(/\D/g,'');"  placeholder="请输入原绑定手机号" data-verify-phone></div>
+				<div class="cell-text br-b-1"></div>
+			</div>
+			<div class="cell">
+				<div class="cell-text br-b-1 pd-offset-l">新手机号</div>
+				<div class="cell-item br-b-1"><input type="tel" maxlength="11"   id="phone" class="form-control" name="NewMobile"  oninput="this.value=this.value.replace(/\D/g,'');"  placeholder="请输入绑定手机号" data-verify-phone></div>
+				<div class="cell-text br-b-1"><a id="getverifycode" data-loading="0" href="" class="btn btn-code">获取验证码</a></div>
+			</div>
+			<div class="cell">
+				<div class="cell-text pd-offset-l">验证码</div>
+				<div class="cell-item"><input type="tel" maxlength="6"  class="form-control"  oninput="this.value=this.value.replace(/\D/g,'');"  name="VerifyCode" placeholder="请输入短信验证码" data-verify-len="6"></div>
+				<div class="cell-text"></div>
+			</div>
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-action">更换</button>
+	</form>
+</div>
+	<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+	<script type="text/javascript" src="/content/scripts/g.js"></script>
+	<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+	<script type="text/javascript" src="/content/scripts/validate_form.js"></script>
+	<script type="text/javascript" src="/content/scripts/main.js"></script>
+	<script type="text/javascript">
+		// 获取验证码
+		G.getverifycode({
+			"elem": "#getverifycode",
+			"mess": "s",
+			"phone": "#phone",
+			"time": 120,
+			"action": function(res){
+				var that = this;
+				G.loader({
+					url: "/shop/getVerifyCode",
+					method: "get",
+					headers: G.helper.get_common_header(),
+					param: {Mobile: res.phone, CodeType: "2"},
+					before: function(){
+						G.Loading.show("正在获取验证码");
+					},
+					response: function(res){
+						G.Loading.hide();
+						if (res.status == "1") {
+							that.success();
+						} else {
+							G.prompt.error(res.data);
+							that.error();
+						}
+					}
+				});
+			}
+		});
+
+		// 更换手机号码
+		$("#form").validateForm({
+			submit: function(form){
+				G.loader({
+					url: "/shop/updateBindMobile",
+					method: "post",
+					headers: G.helper.get_common_header(),
+					param: $(form).serialize(),
+					before: function(){
+						
+						G.Loading.show("更改中");
+					},
+					response: function(res){
+						G.Loading.hide();
+						if (res.status == "1") {
+						    G.cookie.set("ClientToken", "", 0);
+						    G.cookie.set("shop_account", "", 0);
+						    location.href = "login.html";
+						} else {
+							if(G.check_login(res.status)){
+								G.prompt.error(res.data);
+							}
+						}
+					},
+				});
+			},
+			render: function(conf){
+				if (!conf.verify) {
+					conf.elem.value = "";
+					conf.elem.setAttribute("placeholder", conf.mess);
+				} else {
+					G.clearinput.add({
+						elem: conf.elem
+					});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

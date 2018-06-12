@@ -1,0 +1,13 @@
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\bin\Debug\Yme.Cache.Factory.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\bin\Debug\Yme.Cache.Factory.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\bin\Debug\Yme.Cache.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\bin\Debug\Yme.Cache.Redis.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\bin\Debug\ServiceStack.Redis.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\bin\Debug\ServiceStack.Interfaces.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\bin\Debug\ServiceStack.Text.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\bin\Debug\Yme.Cache.Redis.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\bin\Debug\Yme.Cache.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\obj\Debug\Yme.Cache.Factory.csprojResolveAssemblyReference.cache
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\obj\Debug\Yme.Cache.Factory.csproj.CoreCompileInputs.cache
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\obj\Debug\Yme.Cache.Factory.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache.Factory\obj\Debug\Yme.Cache.Factory.pdb

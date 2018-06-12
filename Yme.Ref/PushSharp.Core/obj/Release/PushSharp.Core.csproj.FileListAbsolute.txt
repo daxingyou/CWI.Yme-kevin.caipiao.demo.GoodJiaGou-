@@ -1,0 +1,10 @@
+C:\work\微云打server_order\Yme.Ref\PushSharp.Core\bin\Release\PushSharp.Core.dll
+C:\work\微云打server_order\Yme.Ref\PushSharp.Core\bin\Release\PushSharp.Core.pdb
+C:\work\微云打server_order\Yme.Ref\PushSharp.Core\obj\Release\PushSharp.Core.csproj.CoreCompileInputs.cache
+C:\work\微云打server_order\Yme.Ref\PushSharp.Core\obj\Release\PushSharp.Core.dll
+C:\work\微云打server_order\Yme.Ref\PushSharp.Core\obj\Release\PushSharp.Core.pdb
+C:\work\Yme.Mcp\Yme.Ref\PushSharp.Core\bin\Release\PushSharp.Core.dll
+C:\work\Yme.Mcp\Yme.Ref\PushSharp.Core\bin\Release\PushSharp.Core.pdb
+C:\work\Yme.Mcp\Yme.Ref\PushSharp.Core\obj\Release\PushSharp.Core.csproj.CoreCompileInputs.cache
+C:\work\Yme.Mcp\Yme.Ref\PushSharp.Core\obj\Release\PushSharp.Core.dll
+C:\work\Yme.Mcp\Yme.Ref\PushSharp.Core\obj\Release\PushSharp.Core.pdb

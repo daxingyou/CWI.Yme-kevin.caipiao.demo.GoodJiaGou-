@@ -1,0 +1,8 @@
+2018-04-14 01:03:30,786 [9] WARN Yme.Util.Log.LogUtil [(null)] - mcp_demo|Warn|2018-04-14 01:03:30.786|System.InvalidOperationException: 序列不包含任何元素
+   在 System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   在 Yme.Mcp.Demo.Handel.AppSignHttpControllerSelector.GetControllerType(String appSign, String controllerName) 位置 D:\WorkYh\微云打server_order\Yme.Application\Yme.Mcp.Demo\App_Start\01-Handler\AppSignHttpControllerSelector.cs:行号 189
+   在 Yme.Mcp.Demo.Handel.AppSignHttpControllerSelector.GetApiController(HttpRequestMessage request) 位置 D:\WorkYh\微云打server_order\Yme.Application\Yme.Mcp.Demo\App_Start\01-Handler\AppSignHttpControllerSelector.cs:行号 146
+2018-04-14 01:03:30,793 [6] WARN Yme.Util.Log.LogUtil [(null)] - mcp_demo|Warn|2018-04-14 01:03:30.792|System.InvalidOperationException: 序列不包含任何元素
+   在 System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   在 Yme.Mcp.Demo.Handel.AppSignHttpControllerSelector.GetControllerType(String appSign, String controllerName) 位置 D:\WorkYh\微云打server_order\Yme.Application\Yme.Mcp.Demo\App_Start\01-Handler\AppSignHttpControllerSelector.cs:行号 189
+   在 Yme.Mcp.Demo.Handel.AppSignHttpControllerSelector.GetApiController(HttpRequestMessage request) 位置 D:\WorkYh\微云打server_order\Yme.Application\Yme.Mcp.Demo\App_Start\01-Handler\AppSignHttpControllerSelector.cs:行号 146

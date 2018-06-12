@@ -1,0 +1,5 @@
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Core\bin\Debug\PushSharp.Core.dll
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Core\bin\Debug\PushSharp.Core.pdb
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Core\obj\Debug\PushSharp.Core.csproj.CoreCompileInputs.cache
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Core\obj\Debug\PushSharp.Core.dll
+D:\WorkYh\微云打server_order\Yme.Ref\PushSharp.Core\obj\Debug\PushSharp.Core.pdb

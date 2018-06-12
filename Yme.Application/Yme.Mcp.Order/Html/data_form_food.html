@@ -1,0 +1,578 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>菜品数据报表</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="/content/css/common.css">
+    <link rel="stylesheet" href="/content/css/main.css">
+    <link rel="stylesheet" href="/content/css/LCalendar/LCalendar.min.css">
+</head>
+<body>
+    <div class="container mg-btm-58">
+        <div class="row">
+            <!-- 			<div class="cells">
+                            <div class="cell">
+                                <div class="cell-item">菜品销量排行</div>
+                                <div class="cell-icon"><i class="icon icon-date"></i> <span id="date_rpt"></span></div>
+                            </div>
+                        </div> -->
+
+            <div class="cells  mg-offset-b border-bottom">
+                <div class="cell border-bottom-none padding-8">
+                    <div data-order="0" data-for-icon="set_sort_icon" data-for-text="" onclick="set_sort.call(this, event);" class="cell-item">
+                        <span>销量排行</span>
+                        <i id="set_sort_icon" class="icon icon-sort-asc"></i>
+                    </div>
+                    <div class="cell-icon">
+                        <i class="icon icon-date margin-right-none"></i> <input type="text" class="LCalendar_input"   onfocus='this.blur();'  id="date_rpt_s">至<input type="text"  class="LCalendar_input"  onfocus='this.blur();'  id="date_rpt_e">
+                        
+                    </div>
+                    <div class="cell-icon "><a class="foodSerch" href="javascript:;">搜索</a></div>
+                </div>
+
+            </div>
+            <div id="echarts" style="width: 100%; " class="bg-white"></div>
+        </div>
+    </div>
+    <div class="bottombar colm-3">
+        <div class="bottombar-item tc">
+            <a class="show" href="data_form_order.html">
+                <i class="icon icon-form-bottom-dd"></i>
+                <p class="text-info lh-1">订单</p>
+            </a>
+        </div>
+        <div class="bottombar-item tc">
+            <a class="show bottombar-active" href="data_form_food.html">
+                <i class="icon icon-form-bottom-cp"></i>
+                <p class="text-info lh-1">菜品</p>
+            </a>
+        </div>
+        <div class="bottombar-item tc">
+            <a class="show" href="data_form_customer.html">
+                <i class="icon icon-form-bottom-kh"></i>
+                <p class="text-info lh-1">客户</p>
+            </a>
+        </div>
+    </div>
+    <script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.app.js"></script>
+    <script type="text/javascript" src="/content/scripts/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="/content/scripts/LCalendar/LCalendar.js"></script>
+    <script type="text/javascript">
+        //统计日期
+        var platform = { "1": "美团外卖", "2": "饿了么", "3": "百度外卖" };
+        var default_date = getDate({ d: -1 });
+        
+        $("#date_rpt_s").val(getDate({ d: -7 }));
+        $("#date_rpt_e").val(default_date);
+        var calendar_start = new LCalendar();
+        var calendar_end = new LCalendar();
+        calendar_start.init({
+            'trigger': '#date_rpt_s', //标签id
+            'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+            'minDate': getDate({ y: -1 }), //最小日期
+            'maxDate': getDate({ d: -1 }), //最大日期
+            'confirm': function (res) {
+                foodRpt.dateStart = res;
+
+                calendar_end.setOption({
+                    minDate: res,
+                    maxDate: getDate({ d: -1 })
+                });
+            }
+        });
+        calendar_end.init({
+            'trigger': '#date_rpt_e', //标签id
+            'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+            'minDate':   getDate({ d: -7 }), //最小日期
+            'maxDate': getDate({ d: -1 }), //最大日期
+            'confirm': function (res) {
+
+                foodRpt.dateEnd = res
+                calendar_start.setOption({
+                    minDate: getDate({ y: -2 }),
+                    maxDate: res 
+                });
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var foodRpt = {
+            date: "",
+            dateStart:getDate({ d: -7 }),
+            dateEnd: default_date ,
+            order: "0"
+        }
+        get_food_rpt({
+            BeginDate: foodRpt.dateStart,
+            EndDate: foodRpt.dateEnd,
+            OrderBy: foodRpt.order
+        });
+
+        function set_sort(e) {
+            var that = this;
+            if (this.getAttribute("data-loading")) {
+                return false;
+            }
+            this.setAttribute("data-loading", "1");
+            var for_icon = document.querySelector("#" + this.getAttribute("data-for-icon"));
+            // var for_text = document.querySelector("#"+this.getAttribute("data-for-text"));
+            if (this.getAttribute("data-order") === "0") {
+                
+                foodRpt.order = "1";
+                this.setAttribute("data-order", "1");
+                for_icon.classList.remove("icon-sort-asc");
+                for_icon.classList.add("icon-sort-desc");
+                // for_text.innerText = "由多到少";
+            } else {
+			
+				foodRpt.order = "0";
+                this.setAttribute("data-order", "0");
+                for_icon.classList.remove("icon-sort-desc");
+                for_icon.classList.add("icon-sort-asc");
+                // for_text.innerText = "由少到多";
+			
+			
+            }
+            get_food_rpt({
+                BeginDate: foodRpt.dateStart,
+                EndDate: foodRpt.dateEnd,
+                OrderBy: foodRpt.order
+            }, function () {
+                that.setAttribute("data-loading", "");
+            });
+        }
+
+        function get_food_rpt(query) {
+            var callback = "";
+            if (arguments.length === 2) {
+                callback = arguments[1];
+            }
+            G.loader({
+                url: "/report/getDishDayRpt",
+                method: "get",
+                param: query,
+                headers: G.helper.get_common_header(),
+                before: function () {
+                    G.Loading.show();
+                },
+                response: function (res) {
+
+                //    var  res = {"status":1,"data":{
+                //         "MaxVal":2,
+                //         "SalesTotal":8,
+                //         "Dishes":["烤翅","金桔柠檬茶","农家小炒肉","土豆泥餐","烤翅","金桔柠檬茶","农家小炒肉","土豆泥餐","烤翅","金桔柠檬茶","农家小炒肉","土豆泥餐","烤翅","金桔柠檬茶","农家小炒肉","土豆泥餐"],
+                //         "PlatformData":{"1":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0],"2":[0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2],"3":[0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2]}
+                //         }
+                //     }
+                    G.Loading.hide();
+                    if (typeof callback === "function") {
+                        callback();
+                    }
+                    if (res.status == "1") {
+                        var params = serialize(res.data.PlatformData)
+                        setChatOpt(params.legend,res.data.Dishes,params.series,res.data.MaxVal)
+
+
+
+
+                       /* var series = [], legend_data = [];
+                        for (var platform_id in res.data.PlatformData) {
+                            var _series = {
+                                name: platform[platform_id],
+                                type: "bar",
+								barMaxWidth: '25' ,
+                                data: res.data.PlatformData[platform_id]
+                            }
+                            series.push(_series);
+                            legend_data.push({ name: platform[platform_id] });
+                        }
+                        var option = {
+                            title: {
+                                text: "销量(份)",
+                                textStyle: {
+                                    fontWright: "100",
+                                    fontSize: "12",
+                                    color: "#999"
+                                },
+                                left: "9%",
+                                show: true
+                            },
+                            dataZoom: [
+                                {
+                                    type: 'slider',
+                                    show: true,
+                                    start: 0,
+                                    end: 30,
+                                    handleSize: 8
+                                },
+                                {
+                                    type: 'inside',
+                                    start: 0,
+                                    end: 30
+                                }
+                            ],
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data: legend_data,
+                                // data: ["美团外卖","百度外卖"],
+                                right: "5%"
+                            },
+                            backgroundColor: {
+                                color: "#fff"
+                            },
+                            grid: {
+                                right: "10%",
+                                bottom: "65"
+                            },
+                            color: ["#90ed7d", "#434348", "#7cb5ec"],
+                            xAxis: {
+                                // type: 'value',
+                                type: 'category',
+                                // boundaryGap: false,
+                                data: res.data.Dishes
+                                // name: "销量",
+                                // nameLocation: 'middle'
+                            },
+                            yAxis: {
+                                // type: 'category',
+                                type: 'value',
+								max: res.data.MaxVal
+                                // data: res.data.Dishes,
+                                // data: res.data.names
+                            },
+                            series: series
+                           
+                        }*/
+                        //chart.setOption(option);
+                    } else {
+                        if (G.check_login(res.status)) {
+                            G.prompt.error(res.data);
+                        }
+                    }
+                }
+            });
+        }
+
+
+
+
+
+
+
+    // 点击搜索
+    $('.foodSerch').on('click', function(){
+
+
+
+        get_food_rpt({
+            BeginDate: foodRpt.dateStart,
+            EndDate: foodRpt.dateEnd,
+            OrderBy: foodRpt.order
+        })
+
+        calendar_end.setOption({
+                    minDate: getDate({ y: -1 }),
+                    maxDate: getDate({ d: -1 }),
+                });
+
+        calendar_start.setOption({
+            minDate: getDate({ y: -1 }),
+            maxDate: getDate({d: -1 }),
+        });
+
+    })
+
+
+
+
+
+
+
+
+
+        		
+		
+    /*
+        legendLabel   数组 如：['美团外卖','饿了么','百度外卖']
+        yAxisLabel    数组(菜品名字) 如：['麻婆豆腐'，'红烧茄子','小炒肉']
+        seriesData    数组  如：
+         {
+            name: '美团外卖',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            barWidth : 30,
+            data: [320, 302, 301, 334, 390, 330, 320]
+        }
+    */ 
+    var myCharts = ''
+    function setChatOpt(legendLabel,yAxisLabel,seriesData,xAxisMax) {
+       
+       if(seriesData.length == 0) {$('#echarts').html('<p style="background:#F6F5FA;padding:10px;text-align:center;">暂无数据</p>'); $('#echarts').height(0); return}
+       
+        $('#echarts').height( yAxisLabel.length * 50 + 100);
+        if(myCharts){
+            myCharts.dispose();
+            myCharts = echarts.init( document.getElementById('echarts'));
+        }else{
+            myCharts = echarts.init( document.getElementById('echarts'));
+        }
+        // if(!myCharts){
+        //     myCharts = echarts.init( document.getElementById('echarts'));
+        // }
+      //  var myCharts = echarts.init( document.getElementById('echarts'));
+        $('#echarts p').remove();
+        var opt = {
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                },
+                textStyle: {
+                    fontSize: '12'
+                },
+                formatter: function (params, ticket, callback) {
+                    var bgcArr =  ["5fdbab", "7cb5ed", "ff7b7b"];
+                    var title = params[0].axisValue.trim();
+                        var newParamsName = "";// 最终拼接成的字符串
+                        var provideNumber = 8;// 每行能显示的字的个数
+                    var paramsNameNumber = title.length;// 实际标签的个数
+                    var rowNumber = Math.ceil(paramsNameNumber / provideNumber);// 换行的话，需要显示几行，向上取整
+                    /**
+                     * 判断标签的个数是否大于规定的个数， 如果大于，则进行换行处理 如果不大于，即等于或小于，就返回原标签
+                     */
+                    // 条件等同于rowNumber>1
+                    if (paramsNameNumber > provideNumber) {
+                        /** 循环每一行,p表示行 */
+                        for (var p = 0; p < rowNumber; p++) {
+                            var tempStr = "";// 表示每一次截取的字符串
+                            var start = p * provideNumber;// 开始截取的位置
+                            var end = start + provideNumber;// 结束截取的位置
+                            // 此处特殊处理最后一行的索引值
+                            if (p == rowNumber - 1) {
+                                // 最后一次不换行
+                                tempStr = title.substring(start, paramsNameNumber);
+                            } else {
+                                // 每一次拼接字符串并换行
+                                tempStr = title.substring(start, end) + "<br />";
+                            }
+                            newParamsName += tempStr;// 最终拼成的字符串
+                        }
+                
+                    } else {
+                        // 将旧标签的值赋给新标签
+                        newParamsName = title;
+                    }
+                    var str = newParamsName + '<br />'
+                    var count = 0;
+                    params.map(function(a,b){
+                        count += a.data
+                        str += '<span style="font-size:12px;display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#'+bgcArr[b]+';"></span>'+a.seriesName+': <span style="color:#'+bgcArr[b]+'">'+a.value+'</span><br>'
+                        console.log(a)
+                    })
+                    return str+ '<div style="padding-top: 5px;"><span style="font-size:12px;display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:transparent;"></span> 总计: '+count+'</div>'
+                }
+            },
+            legend: {
+                data: legendLabel,
+                left: 'right',
+                padding: [8,8,0,0],
+            },
+            color: ["#5fdbab", "#7cb5ed", "#ff7b7b"],
+            backgroundColor: {
+                color: "#fff"
+            },
+            grid: {
+                left: '1%',
+                right: '4%',
+                bottom: '3%',
+                // top: '5%',
+                // top: '14%',
+                containLabel: true
+            },
+            xAxis:  {
+                type: 'value',
+                // max: xAxisMax,
+            },
+            yAxis: {
+                type: 'category',
+                data: yAxisLabel,
+                axisLabel:{
+                    interval: 0,
+                    formatter: function(value, index){
+                        var params = value
+                        var newParamsName = "";// 最终拼接成的字符串
+                        var provideNumber = 5;// 每行能显示的字的个数
+                        var paramsNameNumber = params.length;// 实际标签的个数
+                        // if(paramsNameNumber <= 9 && paramsNameNumber > 6){
+                        //     provideNumber = 3;
+                        // }
+                        // if(paramsNameNumber <= 12 && paramsNameNumber >9){
+                        //     provideNumber = 4;
+                        // }
+                        var rowNumber = Math.ceil(paramsNameNumber / provideNumber);// 换行的话，需要显示几行，向上取整
+                        /**
+                         * 判断标签的个数是否大于规定的个数， 如果大于，则进行换行处理 如果不大于，即等于或小于，就返回原标签
+                         */
+                        // 条件等同于rowNumber>1
+                        if (paramsNameNumber > provideNumber) {
+                            /** 循环每一行,p表示行 */
+                            for (var p = 0; p < rowNumber; p++) {
+                                var tempStr = "";// 表示每一次截取的字符串
+                                var start = p * provideNumber;// 开始截取的位置
+                                var end = start + provideNumber;// 结束截取的位置
+                            
+                                // 此处特殊处理最后一行的索引值
+                                if (p == rowNumber - 1) {
+                                    // 最后一次不换行
+                                    tempStr = params.substring(start, paramsNameNumber);
+                                } else {
+                                    // 每一次拼接字符串并换行
+                                    tempStr = params.substring(start, end) + "\n";
+                                }
+                                newParamsName += tempStr;// 最终拼成的字符串
+                            }
+                    
+                        } else {
+                            // 将旧标签的值赋给新标签
+                            newParamsName = params;
+                        }
+                        //将最终的字符串返回
+                        if(newParamsName.length > 17){
+                            console.log(newParamsName)
+                            newParamsName = newParamsName.substr(0,16)+'...'
+                        }
+                        return '{alig|' + newParamsName + '}';
+                    },
+                    rich: {
+                        alig: {
+                            lineHeight: 14,
+                            align: 'left',
+                        },
+                    },
+                    
+                    
+                }
+            
+            },
+            series: seriesData
+        };
+        myCharts.setOption(opt);
+    }
+
+
+
+    function serialize(o){
+        var rArr = [],legend_data = [];
+        for (i in o){
+            legend_data.push(platform[i])
+            rArr.push({
+                name: platform[i],
+	            type: 'bar',
+	            stack: '总量',
+				barWidth : 30,
+	            label: {
+	                normal: {
+	                    show: true,
+                        position:'insideRight',
+                        formatter: function(d){
+                            if(d.data === 0) return ''
+                        }
+	                }
+	            },
+				barWidth : 30,
+	            data: o[i]
+            }) 
+        }
+
+        return {
+            series: rArr,
+            legend: legend_data
+        }
+    }
+
+
+
+
+    // setChatOpt(
+    //         ['美团外卖','饿了么','百度外卖'],
+    //         ['蚂蚁上树','佛跳墙','啤酒鸭','降龙十八掌','北京特色小吃——驴打滚——北京特色小吃——驴打滚','夫妻肺片','麻辣小龙虾'],
+    //         [ {
+	//             name: '美团外卖',
+	//             type: 'bar',
+	//             stack: '总量',
+	// 			barWidth : 30,
+	//             label: {
+	//                 normal: {
+	//                     show: true,
+    //                     position:'insideRight',
+    //                     formatter: function(d){
+    //                         if(d.data === 0) return ''
+    //                     }
+	//                 }
+	//             },
+	// 			barWidth : 30,
+	//             data: [320, 302, 301, 334, 390, 330, 320]
+	//         },
+	//         {
+	//             name: '饿了么',
+	//             type: 'bar',
+	//             stack: '总量',
+	// 			barWidth : 30,
+	//             label: {
+	//                 normal: {
+	//                     show: true,
+    //                     position: 'insideRight',
+    //                     formatter: function(d){
+    //                         if(d.data === 0) return ''
+    //                     }
+	//                 }
+	                
+	//             },
+	//             data: [120, 132, 101, 0, 90, 230, 210]
+	//         },
+	//         {
+	//             name: '百度外卖',
+	//             type: 'bar',
+	//             stack: '总量',
+	// 			barWidth : 30,
+	//             label: {
+	//                 normal: {
+    //                     show: true,
+    //                     color:'#fff',
+    //                     position: 'insideRight',
+    //                     formatter: function(d){
+    //                         if(d.data === 0) return ''
+    //                     }
+	//                 }
+	//             },
+	//             data: [220, 182, 191, 234, 290, 330, 310]
+    //         },],
+    //         900
+    //     )
+
+    </script>
+</body>
+</html>

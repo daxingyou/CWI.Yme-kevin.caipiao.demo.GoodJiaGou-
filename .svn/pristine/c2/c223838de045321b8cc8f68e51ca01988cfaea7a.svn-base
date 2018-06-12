@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{78761FB2-7697-4D7E-93F0-C21923AA3FFD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yme.Mcp.Model</RootNamespace>
+    <AssemblyName>Yme.Mcp.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Evt.Framework.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\Evt.Framework.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Evt.Framework.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\Evt.Framework.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Definitions\BaiduwmConsts.cs" />
+    <Compile Include="Definitions\CacheKeyConsts.cs" />
+    <Compile Include="Definitions\ElemeConsts.cs" />
+    <Compile Include="Definitions\MeituanConsts.cs" />
+    <Compile Include="Enums\EnumWeChatCollection.cs" />
+    <Compile Include="QueryModels\McpCommRetQueryModel.cs" />
+    <Compile Include="QueryModels\BillPrintQueryModel.cs" />
+    <Compile Include="QueryModels\DeviceTaskQueryModel.cs" />
+    <Compile Include="QueryModels\McpBaseQueryModel.cs" />
+    <Compile Include="QueryModels\TaskResultQueryModel.cs" />
+    <Compile Include="ViewModels\Waimai\Baidu\BaiduApiPushMsgModel.cs" />
+    <Compile Include="ViewModels\Waimai\Baidu\BaiduApiRetModel.cs" />
+    <Compile Include="ViewModels\Waimai\Baidu\BaiduOrderModel.cs" />
+    <Compile Include="ViewModels\Waimai\Baidu\BaiduOrderStatusModel.cs" />
+    <Compile Include="ViewModels\Waimai\Baidu\BaiduShopModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeApiPushMsgModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeApiRequestMetasModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeApiRequestModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeApiRetErrorModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeApiRetModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeDeliveryStatusModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeMerchantAccountModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeOrderStatusModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeOrderModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeRetErrorModel.cs" />
+    <Compile Include="ViewModels\Waimai\Eleme\ElemeRetTokenModel.cs" />
+    <Compile Include="ViewModels\WebApi\DishRptViewModel.cs" />
+    <Compile Include="QueryModels\OrderDetailQueryModel.cs" />
+    <Compile Include="QueryModels\OrderFeeQueryModel.cs" />
+    <Compile Include="QueryModels\OrderLsitQueryModel.cs" />
+    <Compile Include="ViewModels\WebApi\OrderViewModel.cs" />
+    <Compile Include="QueryModels\OrderSearchQueryModel.cs" />
+    <Compile Include="QueryModels\OrderStatisQueryModel.cs" />
+    <Compile Include="ViewModels\WebApi\PlatformRptViewModel.cs" />
+    <Compile Include="QueryModels\PrinterConfigsQueryModel.cs" />
+    <Compile Include="ViewModels\WebApi\DateRptViewModel.cs" />
+    <Compile Include="QueryModels\ShopPlatformQueryModel.cs" />
+    <Compile Include="ViewModels\WebApi\BindMobileViewModel.cs" />
+    <Compile Include="QueryModels\ApiDataQueryModel.cs" />
+    <Compile Include="ViewModels\WebApi\MapPlatformViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\PrinterBindViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\PrinterConfigViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\PrinterStatusViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\PrinterUpdateViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\PrinterViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\UnMapPlatformViewModel.cs" />
+    <Compile Include="ViewModels\McpApi\AppViewModel.cs" />
+    <Compile Include="ViewModels\McpApi\BillViewModel.cs" />
+    <Compile Include="ViewModels\McpApi\GetBillViewModel.cs" />
+    <Compile Include="ViewModels\McpApi\PrinterBaseViewModel.cs" />
+    <Compile Include="ViewModels\McpApi\PrinterCheckViewModel.cs" />
+    <Compile Include="ViewModels\McpApi\PrtintViewModel.cs" />
+    <Compile Include="ViewModels\Waimai\Meituan\MeituanDeliveryStatusModel.cs" />
+    <Compile Include="ViewModels\Waimai\Meituan\MeituanOrderCancelModel.cs" />
+    <Compile Include="ViewModels\Waimai\Meituan\MeituanOrderCompleteModel.cs" />
+    <Compile Include="ViewModels\Waimai\Meituan\MeituanOrderDetailModel.cs" />
+    <Compile Include="ViewModels\Waimai\Meituan\MeituanOrderExtrasModel.cs" />
+    <Compile Include="ViewModels\Waimai\Meituan\MeituanOrderModel.cs" />
+    <Compile Include="ViewModels\Waimai\Meituan\MeituanShopModel.cs" />
+    <Compile Include="ViewModels\WeChat\TemplateDataItem.cs" />
+    <Compile Include="ViewModels\WeChat\TemplateMsgModel.cs" />
+    <Compile Include="ViewModels\WeChat\TempleteModel.cs" />
+    <Compile Include="ViewModels\WeChat\WeChatDeviceMsgModel.cs" />
+    <Compile Include="ViewModels\WeChat\WeChatFileInfoMsgModel.cs" />
+    <Compile Include="ViewModels\WeChat\WeChatMsgViewModel.cs" />
+    <Compile Include="ViewModels\WeChat\WeChatServicesMsgModel.cs" />
+    <Compile Include="ViewModels\WeChat\WeChatJsApiParamsViewModel.cs" />
+    <Compile Include="ViewModels\WeChat\WeChatMenuButton.cs" />
+    <Compile Include="WebApi\IServiceContext.cs" />
+    <Compile Include="WebApi\ServiceContext.cs" />
+    <Compile Include="WebApi\Session.cs" />
+    <Compile Include="WebApi\SessionManager.cs" />
+    <Compile Include="Enums\EnumTypeCollectoin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\WebApi\LoginViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\PageViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\TcpViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\VerifyCodeViewModel.cs" />
+    <Compile Include="ViewModels\WebApi\VerViewModel.cs" />
+    <Compile Include="WebApi\SysServericeContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Yme.Core\Code\Yme.Code\Yme.Code.csproj">
+      <Project>{79049299-93c1-4190-ac74-67f11025cb8f}</Project>
+      <Name>Yme.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Util\Yme.Util.Extension\Yme.Util.Extension.csproj">
+      <Project>{ef69964d-aba5-4555-b3e8-599e0148a566}</Project>
+      <Name>Yme.Util.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Util\Yme.Util\Yme.Util.csproj">
+      <Project>{3c1a88ed-2c65-4509-9026-da0518ce42f7}</Project>
+      <Name>Yme.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yme.Mcp.Entity\Yme.Mcp.Entity.csproj">
+      <Project>{51642c1a-d01c-4f24-883a-0acdf72b4445}</Project>
+      <Name>Yme.Mcp.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

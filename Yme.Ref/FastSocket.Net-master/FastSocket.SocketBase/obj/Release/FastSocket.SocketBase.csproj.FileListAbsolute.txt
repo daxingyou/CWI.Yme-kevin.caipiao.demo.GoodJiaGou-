@@ -1,0 +1,12 @@
+C:\work\微云打server_order\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\bin\Release\FastSocket.SocketBase.xml
+C:\work\微云打server_order\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\bin\Release\FastSocket.SocketBase.dll
+C:\work\微云打server_order\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\bin\Release\FastSocket.SocketBase.pdb
+C:\work\微云打server_order\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\obj\Release\FastSocket.SocketBase.csproj.CoreCompileInputs.cache
+C:\work\微云打server_order\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\obj\Release\FastSocket.SocketBase.dll
+C:\work\微云打server_order\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\obj\Release\FastSocket.SocketBase.pdb
+C:\work\Yme.Mcp\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\bin\Release\FastSocket.SocketBase.xml
+C:\work\Yme.Mcp\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\bin\Release\FastSocket.SocketBase.dll
+C:\work\Yme.Mcp\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\bin\Release\FastSocket.SocketBase.pdb
+C:\work\Yme.Mcp\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\obj\Release\FastSocket.SocketBase.csproj.CoreCompileInputs.cache
+C:\work\Yme.Mcp\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\obj\Release\FastSocket.SocketBase.dll
+C:\work\Yme.Mcp\Yme.Ref\FastSocket.Net-master\FastSocket.SocketBase\obj\Release\FastSocket.SocketBase.pdb

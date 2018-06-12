@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自动接单设置</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+	<link rel="stylesheet" href="/content/css/common.css">
+    <link rel="stylesheet" href="/content/css/main.css">
+
+    <style>
+        .auto_orders_head{
+            background-color: #fff;
+            padding: 15px 0;
+        }
+        .auto_orders_head img{
+            width:28%;
+            max-width:120px;
+            display: block;
+            margin: 10px auto;
+        }
+        .auto_orders_head p{
+            padding: 5px 6%;
+        }
+
+        .btn-on,.btn-off{
+            background-color: #31c7a0;
+        }
+
+        .storeList{
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .padding-left-none{
+            padding-left: 0 !important;
+        }
+        .autoOrders .cell-text{
+            font-size: 1.1em;
+        }
+        .autoOrders .icon-pt-meituan,
+        .autoOrders .icon-pt-baidu,
+        .autoOrders .icon-pt-ele,
+        .autoOrders .icon-pt-meituan-a,
+        .autoOrders .icon-pt-baidu-a,
+        .autoOrders .icon-pt-ele-a{
+            width: 2.6em;
+            height: 2.6em;
+        }
+        .cells .cell:last-child{
+            border-bottom: none;
+        }
+        
+    </style>
+
+</head>
+<body>
+<div class="container autoOrders">
+   <div class="row">
+        <div class="auto_orders_head">
+                <img src="/content/images/speak.png" alt="">
+                <p>门店绑定了打印机且完成打印场景设置后，才能接单。关闭自动接单后，您需手动对每个订单进行确认接单</p>
+        </div>
+
+        <div class="cells storeList margin-top-8">
+                <!-- <div class="cell padding-8 padding-left-none">
+                    <div class="cell-icon "><i class="icon icon-pt-meituan-a"></i></div>
+                    <div class="cell-item cell-text ">美团外卖</div>
+                    <div class="cell-icon"><button class="btn-on"></button></div>
+                </div>
+
+                <div class="cell padding-8 padding-left-none">
+                    <div class="cell-icon"><i class="icon icon-pt-ele"></i></div>
+                    <div class="cell-item cell-text ">饿了么</div>
+                    <div class="cell-icon"><button class="btn-on"></button></div>
+                </div>
+
+                <div class="cell padding-8 padding-left-none">
+                    <div class="cell-icon"><i class="icon icon-pt-meituan-a"></i></div>
+                    <div class="cell-item cell-text ">百度外卖</div>
+                    <div class="cell-icon"><button  class="btn-on"></button></div>
+                </div> -->
+       </div>
+   </div>
+
+</div>
+<script id="tpl_store_item" type="text/html">
+    <% var platform = {"1":"icon-pt-meituan", "2":"icon-pt-ele", "3":"icon-pt-baidu"} %>
+    <% if (items.length>0) { %>
+        <% for(var i=0; i < items.length; i++){ %>
+            <div class="cell padding-8 padding-left-none">
+                <div class="cell-icon"><i class="icon <%= platform[items[i]['PlatformId']]%><%= items[i].Status?'':'-a' %>" ></i></div>
+                <div class="cell-item cell-text"><%= items[i].PlatformName %></div>
+                <div class="cell-icon"><button  data-platform-id = "<%= items[i]['PlatformId']%>" data-status ="<%= items[i].Status %>"  class="btn-on <%= items[i].Status?'':'active' %>"></button></div>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p style="background:#F6F5FA;padding:10px;text-align:center;margin-top:-2px;margin-right:-10px;margin-left:-10px;">您尚未进行外卖平台授权，暂无数据~</p>
+    <% } %>
+</script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+<script type="text/javascript">
+       
+    $(function(){
+        var storeList = $(".storeList") 
+        G.loader({
+            url: "/shop/getConfirmConfigs",
+            method: "get",
+            headers: G.helper.get_common_header(),
+            before: function(){
+                G.Loading.show();
+            },
+            response: function(res){
+                G.Loading.hide();
+                if (res.status == "1") {
+                    var item_html = template("tpl_store_item", { items: res.data.Configs});
+                    storeList.html(item_html);
+                } else {
+                    if(G.check_login(res.status)){
+                        G.prompt.error(res.data);
+                    }
+                }
+            },
+        });
+
+        storeList.on('click', '.btn-on', function(){
+            var _this = $(this);
+            if( _this.attr('ing')==1){return}
+            _this.attr('ing','1')
+            var platform = {"1":"icon-pt-meituan", "2":"icon-pt-ele", "3":"icon-pt-baidu"}
+            var status = _this.attr('data-status') == 1? 0: 1;
+            var PlatformId = _this.attr('data-platform-id')
+            var iconEle = _this.parent().siblings('.cell-icon').children('i');
+            G.loader({
+                url: "/shop/doConfirmConfig",
+                method: "post",
+                param: {Status: status,PlatformId:PlatformId},
+                headers: G.helper.get_common_header(),
+                response: function(res){
+                    _this.attr('ing','0')
+                    if (res.status == "1") {
+                        var className = platform[PlatformId] + (status ? '':'-a')
+                        iconEle.get(0).className = 'icon '+ className
+                        _this.attr('data-status',status)[0].className = 'btn-on '+ (status ? '':'active')
+                       
+                    } else {
+                        if(G.check_login(res.status)){
+                            G.prompt.error(res.data);
+                        }
+                    }
+                },
+            });
+            return false
+        })
+
+
+
+
+
+    })
+
+
+
+
+
+
+</script>
+</html>

@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>成功信息</title>
+	<meta name="viewport" content="width=device-width;initial-scale=1.0;user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body class="bg-white">
+<div class="container">
+	<div style="width: 180px; height: 167px; margin: 5em auto 2em;">
+        <img src="/content/images/img_nologin.png" alt="">
+	</div>
+	<p class="tc"></p>
+	<p class="tc mgt-10"><a id="login" href="login.html?openid=" class="text-spec">返回&gt;&gt;</a></p>
+	<script>
+		(function(){
+			function getType(type){
+				var flag = 0;
+				var str = location.search.substr(1);
+				if(!str){
+					window.location.href='404.html'
+				}
+				var arr = str.split('&');
+				if(arr.length === 0){
+					window.location.href='404.html'
+				}
+				for(var i = 0,len = arr.length; i < len; i++){
+					var arr_ags = arr[i].split('=');
+					if(arr_ags[0] === type){
+						return arr_ags[1];
+					}	
+				}
+				window.location.href='404.html'
+			}
+			document.querySelector('.tc').innerHTML = decodeURI(getType('msg'));
+			document.querySelector('#login').setAttribute('href', getType('url'));
+		})();
+	</script>
+</div>
+</body>
+</html>

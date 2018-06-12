@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>打印机管理</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container">
+	<div class="cells-title">打印机列表</div>
+	<div class="row">
+		
+		<div class="cells pd-l-15 br-b-1">
+			<a href="printer_add.html" class="show">
+			<div class="cell br-b pd-offset-l">
+				<div class="cell-icon"><i class="icon icon-printer-add"></i></div>
+				<div class="cell-item">新增打印机</div>
+				<div class="cell-icon"><i class="icon icon-right"></i></div>
+			</div>
+			</a>
+		</div>
+        <div id="content_printer_list" class="cells pd-l-15 br-b-1 hide">
+            <!-- 			<div class="cell pd-offset-l">
+                        <a class="show" href="printer_setting.html">
+                        <div class="cell-icon"><i class="icon icon-printer-list"></i></div>
+                        <div class="cell-item">外卖小票打印机</div>
+                        <div class="cell-icon text-info">设置<i class="icon icon-right"></i></div>
+                        </a>
+                    </div>
+                    <div class="cell pd-offset-l br-b">
+                        <a class="show" href="printer_setting.html">
+                        <div class="cell-icon"><i class="icon icon-printer-list"></i></div>
+                        <div class="cell-item">外卖小票打印机</div>
+                        <div class="cell-icon text-info">设置<i class="icon icon-right"></i></div>
+                        </a>
+                    </div> -->
+        </div>
+		
+	</div>
+    <!-- <div class="line-btn">
+		<a href="product.html" class="btn btn-action">购买打印机</a>
+	</div>	 -->
+</div>
+<script id="tpl_printer_list" type="text/html">
+<% var status = ["待设置", "更改设置", "停用中"]; %>
+<% if(printer_data.length) { %>
+	<% for(var i=0; i < printer_data.length; i++){ %>
+	<div class="cell pd-offset-l <%= i+1 === printer_data.length ?'br-b':'' %>">
+		<a class="show" href="printer_setting.html?PrinterCode=<%= printer_data[i]['PrinterCode'] %>">
+		<div class="cell-icon"><i class="icon icon-printer-list"></i></div>
+		<div class="cell-item"><%= printer_data[i]["PrinterName"] %></div>
+		<div class="cell-icon text-info"><%= status[printer_data[i]["IsConfig"]] %><i class="icon icon-right"></i></div>
+		</a>
+	</div>
+	<% } %>
+<% } %>
+</script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+<script type="text/javascript">
+	
+	
+G.loader({
+	url: "/printer/getList",
+	method: "get",
+	headers: G.helper.get_common_header(),
+	before: function(){
+		G.Loading.show();
+	},
+	response: function(res){
+		G.Loading.hide();
+		if (res.status == "1") {
+			var html = template("tpl_printer_list", {printer_data:res.data.Printers});
+			
+			if (html) {
+			    document.querySelector("#content_printer_list").classList.remove("hide");
+			    document.querySelector("#content_printer_list").innerHTML = html;
+			}
+			if(res.data.Printers.length==0){
+				document.querySelector("#content_printer_list").classList.add("hide");
+			}
+		} else {
+			if (G.check_login(res.status)) {
+				G.prompt.error(res.data);
+			}
+		}
+	}
+});
+</script>
+</body>
+</html>

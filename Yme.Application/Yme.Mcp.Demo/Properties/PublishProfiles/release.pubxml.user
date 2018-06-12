@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+此文件由 Web 项目的发布/打包过程使用。可以通过编辑此 MSBuild 文件
+自定义此过程的行为。为了解与此相关的更多内容，请访问 https://go.microsoft.com/fwlink/?LinkID=208121。 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\IISSite\Yme.Mcp.Demo</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>02/22/2013 08:43:40</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>02/22/2013 08:43:40</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="bin/Evt.Framework.Common.dll">
+      <publishTime>12/26/2017 17:17:47</publishTime>
+    </File>
+    <File Include="bin/Evt.Framework.Mvc.dll">
+      <publishTime>12/26/2017 17:17:47</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>12/10/2015 16:55:06</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.Configuration.dll">
+      <publishTime>10/05/2015 09:37:20</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.dll">
+      <publishTime>10/05/2015 09:37:20</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/19/2012 10:59:52</publishTime>
+    </File>
+    <File Include="bin/MySql.Data.dll">
+      <publishTime>06/17/2016 18:29:10</publishTime>
+    </File>
+    <File Include="bin/MySql.Data.Entity.EF6.dll">
+      <publishTime>06/17/2016 18:29:12</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>06/22/2015 11:06:54</publishTime>
+    </File>
+    <File Include="bin/Oracle.DataAccess.dll">
+      <publishTime>01/08/2013 16:51:48</publishTime>
+    </File>
+    <File Include="bin/Resources/MsgContent.xml">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Common.dll">
+      <publishTime>04/13/2018 21:50:20</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Interfaces.dll">
+      <publishTime>04/13/2018 21:50:20</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Redis.dll">
+      <publishTime>04/13/2018 21:50:20</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Text.dll">
+      <publishTime>04/13/2018 21:50:20</publishTime>
+    </File>
+    <File Include="bin/System.Data.SQLite.dll">
+      <publishTime>12/09/2015 21:08:12</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>12/21/2017 18:04:53</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>12/21/2017 18:04:53</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.SelfHost.dll">
+      <publishTime>07/10/2012 21:51:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>12/21/2017 18:04:53</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>04/13/2018 21:50:20</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>02/11/2014 15:26:04</publishTime>
+    </File>
+    <File Include="bin/System.Web.Providers.dll">
+      <publishTime>07/12/2011 12:10:12</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>08/17/2012 11:22:26</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>07/10/2012 12:03:34</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>07/10/2012 12:03:34</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>07/10/2012 12:03:34</publishTime>
+    </File>
+    <File Include="bin/ThoughtWorks.QRCode.dll">
+      <publishTime>12/26/2017 17:17:47</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>01/23/2014 13:57:34</publishTime>
+    </File>
+    <File Include="bin/Yme.Cache.dll">
+      <publishTime>04/13/2018 21:29:18</publishTime>
+    </File>
+    <File Include="bin/Yme.Cache.Factory.dll">
+      <publishTime>04/13/2018 22:18:38</publishTime>
+    </File>
+    <File Include="bin/Yme.Cache.Factory.pdb">
+      <publishTime>04/13/2018 22:18:38</publishTime>
+    </File>
+    <File Include="bin/Yme.Cache.pdb">
+      <publishTime>04/13/2018 21:29:18</publishTime>
+    </File>
+    <File Include="bin/Yme.Cache.Redis.dll">
+      <publishTime>04/13/2018 22:18:37</publishTime>
+    </File>
+    <File Include="bin/Yme.Cache.Redis.pdb">
+      <publishTime>04/13/2018 22:18:37</publishTime>
+    </File>
+    <File Include="bin/Yme.Code.dll">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/Yme.Code.pdb">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/Yme.Data.dll">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/Yme.Data.EF.dll">
+      <publishTime>04/13/2018 22:18:40</publishTime>
+    </File>
+    <File Include="bin/Yme.Data.EF.pdb">
+      <publishTime>04/13/2018 22:18:40</publishTime>
+    </File>
+    <File Include="bin/Yme.Data.pdb">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/Yme.Data.Repository.dll">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/Yme.Data.Repository.pdb">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.BLL.dll">
+      <publishTime>04/13/2018 22:18:42</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.BLL.dll.config">
+      <publishTime>12/26/2017 17:17:46</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.BLL.pdb">
+      <publishTime>04/13/2018 22:18:42</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Demo.dll">
+      <publishTime>04/13/2018 22:18:42</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Demo.pdb">
+      <publishTime>04/13/2018 22:18:42</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Entity.dll">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Entity.pdb">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.IService.dll">
+      <publishTime>04/13/2018 22:18:40</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.IService.pdb">
+      <publishTime>04/13/2018 22:18:40</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Mapping.dll">
+      <publishTime>04/13/2018 22:18:40</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Mapping.pdb">
+      <publishTime>04/13/2018 22:18:40</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Model.dll">
+      <publishTime>04/13/2018 22:18:40</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Model.pdb">
+      <publishTime>04/13/2018 22:18:40</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Service.dll">
+      <publishTime>04/13/2018 22:18:41</publishTime>
+    </File>
+    <File Include="bin/Yme.Mcp.Service.pdb">
+      <publishTime>04/13/2018 22:18:41</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.dll">
+      <publishTime>04/13/2018 22:18:38</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.Exceptions.dll">
+      <publishTime>04/13/2018 21:29:18</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.Exceptions.pdb">
+      <publishTime>04/13/2018 21:29:18</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.Extension.dll">
+      <publishTime>04/13/2018 21:29:18</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.Extension.pdb">
+      <publishTime>04/13/2018 21:29:18</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.Ioc.dll">
+      <publishTime>04/13/2018 21:29:25</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.Ioc.pdb">
+      <publishTime>04/13/2018 21:29:25</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.Log.dll">
+      <publishTime>04/13/2018 21:29:18</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.Log.pdb">
+      <publishTime>04/13/2018 21:29:18</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.pdb">
+      <publishTime>04/13/2018 22:18:38</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.WebControl.dll">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/Yme.Util.WebControl.pdb">
+      <publishTime>04/13/2018 22:18:39</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Net.Http.Formatting.resources.dll">
+      <publishTime>07/10/2012 23:30:26</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Http.resources.dll">
+      <publishTime>07/10/2012 23:30:26</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Http.SelfHost.resources.dll">
+      <publishTime>07/10/2012 23:30:26</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Http.WebHost.resources.dll">
+      <publishTime>07/10/2012 23:30:34</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Razor.resources.dll">
+      <publishTime>07/10/2012 23:31:36</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>07/10/2012 23:31:52</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>07/10/2012 23:31:42</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.resources.dll">
+      <publishTime>07/10/2012 23:31:42</publishTime>
+    </File>
+    <File Include="Content/css/main.css">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Content/images/btn-icon.png">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Content/images/guanb.png">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Content/images/jia.png">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Content/images/jian.png">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Content/images/print.gif">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Content/images/success.png">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Content/scripts/ajax.min.js">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Content/scripts/main.js">
+      <publishTime>04/13/2018 20:41:57</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Html/404.html">
+      <publishTime>12/26/2017 17:17:40</publishTime>
+    </File>
+    <File Include="Html/500.html">
+      <publishTime>12/26/2017 17:17:40</publishTime>
+    </File>
+    <File Include="Html/index.html">
+      <publishTime>04/12/2018 19:16:55</publishTime>
+    </File>
+    <File Include="Html/login.html">
+      <publishTime>12/26/2017 17:17:40</publishTime>
+    </File>
+    <File Include="Html/lottery-list.html">
+      <publishTime>04/13/2018 21:57:51</publishTime>
+    </File>
+    <File Include="Html/lottery.html">
+      <publishTime>04/13/2018 20:48:37</publishTime>
+    </File>
+    <File Include="Html/nologin.html">
+      <publishTime>12/26/2017 17:17:40</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>04/13/2018 21:50:20</publishTime>
+    </File>
+    <File Include="Resources/MsgContent.xml">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Views/Error/Error404.cshtml">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Views/Error/Error500.cshtml">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>04/13/2018 21:23:11</publishTime>
+    </File>
+    <File Include="XmlConfig/db.config">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="XmlConfig/ioc.config">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="XmlConfig/log4net.config">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="XmlConfig/redis.config">
+      <publishTime>12/26/2017 17:17:41</publishTime>
+    </File>
+    <File Include="XmlConfig/sys.config">
+      <publishTime>04/13/2018 22:14:35</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

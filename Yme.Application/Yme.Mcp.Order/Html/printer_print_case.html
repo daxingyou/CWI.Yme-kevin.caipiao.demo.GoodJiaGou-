@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>打印场景设置</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container">
+	<form action="" id="form">
+	<div id="content_cases" class="row">
+<!-- 		<div class="cells pd-l-15 br-b-1">
+			<div class="cell pd-offset-l">
+				<div class="cell-item">
+					<label class="label-check show-lb va-s">
+						<input id="activation_form" name="name1" type="checkbox">
+					</label>
+					<span class="mg-l-5">外卖小票</span>
+				</div>
+				<div class="cell-item tr text-info">打印份数：</div>
+				<div class="cell-item">
+					<span data-type="dec" class="btn in-group-a quantity_action">－</span>
+					<input class="in-group-b quantity_form" data-min="1" data-max="20" value="1" type="number">
+					<span data-type="inc" class="btn in-group-a quantity_action">＋</span>
+				</div>
+			</div>
+			<div class="cell pd-offset-l br-b">
+				<a href="template_1.html" class="show">
+				<div class="cell-item tr text-info">查看打印模板</div>
+				<div class="cell-icon"><i class="icon icon-right"></i></div>
+				</a>
+			</div>
+		</div>
+		<div class="cells pd-l-15 br-b-1">
+			<div class="cell pd-offset-l">
+				<div class="cell-item">
+					<label class="label-check show-lb va-s">
+						<input id="activation_form" name="name1" type="checkbox">
+					</label>
+					<span class="mg-l-5">订单小票</span>
+				</div>
+				<div class="cell-item tr text-info">打印份数：</div>
+				<div class="cell-item">
+					<span data-type="dec" class="btn in-group-a quantity_action">－</span>
+					<input class="in-group-b quantity_form" data-min="1" data-max="20" value="1" type="number">
+					<span data-type="inc" class="btn in-group-a quantity_action">＋</span>
+				</div>
+			</div>
+			<div class="cell pd-offset-l br-b">
+				<a href="template_2.html" class="show">
+				<div class="cell-item tr text-info">查看打印模板</div>
+				<div class="cell-icon"><i class="icon icon-right"></i></div>
+				</a>
+			</div>
+		</div>
+		<div class="cells pd-l-15 br-b-1">
+			<div class="cell pd-offset-l">
+				<div class="cell-item">
+					<label class="label-check show-lb va-s">
+						<input id="activation_form" name="name1" type="checkbox">
+					</label>
+					<span class="mg-l-5">厨房小票</span>
+				</div>
+				<div class="cell-item tr text-info">打印份数：</div>
+				<div class="cell-item">
+					<span data-type="dec" class="btn in-group-a quantity_action">－</span>
+					<input class="in-group-b quantity_form" data-min="1" data-max="20" value="1" type="number">
+					<span data-type="inc" class="btn in-group-a quantity_action">＋</span>
+				</div>
+			</div>
+			<div class="cell pd-offset-l br-b">
+				<a href="template_3.html" class="show">
+				<div class="cell-item tr text-info">查看打印模板</div>
+				<div class="cell-icon"><i class="icon icon-right"></i></div>
+				</a>
+			</div>
+		</div> -->
+	</div>
+<!-- 	<label class="label-check-no">
+	<input type="checkbox" />
+	<span class="label-check-no-s"></span>
+	<span class="label-check-no-b"></span>
+</label> -->
+<!-- 	<button class="btn-on" type="button"></button>
+	<button class="btn-off" type="button"></button> -->
+	<button type="submit" class="btn btn-action mg-top-10">保存</button>
+	</form>
+</div>
+<script id="tpl_cases" type="text/html">
+	<% if(Configs_data){ %>
+	<% for (var i=0; i < Configs_data.length; i++) { %>
+	<div class="cells pd-l-15 br-b-1">
+		<div class="cell pd-offset-l">
+			<div class="cell-item">
+				<label class="label-check show-lb va-s">
+					<input <%= Configs_data[i]["IsConfig"] == 1 ? 'checked':'' %> id="activation_form" name="BillId" type="checkbox" value="<%= Configs_data[i]['BillId'] %>">
+				</label>
+				<span class="mg-l-5"><%= Configs_data[i]["BillName"] %></span>
+			</div>
+			<div class="cell-item tr text-info">打印份数：</div>
+			<div class="cell-item">
+				<span data-for="<%= Configs_data[i]['BillId'] %>" data-type="dec" class="btn in-group-a quantity_action">－</span>
+				<input id="<%= Configs_data[i]['BillId'] %>" class="in-group-b quantity_form" name="Copies" data-min="1" data-max="<%= max_copies %>" type="number" value="<%= Configs_data[i]['Copies'] %>">
+				<span data-for="<%= Configs_data[i]['BillId'] %>" data-type="inc" class="btn in-group-a quantity_action">＋</span>
+			</div>
+		</div>
+		<div class="cell pd-offset-l br-b">
+			<a href="<%= Configs_data[i]['BillTemplateUrl'] %>" class="show">
+			<div class="cell-item tr text-info">查看打印模板</div>
+			<div class="cell-icon"><i class="icon icon-right"></i></div>
+			</a>
+		</div>
+	</div>
+	<% } %>
+	<% } %>
+</script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/main.js"></script>
+<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+<script type="text/javascript">
+
+G.loader({
+    url: "/printer/getConfigs?PrinterCode=" + G.get("PrinterCode"),
+	method: "get",
+	headers: G.helper.get_common_header(),
+	before: function(){
+		G.Loading.show();
+	},
+	response: function(res){
+		G.Loading.hide();
+		if (res.status == "1") {
+			var html = template("tpl_cases", {Configs_data:res.data.Configs, max_copies: res.data.MaxCopies});
+			document.querySelector("#content_cases").innerHTML = html;
+			set_num();
+		} else {
+			if (G.check_login(res.status)) {
+				G.prompt.error(res.data);
+			}
+		}
+	}
+});
+$("#form").on("submit", function(e){
+	e.preventDefault();
+	var param = {
+		PrinterCode: G.get("PrinterCode"),
+		Configs: ""
+	};
+
+	for (var i=0; i<this.length; i++) {
+		if (this[i]["type"] === "checkbox" && this[i]["checked"]) {
+			param.Configs+= this[i]["value"]+"#"+$("#"+this[i]["value"]).val()+",";
+		}
+	}
+	param.Configs = param.Configs.substr(0, param.Configs.lastIndexOf(","));
+
+	G.loader({
+		url: "/printer/doConfig",
+		method: "post",
+		headers: G.helper.get_common_header(),
+		param: param,
+		before: function(){
+			G.Loading.show("正在保存数据");
+		},
+		response: function(res){
+			
+			G.Loading.hide();
+			if (res.status == "1") {
+				location.href = "printer_setting.html?PrinterCode="+G.get("PrinterCode");
+			} else {
+				if (G.check_login(res.status)) {
+					G.prompt.error(res.data);
+				}
+			}
+		}
+	});
+});
+
+function set_num(){
+	$(".quantity_action").on("click", function(){
+		var id_input = $(this).attr("data-for");
+		var num = $("#"+id_input).val();
+		var min = $("#"+id_input).attr("data-min") || 1;
+			min = parseInt(min);
+		var max = $("#"+id_input).attr("data-max") || 100;
+			max = parseInt(max);
+		switch ($(this).attr("data-type")) {
+			case "dec":	
+				if (num > min) {
+					num--;
+				} else {
+					$(this).bubble({mess:"份数不能小于"+min, type: "down", class_name:{left:"bottom-right", right: "bottom-right"}});
+				}
+				break;
+			case "inc":
+				if (num < max) {
+					num++;
+				} else {
+					$(this).bubble({mess:"份数不能大于"+max, type: "down", class_name:{left:"bottom-right", right: "bottom-right"}});
+				}
+				break;
+		}
+		$("#"+id_input).val(num);
+	});
+
+	$(".quantity_form").on("change",function(){
+		var num = this.value;
+		var min = $(this).attr("data-min") || 1;
+			min = parseInt(min);
+		var max = $(this).attr("data-max") || 100;
+			max = parseInt(max);
+		if (num < min || num > max) {
+			num = min;
+			$(this).bubble({mess:"最小购买量为"+min+",最大数量为"+max, type: "down", class_name:{left:"bottom-right", right: "bottom-right"}});
+		}
+		this.value = num;
+	});
+}
+</script>
+</body>
+</html>

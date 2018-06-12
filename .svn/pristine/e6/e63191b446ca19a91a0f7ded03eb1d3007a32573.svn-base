@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>修改打印机名称</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<form id="form" action="">
+<div class="container">
+	<div class="row">
+		<div class="cells">
+			<div class="cell">
+				<div class="cell-item">
+                    <input id="printername" type="text" name="PrinterName" class="form-control" data-verify-len="1|30" data-verify-space="0,不能输入空格">
+				</div>
+			</div>
+		</div>
+	</div>
+    <button id="btn_action" type="submit" class="btn btn-disabled btn-action" style="width: 100%;">保存</button>
+</div>
+</form>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/main.js"></script>
+<script type="text/javascript" src="/content/scripts/validate_form.js"></script>
+<script type="text/javascript">
+    $("#printername").val(G.get("PrinterName"));
+    $("#printername").on('input', function(){
+
+
+        if($('#printername').val().trim() == ''){
+            $('#btn_action').removeClass('btn-action')
+        }else{
+            $('#btn_action').addClass('btn-action')
+        }
+    })
+    $("#form").validateForm({
+        submit_verify_type: true,
+        allow_submit: function () {
+            $("#btn_action").addClass("btn-action");
+            $("#btn_action").removeClass("btn-disabled");
+        },
+        submit: function (form) {
+            G.loader({
+                url: "/printer/updateName",
+                method: "post",
+                headers: G.helper.get_common_header(),
+                param: { PrinterName: form[0].value, PrinterCode: G.get("PrinterCode") },
+                before: function () {
+                    G.Loading.show("更改中");
+                },
+                response: function (res) {
+                    G.Loading.hide();
+                    if (res.status == "1") {
+                        location.href = "printer_setting.html?PrinterCode=" + G.get("PrinterCode");
+                    } else {
+                        if (G.check_login(res.status)) {
+                            G.prompt.error(res.data);
+                        }
+                    }
+                }
+            });
+        },
+        render: function (conf) {
+            if (!conf.verify) {
+                conf.elem.value = "";
+                conf.elem.setAttribute("placeholder", conf.mess);
+                G.helper.clearinput.remove({
+                    elem: conf.elem
+                });
+            } else {
+                G.clearinput.add({
+                    elem: conf.elem
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>

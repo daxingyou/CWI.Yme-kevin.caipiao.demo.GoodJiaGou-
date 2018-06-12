@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>微云打打印机</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="/content/css/common.css">
+    <link rel="stylesheet" href="/content/css/main.css">
+	<style>
+		.col-6 p{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 3;
+			height:4.9rem;
+			word-break: break-all;
+		}
+		@media (max-width: 360px){
+			.col-6 p{
+				height:4.2rem;
+			}
+		}
+		
+	</style>
+	
+</head>
+<body>
+<div class="container">
+	
+	<div class="row" style="overflow: hidden;">
+		<div class="col-6">
+            <img class="img show" src="/content/images/products/11.png" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美MCP-58【热敏】外卖平台及微店打印机、58mm、Wi-Fi、自动切纸</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=73" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div>
+
+        <div class="col-6">
+                <img class="img show" src="/content/images/products/MCP-33080mm.png" alt="">
+                <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                    <p>映美MCP-330【热敏】80mm、WIFI+网口、USB+WIFI、GPRS接口三选一、防水滴防油烟、陶瓷150万切</p>
+                    <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=77" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+                </div>
+            </div>
+
+        <!-- <div class="col-6">
+            <img class="img show" src="/content/images/products/22.png" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美 MCP-360 外卖平台及微店打印机 80mm热敏 声光报警  WiFi 自动切纸</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=74" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div> -->
+    </div>
+       
+     
+    <div class="row mg-top-10" style="overflow: hidden;">
+        <div class="col-6">
+            <img class="img show" src="/content/images/products/MCP-350.jpg" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美MCP-350【热敏】智能微云打打印机、陶瓷自动切</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=82" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div>
+        <div class="col-6">
+            <img class="img show" src="/content/images/products/22.png" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美MCP-360【热敏】外卖平台及微店打印机、80mm、声光报警、WiFi、自动切纸</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=74" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div>
+		<!-- <div class="col-6">
+            <img class="img show" src="/content/images/products/MCP-230D.png" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美MCP-230D  9针打印头、WIFI+网口、USB+WIFI、GPRS接口三选一、寿命高达4亿针次，1+2复写能力，手撕纸 适用打印纸宽度：45±0.5 mm、57.5 ±0.5 mm和76 ±0.5 mm。</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=78" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div>
+        <div class="col-6">
+            <img class="img show" src="/content/images/products/MCP-230DC9.png" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美MCP-230DC 9针打印头，原件+1份拷贝，自动陶瓷切刀。WIFI+网口、USB+WIFI、GPRS接口三选一、适用打印纸宽度 45±0.5 mm、57.5 ±0.5 mm、76 ±0.5 mm。</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=79" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div> -->
+    </div>
+     
+
+
+    <div class="row mg-top-10" style="overflow: hidden;">
+
+      
+        <div class="col-6">
+            <img class="img show" src="/content/images/products/MCP-230DC9.png" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美MCP-230DC【针式】9针打印头、原件+1份拷贝、自动陶瓷切刀、WIFI+网口、USB+WIFI、GPRS接口三选一、适用打印纸宽度 45±0.5 mm、57.5 ±0.5 mm、76 ±0.5 mm。</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=79" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div> 
+        <div class="col-6">
+            <img class="img show" src="/content/images/products/MCP-230D.png" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美MCP-230D【针式】9针打印头、WIFI+网口、USB+WIFI、GPRS接口三选一、1+2复写能力、手撕纸、适用打印纸宽度：45±0.5 mm、57.5 ±0.5 mm和76 ±0.5 mm。</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=78" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div>
+		<!-- <div class="col-6">
+            <img class="img show" src="/content/images/products/MCP-33080mm.png" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美MCP-330 80mm热敏打印、WIFI+网口、USB+WIFI、GPRS接口三选一 防水滴防油烟 陶瓷150万切</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=77" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div>
+        <div class="col-6">
+            <img class="img show" src="/content/images/products/MCP-350.jpg" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>MCP-350 智能微云打打印机、陶瓷自动切</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=82" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div> -->
+    </div>
+     
+
+
+    <div class="row mg-top-10" style="overflow: hidden;">
+        <div class="col-6">
+                <img class="img show" src="/content/images/products/MCP-610DC.jpg" alt="">
+                <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                    <p>映美MCP-610DC【针式】高速高清、智能云打印机、陶瓷自动切刀</p>
+                    <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=84" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+                </div>
+            </div>
+        <div class="col-6">
+            <img class="img show" src="/content/images/products/MCP-610D.jpg" alt="">
+            <div style="background: #efefef; padding: 8px;overflow: hidden;">
+                <p>映美MCP-610D【针式】高速高清微云打打印机、一键提速</p>
+                <a href="http://mall.jolimark.com/index.php?g=home&m=Item&a=index&id=83" class="btn btn-action fl-r" style="width:auto; padding: 0 16px; border-radius: 1em;margin-top: 10px;">立即购买</a>
+            </div>
+        </div>
+        
+    </div>
+        
+    
+    
+    
+     
+</div>
+</body>
+</html>

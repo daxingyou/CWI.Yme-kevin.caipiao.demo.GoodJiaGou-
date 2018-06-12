@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>订单搜索</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body style="background-color: #fff;">
+	<div class="container">
+		<form action="order_search_list.html">
+		<div class="cells cells-searchbar">
+			<div class="cell">
+				<div class="cell-icon">
+					<i class="icon icon-search"></i>
+				</div>
+				<div class="cell-item">
+					<input id="enterSearch" oninput="search_action.call(this, event);" type="search" name="KeyWords" class="form-control " placeholder="用户名、订单号、手机号">
+				</div>
+				<div class="cell-btn">
+					<button style="padding: 5px 20px;" id="search_btn" disabled="disabled" class="btn  btn-disabled">搜索</button>
+				</div>
+			</div>
+		</div>
+		</form>
+		<p class="text-info tc mg-top-20">搜索最近7天内的所有订单</p>
+		<div class="colm-3 mg-top-20  tc">
+			<div class="colm-item">
+				<p class="br-r-1"><a class="text-spec" href="order_search_list.html?PlatformId=1">美团外卖</a></p>
+			</div>
+			<div class="colm-item">
+				<p class="br-r-1"><a class="text-spec" href="order_search_list.html?PlatformId=2">饿了么</a></p>
+			</div>
+			<div class="colm-item">
+				<p><a class="text-spec" href="order_search_list.html?PlatformId=3">百度外卖</a></p>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+//document.addEventListener("keydown", function (e) {
+//      if (e.keyCode === 13) {
+//          e.preventDefault();
+//          return false;
+//      }
+//}, false);
+
+function search_action(e){
+	var elem_btn = document.querySelector("#search_btn");
+	if (this.value) {
+		elem_btn.removeAttribute("disabled");
+		elem_btn.classList.add("btn-action");
+		elem_btn.classList.remove("btn-disabled");
+	} else {
+		elem_btn.setAttribute("disabled", "disabled");
+		elem_btn.classList.remove("btn-action");
+		elem_btn.classList.add("btn-disabled");
+	}
+}
+</script>
+</body>
+</html>

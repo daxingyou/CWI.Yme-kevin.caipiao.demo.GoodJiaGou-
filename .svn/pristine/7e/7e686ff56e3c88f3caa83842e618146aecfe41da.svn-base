@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<appSettings>
+  <!-- 是否测试模式 -->
+  <add key="IsTestModel" value="1"/>
+  
+  <!--应用标识-->
+  <add key="SystemAppSign" value="mcp_order"/>
+  <!--【美团】通用心跳频率（单位：秒）-->
+  <add key="MeiHearbeatInterval" value="30"/>
+  <!--【美团】上传数据频率（单位：小时）-->
+  <add key="MeiUploadDataInterval" value="24"/>
+  <!--【美团】开发者Id-->
+  <add key="MeiDeveloperId" value="100521"/>
+  <!--【美团】签名密钥-->
+  <add key="MeiSignKey" value="o3hovs0i5997vdh0"/>
+
+  <!--日报表自动生成时间 （单位：凌晨0点后的小时数，如1代表凌晨1点）-->
+  <add key="DayReportAutoRunTime" value="1"/>
+  <!--月报表自动生成日期 （当月的几号，如1代表当月的1日汇总上月的结果）-->
+  <add key="MonthReportAutoRunDay" value="1"/>
+  <!--更新订单状态频率（单位：分钟）-->
+  <add key="UpdateOrderStatusInterval" value="10"/>
+  <!--强制更新订单状态最大分钟数（单位：分钟）-->
+  <add key="ForceUpdateStatusMaxMins" value="200"/>
+
+  <!--预订单提前提醒分钟数（单位：分钟）-->
+  <add key="RemindPreOrderMaxMins" value="40"/>
+  <!--预订单提醒服务间隔时间（单位：分钟）-->
+  <add key="PreOrderRemindInterval" value="10"/>
+  <!--微信公众号配置-->
+  <add key="WechatAppId" value="wxc5cc5eebed36a9de"/>
+  <add key="WechatAppSecret" value="2569ac7f085a3453b7041f8cd38f0266"/>
+  <!--微云打订单应用服务Ip-->
+  <add key="McpOrderServerIp" value="order.yinmei.me"/>
+
+  <!--【饿了么】应用Id-->
+  <add key="EleAppId" value="92872318"/>
+  <add key="EleAppKey" value="P5IeOo8uDa"/>
+  <add key="EleAppSecret" value="f5ed4e3320d0faf356837e981fc76b5d"/>
+  <!--沙箱环境为7天、正式环境为20天-->
+  <add key="EleReTokenExpiresDays" value="7"/>
+</appSettings>

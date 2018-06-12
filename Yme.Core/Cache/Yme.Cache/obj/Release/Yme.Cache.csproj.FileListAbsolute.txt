@@ -1,0 +1,16 @@
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\bin\Release\Yme.Cache.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\bin\Release\Yme.Cache.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.csprojResolveAssemblyReference.cache
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.csproj.CoreCompileInputs.cache
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.pdb
+C:\work\微云打server_order\Yme.Core\Cache\Yme.Cache\bin\Release\Yme.Cache.dll
+C:\work\微云打server_order\Yme.Core\Cache\Yme.Cache\bin\Release\Yme.Cache.pdb
+C:\work\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.csproj.CoreCompileInputs.cache
+C:\work\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.dll
+C:\work\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.pdb
+C:\work\Yme.Mcp\Yme.Core\Cache\Yme.Cache\bin\Release\Yme.Cache.dll
+C:\work\Yme.Mcp\Yme.Core\Cache\Yme.Cache\bin\Release\Yme.Cache.pdb
+C:\work\Yme.Mcp\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.csproj.CoreCompileInputs.cache
+C:\work\Yme.Mcp\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.dll
+C:\work\Yme.Mcp\Yme.Core\Cache\Yme.Cache\obj\Release\Yme.Cache.pdb

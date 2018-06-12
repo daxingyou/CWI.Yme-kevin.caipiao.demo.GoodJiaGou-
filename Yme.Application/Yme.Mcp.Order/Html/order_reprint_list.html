@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>补打订单</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+	<link rel="stylesheet" href="/content/css/order.css">
+</head>
+<body class="order reprint">
+	<div id="h" style="padding-bottom: 0;" class="container fexd">
+		<a style="padding:4px 10px;" href="order_search_list.html?SearchType=3" class="btn btn-white width-p-100 serch">
+			<!--<i class="icon icon-search"></i>-->
+			<span class="serchIcon text-info fs-big">搜索</span>
+		</a>
+		<!--<a style="padding:3px 10px;" href="order_search.html" class="btn btn-white width-p-100 serch"><i class="icon icon-search"></i><span class="text-info fs-big">搜索</span></a>-->
+		<p class="tip">最近7日打印失败的订单，共0单</p>
+	</div>
+	
+	<div id="c" class="container mg-btm-58 pd-160 ">
+		<div class="KaMo-refresh-content">
+			<div id="content_order_list" class="row ">
+			</div>
+		</div>
+	</div>
+	<!--<div class="bottombar ">
+		<div id="reprintStatus">
+			<div class="fail active btc" data-status="3">打印失败</div>
+			<div class="overtime btc" data-status="4">超时未打印</div>
+		</div>
+	</div>-->
+	
+	
+	
+	 <!--mast-->
+	<div class="mark none"></div>
+	<div class="alert none">
+		<div class="alert_tite">请选择打印场景</div>
+		<div class="alert_con">
+			<div class="mr">
+				默认打印商家设置的全部场景
+			</div>
+			<div class="billCon">
+				
+			</div>
+			
+		</div>
+		<div class="btns">
+			<div class="cancel">取消</div>
+			<div class="enter">确定</div>
+		</div>
+	</div>
+	
+	
+<!--alert-->
+	
+<script id="alert" type="text/html">
+	<% for(var i=0; i < bill.length; i++){ %>
+		<div class="opt" >
+			<input class="checkbox" bill="<%= bill[i].BillId %>" type="checkbox" checked="checked" name="layout" id="c<%= i %>">
+			<label for="c<%= i %>"><%= bill[i].BillName %></label>
+		</div>
+	 <% } %>
+</script>
+
+
+<script type="text/html" id="tpl_order_list">
+    <% var platform = {"1":"icon-pt-meituan", "2":"icon-pt-ele", "3":"icon-pt-baidu"} %>
+    <% var platChat = {"1":"美团外卖", "2":"饿了么", "3":"百度外卖"} %>
+    <% var className = {"1":"dai", "2":"ok", "3":"shibai","4":"chaoshi"} %>
+    <% if(data.length){ %>
+    <% for(var i=0; i < data.length; i++){ %>
+   
+    <div class="cells pd-l-15 br-b-1 orderList">
+		<div class="cell pd-offset-l">
+			<a href="oi.html?k=<%= data[i]['OrderKey'] %>"  class="show">
+			<div class="cell-item">订单号：<%= data[i]["OrderId"] %></div>
+			<div class="cell-icon"><i class="icon icon-right"></i></div>
+			</a>
+		</div>
+		<div class="cell pd-offset-l br-b <%= className[data[i]['PrintStatus']] %> <%= [data[i]['OrderType']]==2?'yu':'' %>">
+			<div class="cell-icon"><i class="icon  <%= platform[data[i]['PlatformId']] %>"></i></div>
+			<div class="cell-item">
+				<div class="store">
+					<span><%= platChat[data[i]['PlatformId']] %>#<%= data[i]['DaySeq'] %></span>
+					<p><%= data[i]["OrderTime"] %> </p>
+				</div>
+				<div class="listInfo">
+					<p class="text-info">用户名：<%= data[i]["CustomerName"] %></p>
+					<p class="text-info">手机号：<%= data[i]["Phone"] %></p>
+				</div>
+			</div>
+			<div class="cell-icon">
+				<p class=" tc staC"><%= data[i]["PrintDesc"] %> </p>
+				<% if(data[i]["PrintStatus"] !== 1){ %>
+					<div class="btn_"  morderid="<%= data[i]['MorderId'] %>" status="<%= data[i]['PrintStatus'] %>"><%= data[i]['PrintStatus'] == 2 ? "重打": "补打" %></div>
+				<% } %>
+
+				<% if(data[i]["IsShowConfirm"] == 1){ %>
+					<div class="orders"  morderid="<%= data[i]['MorderId'] %>" status="<%= data[i]['PrintStatus'] %>">接单</div>
+				<% } %>
+			</div>
+		</div>
+	</div> 
+    <% } %>
+    <% } else { %>
+    	<!--<p class="tc text-info pd-tm-15">目前没有订单</p>-->
+    <% } %>
+</script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/main.js"></script>
+<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+<script type="text/javascript" src="/content/scripts/pullrefresh.js"></script>
+
+
+<script type="text/javascript">
+	
+	// 获取场景
+	
+	$(function(){
+
+
+		var mast = $('.mark'),alertEle = $('.alert')
+		$('#content_order_list').on('touchstart', '.btn_', function(){
+			var morderid = $(this).attr('morderid')
+			var sta = $(this).attr('status')
+			
+			G.loader({
+			    url: "/order/getPrintConfigs?MorderId="+morderid,
+				method: "get",
+				headers: G.helper.get_common_header(),
+				before: function(){
+//					if(typeof p !== 'string'){
+//					G.loadingtext.show("加载中");}
+				},
+				response: function(res){
+//					G.loadingtext.hide();
+					if(res.status == 1){
+						if(res.data.Configs.length == 0){
+							G.dialog({
+								title:'打印请求失败',
+								text: `
+									您还未设置打印机打印场景，<br />请完成设置后再操作。
+								
+								`,
+								btns:['取消','<a href="/html/printer_manage.html" style="color: inherit;">前往设置</a>']
+							})
+							return	
+						}
+
+						var html2 = template("alert", {bill:res.data.Configs});
+						document.querySelector(".billCon").innerHTML = html2;
+						mast.fadeIn();
+//						setTimeout(function(){
+							alertEle.fadeIn().find('.enter').attr('morderid',morderid).attr('sta',sta)
+//						},100)
+					}else{
+						G.prompt.error(res.data);
+					}
+				}
+			
+			})
+			
+//			mast.fadeIn();
+//			setTimeout(function(){
+//				alertEle.fadeIn().find('.enter').attr('morderid',morderid).attr('sta',sta)
+//			},100)
+		})
+		
+		//重打补打
+		var flag = true;
+		$('.enter').on('tap', function(){
+			var morderid = $(this).attr('morderid')
+			var sta = $(this).attr('sta')
+			var arr = []
+			alertEle.find('input:checked').each(function(){
+				arr.push($(this).attr('bill'))
+			})
+			if(flag){
+				flag = false;
+				G.loader({
+				    url: "/order/doRePrint",
+					method: "post",
+					param: {MorderId: morderid,BillIds:arr.join(',') },
+					headers: G.helper.get_common_header(),
+					before: function(){
+						
+					},
+					response: function(res){
+						if(res.status == 1){
+							G.prompt.error('打印任务已发送成功！',function(){flag = true;});
+						}else{
+							G.prompt.error('打印任务已发送失败！',function(){flag = true;});
+						}
+					}
+					
+				})
+				mast.fadeOut();
+				alertEle.fadeOut()
+			}
+			
+		})
+		
+		$('.cancel').on('tap', function(){
+			mast.fadeOut();
+			alertEle.fadeOut()
+		})
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$('#content_order_list').on('click','.orders', function(){
+		var morderid = $(this).attr('morderid')
+		G.loader({
+			url: "/order/doConfirmOrder",
+			param: {"MorderId": morderid},
+			method: "post",
+			headers: G.helper.get_common_header(),
+			before: function(){
+				G.Loading.show();
+			},
+			response: function(res){
+				G.Loading.hide();
+				if(res.status == 1){
+					res.data == 'ok' && (G.prompt.error('已成功接单！'))
+					get_list('1', staus);
+				}else{
+					G.prompt.error(res.data);
+				}
+			}
+		})
+	})
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	document.addEventListener("scroll", function(){
+		var scroll_top = document.body.scrollTop || document.documentElement.scrollTop;
+		if(scroll_top>0){
+			$('.KaMo-refresh-load').hide()
+			$('#h').removeClass('fexd')
+			$('#c').removeClass('pd-160').css({'padding-top':0})
+		}else{
+			$('#h').addClass('fexd')
+			$('#c').addClass('pd-160')
+			$('.KaMo-refresh-load').show()
+		}
+		
+	}, false);
+	var pullRefresh = new PullRefresh({
+		container: document.querySelector('.KaMo-refresh-content'),
+		triggerDistance: 150,
+		friction: 10,
+		callback: function(e){
+			
+		get_list(1, staus);
+//			G.loader({
+//			    url: "/order/getList?Status=" + staus + "&PageSize=10&PageIndex=" + 1,
+//				method: "get",
+//				headers: G.helper.get_common_header(),
+//				response: function(res){
+//					pullRefresh.cancelLoading();
+//
+//					if (res.status == "1") {
+//							var html1 = template("tpl_order_total", {total:{
+//								WaitDeliveryTotal: res.data.WaitDeliveryTotal,
+//								DeliveryingTotal: res.data.DeliveryingTotal,
+//								CompletedTotal: res.data.CompletedTotal
+//							}});
+//							document.querySelector("#content_order_total").innerHTML = html1;
+//						var html2 = template("tpl_order_list", {data:res.data.Orders});
+//						document.querySelector("#content_order_list").innerHTML = html2;
+//					} else {
+//						if (G.check_login(res.status)) {
+//							G.prompt.error(res.data);
+//						}
+//					}
+//				}
+//			});
+		}
+	});
+//	$('body,html').on('touchmove', function(){
+//		return false;
+//	})
+var staus = 3
+$("#reprintStatus").on("click",'div', function(e){
+
+	e.preventDefault();
+	if($(this).hasClass('btc')){
+		pullRefresh.cancelLoading();
+		$(".bottombar_action").removeClass("bottombar-active");
+		$(this).addClass("active").siblings().removeClass('active');
+		
+		
+		
+		document.querySelector("#content_order_list").innerHTML = "";
+		staus = $(this).attr("data-status")
+		get_list(1, staus);
+			
+	}
+	return false;
+});
+get_list(1, staus);
+function get_list(p, s){
+	var call = function(){};
+	if (arguments.length === 3) {
+		call = arguments[2];
+	}
+	//getPrintList
+	G.loader({
+	    url: "/order/getPrintList?PageSize=10&PageIndex=" + p,
+		method: "get",
+		headers: G.helper.get_common_header(),
+		before: function(){
+			if(typeof p !== 'string'){
+				G.Loading.show();
+			}
+		},
+		response: function(res){
+			
+			G.Loading.hide();
+			if (res.status == "1") {
+				pullRefresh.cancelLoading();
+				$('.tip').html('最近7日打印失败的订单，共'+res.data.TotalRecords+'单')
+				call(false);
+				if (p == 1) {
+					
+//					var html1 = template("tpl_order_total", {total:{
+//						DoingTotal: res.data.DoingTotal,
+//						CompletedTotal: res.data.CompletedTotal,
+//						CanceledTotal: res.data.CanceledTotal,
+//						staus:staus
+//					}});
+//					document.querySelector("#statusCount").innerHTML = html1;
+
+					G.scrollload({
+					    page: 2,
+					    page_count: res.data.PageCount,
+					    load: function (call) {
+					        if (this.page > this.page_count) {
+					            call(true);
+					            
+					        } else {
+					            get_list(this.page, s, call);
+					        }
+					    }
+					});
+					
+					var html2 = template("tpl_order_list", {data:res.data.Orders});
+					document.querySelector("#content_order_list").innerHTML = html2;
+				}else{
+					var html2 = template("tpl_order_list", {data:res.data.Orders});
+					document.querySelector("#content_order_list").innerHTML += html2;
+				}
+				
+			} else {
+				if (G.check_login(res.status)) {
+					G.prompt.error(res.data);
+				}
+			}
+		}
+	});
+}
+</script>
+</body>
+</html>

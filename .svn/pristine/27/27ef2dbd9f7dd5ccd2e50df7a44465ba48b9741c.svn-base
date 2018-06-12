@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>购买双色彩票</title>
+    <link rel="stylesheet" href="../Content/css/main.css">
+    <style>
+        .flex-box {
+            margin: 0 -15px;
+            padding: 5px 10px;
+            position: relative;
+        }
+
+        .flex-box.color-red:after {
+            content: "";
+            border-bottom: 1px dashed #ddd;
+            position: absolute;
+            right: 15px;
+            bottom: 0;
+            left: 15px;
+        }
+
+        .color-red .ball-item.active {
+            background-color: #fd5452;
+        }
+
+        .color-blue .ball-item.active {
+            background-color: #44a3e7;
+        }
+
+        .btn-default {
+            color: #fd5452;
+            border: 1px solid #fd5452;
+        }
+
+        .btn-default img {
+            margin-left: 4px;
+            margin-top: -3px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            color: #fff;
+            background-color: #fd5452;
+            border: 1px solid #fd5452;
+        }
+    </style>
+</head>
+<body>
+<div class="hd-title">至少选择6个<span class="color-red">红球</span>，1个<span class="color-blue">篮球</span></div>
+<div class="flex-box color-red">
+    <span class="ball-item">01</span>
+    <span class="ball-item">02</span>
+    <span class="ball-item">03</span>
+    <span class="ball-item">04</span>
+    <span class="ball-item">05</span>
+    <span class="ball-item">06</span>
+    <span class="ball-item">07</span>
+    <span class="ball-item">08</span>
+    <span class="ball-item">09</span>
+    <span class="ball-item">10</span>
+    <span class="ball-item">11</span>
+    <span class="ball-item">12</span>
+    <span class="ball-item">13</span>
+    <span class="ball-item">14</span>
+    <span class="ball-item">15</span>
+    <span class="ball-item">16</span>
+    <span class="ball-item">17</span>
+    <span class="ball-item">18</span>
+    <span class="ball-item">19</span>
+    <span class="ball-item">20</span>
+    <span class="ball-item">21</span>
+    <span class="ball-item">22</span>
+    <span class="ball-item">23</span>
+    <span class="ball-item">24</span>
+    <span class="ball-item">25</span>
+    <span class="ball-item">26</span>
+    <span class="ball-item">27</span>
+    <span class="ball-item">28</span>
+    <span class="ball-item">29</span>
+    <span class="ball-item">30</span>
+    <span class="ball-item">31</span>
+    <span class="ball-item">32</span>
+    <span class="ball-item">33</span>
+</div>
+<div class="flex-box color-blue">
+    <span class="ball-item">01</span>
+    <span class="ball-item">02</span>
+    <span class="ball-item">03</span>
+    <span class="ball-item">04</span>
+    <span class="ball-item">05</span>
+    <span class="ball-item">06</span>
+    <span class="ball-item">07</span>
+    <span class="ball-item">08</span>
+    <span class="ball-item">09</span>
+    <span class="ball-item">10</span>
+    <span class="ball-item">11</span>
+    <span class="ball-item">12</span>
+    <span class="ball-item">13</span>
+    <span class="ball-item">14</span>
+    <span class="ball-item">15</span>
+    <span class="ball-item">16</span>
+</div>
+<div class="flex-box" style="background-color: #fff">
+    <span class="btn-default" onclick="random()">随机<img src="../Content/images/btn-icon.png" height="15" alt=""></span>
+    <span class="btn-primary" onclick="next()">下一步</span>
+</div>
+<script src="../Content/scripts/main.js"></script>
+<script>
+    /* 添加点击事件 */
+    document.querySelectorAll('.ball-item').forEach(function (elem) {
+        elem.onclick = function () {
+            var childrens = this.parentElement.children,
+                activeCount = 0;
+
+            for (var i = 0; i < childrens.length; i++) {
+                if (childrens[i].classList.contains('active')) {
+                    activeCount++
+                }
+            }
+
+            if (this.parentElement.classList.contains('color-red') && activeCount > 5 || this.parentElement.classList.contains('color-blue') && activeCount > 0) {
+                if (!this.classList.contains('active')) return
+            }
+
+            this.classList.toggle('active');
+            sessionStorage.setItem('ballMode', '自选');
+        }
+    });
+
+    /* 点击下一步 */
+    function next() {
+        var selectBall = []
+        document.querySelectorAll('.active').forEach(function (e) {
+            selectBall.push(e.innerHTML)
+        })
+        if (selectBall.length < 7) return alert('双色球为7个球')
+        sessionStorage.setItem('selectBall', JSON.stringify(selectBall))
+        location.assign('lottery-list.html')
+    }
+
+    /* 随机 */
+    function random() {
+        sessionStorage.setItem('ballMode', '机选');
+        document.querySelectorAll('.ball-item').forEach(function (elem) {
+            if (elem.classList.contains('active')) elem.classList.remove('active')
+        });
+        var selectBall = randomArry();
+        selectBall.forEach(function (e, i) {
+            if (i > 5) return document.querySelectorAll('.color-blue .ball-item')[Number(e)].classList.add('active');
+            document.querySelectorAll('.color-red .ball-item')[Number(e)].classList.add('active')
+        })
+    }
+</script>
+</body>
+</html>

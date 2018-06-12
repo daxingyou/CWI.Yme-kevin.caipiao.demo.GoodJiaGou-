@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Yme.Mcp.Demo.Handel;
+using Yme.Util;
+using Yme.Util.Log;
+using Yme.Mcp.Entity.DemoManage;
+using Yme.Mcp.BLL.DemoManage;
+
+namespace Yme.Mcp.Demo.Controllers.Api
+{
+    /// <summary>
+    /// Demo控制器
+    /// </summary>
+    public class DemoController : ApiBaseController
+    {
+        /// <summary>
+        /// 买彩票
+        /// </summary>
+        /// <returns></returns>
+        [NonAuthorize]
+        [HttpPost]
+        public object DoBuylottery()
+        {
+            var actionDesc = "买彩票";
+            var requestForm = base.GetRequestParams(true, string.Format("执行{0}", actionDesc));
+            if (requestForm.Keys.Count > 0)
+            {
+                var data = requestForm["data"] ?? string.Empty;
+                var decevIdList = ConfigUtil.LotDeviceIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList<string>();
+                var deviceDics = new Dictionary<string,int>();
+                foreach(var decevId in decevIdList)
+                {
+                    deviceDics.Add(decevId,1);
+                }
+
+                var task = new TaskEntity();
+                task.TaskData = data;
+
+                try
+                {
+                    SingleInstance<TaskBLL>.Instance.InsertTask(task, deviceDics);
+                    return OK();
+                }
+                catch (Exception ex)
+                {
+                    LogUtil.Error(string.Format("保存失败,参考信息：{0}", ex.Message));
+                    return Failed("保存失败");
+                }
+            }
+            else
+            {
+                return Failed( "缺少参数");
+            }
+        }
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <returns></returns>
+        [NonAuthorize]
+        [HttpPost]
+        public object DoLogin()
+        {
+            var actionDesc = "买彩票";
+            var requestForm = base.GetRequestParams(true, string.Format("执行{0}", actionDesc));
+            if (requestForm.Keys.Count > 0)
+            {
+                var loginCmd = requestForm["cmd"] ?? string.Empty;
+                if(loginCmd == ConfigUtil.LoginCmd)
+                {
+                    return OK();
+                }
+                else
+                {
+                    return Failed("身份校验未通过！");
+                }
+            }
+            else
+            {
+                return Failed("缺少参数");
+            }
+        }
+    }
+}

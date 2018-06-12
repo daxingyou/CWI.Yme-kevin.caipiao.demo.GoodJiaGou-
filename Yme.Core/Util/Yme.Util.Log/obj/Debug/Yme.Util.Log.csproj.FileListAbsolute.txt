@@ -1,0 +1,8 @@
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Log\bin\Debug\Yme.Util.Log.dll
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Log\bin\Debug\Yme.Util.Log.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Log\bin\Debug\log4net.dll
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Log\bin\Debug\log4net.xml
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Log\obj\Debug\Yme.Util.Log.csproj.CoreCompileInputs.cache
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Log\obj\Debug\Yme.Util.Log.dll
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Log\obj\Debug\Yme.Util.Log.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Log\obj\Debug\Yme.Util.Log.csprojResolveAssemblyReference.cache

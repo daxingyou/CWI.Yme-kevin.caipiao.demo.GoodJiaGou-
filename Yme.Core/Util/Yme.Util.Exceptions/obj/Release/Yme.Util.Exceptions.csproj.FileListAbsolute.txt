@@ -1,0 +1,17 @@
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\bin\Release\Yme.Util.Exceptions.dll
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\bin\Release\Yme.Util.Exceptions.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.csproj.CoreCompileInputs.cache
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.dll
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.pdb
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\bin\Release\Yme.Util.Exceptions.dll
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\bin\Release\Yme.Util.Exceptions.pdb
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.csproj.CoreCompileInputs.cache
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.dll
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.pdb
+C:\work\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.csprojAssemblyReference.cache
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Exceptions\bin\Release\Yme.Util.Exceptions.dll
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Exceptions\bin\Release\Yme.Util.Exceptions.pdb
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.csprojAssemblyReference.cache
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.csproj.CoreCompileInputs.cache
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.dll
+C:\work\Yme.Mcp\Yme.Core\Util\Yme.Util.Exceptions\obj\Release\Yme.Util.Exceptions.pdb

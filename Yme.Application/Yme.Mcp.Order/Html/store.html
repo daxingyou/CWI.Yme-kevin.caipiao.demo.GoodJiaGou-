@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>门店管理</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+
+</head>
+<body>
+<div class="container store">
+	<div class="row ">
+		<div id="store_info_html" class="store_head KaMo-flex padding-10">
+			
+		</div>
+
+
+		<div id="content_store_detail" class="cells margin-top-8">
+			<a href="./auto_orders_setting.html" class="cell padding-8">
+				<div class="cell-item cell-text text-info">自动接单</div>
+				<div class="cell-item tr logos">
+					<!-- <img src="/content/images/icon_pt_baidu.png" alt="">
+					<img src="/content/images/icon_pt_ele.png" alt="">
+					<img src="/content/images/icon_pt_meituan.png" alt=""> -->
+				</div>
+				<div class="cell-icon"><i class="icon icon-right"></i></div>
+			</a>
+		</div>
+	</div>
+	<script id="tpl_store_details" type="text/html">
+        <% if (store_detail) { %>
+			<div class="store_img KaMo-flex-item KaMo-flex-none">
+					<img src="/content/images/store_default.png" alt="">
+				</div>
+				<div class="store_info KaMo-flex-item">
+					<p class="store_name"><%= store_detail.ShopName %></p>
+					<p class="store_tel"><%= store_detail.ShopAccount %></p>
+					<p class="store_addr"><%= store_detail.CityArea %><%= store_detail.ShopAddress %></p>
+				</div>
+        <% } %>
+	</script>
+
+
+
+
+
+	<!-- 
+		<div class="Ym-dialog-fixed">
+			<div class="Ym-mask"></div>
+			<div class="Ym-dialog ">
+				<div class="Ym-dialog-hd"><div class="Ym-dialog-title">弹窗标题</div></div>
+				<div class="Ym-dialog-bd">取消授权后，将不能通过微云打管理和打印该平台的订单。（百度外卖在取消授权页面，增加退出登录提示）</div>
+				<div class="Ym-dialog-ft">
+					<a href="javascript:;" class="Ym-dialog-btn Ym-dialog-btn-cancel">辅助操作</a>
+					<a href="javascript:;" class="Ym-dialog-btn Ym-dialog-btn-confirm">主操作</a>
+				</div>
+			</div>
+		</div> 
+	 -->
+
+	 <style>
+
+
+		.Ym-loading-fixed{
+			opacity: 0;
+			display: none;
+			transition: all .3s;
+			-webkit-transition: all .3s;
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			opacity: 0;
+			display: none;
+			z-index: 99999;
+		}
+		.Ym-loading{
+			position: fixed;
+			z-index: 5000;
+			width: 120px;
+			min-height:120px;
+			top: 180px;
+			left: 50%;
+			margin-left: -60px;
+			background: rgba(18, 18, 18, 0.6);
+			text-align: center;
+			border-radius: 5px;
+			color: #fff;
+			top: 45%;
+			margin: 0;
+			-webkit-transition-duration: .2s;
+			transition-duration: .2s;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			-webkit-transform-origin: 0 0;
+			transform-origin: 0 0;
+		}
+		.Ym-loading-fixed.in{
+			display: block;
+			opacity: 1;
+		}
+		.Ym-mask-transparent{
+			position: fixed;
+			z-index: 1000;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+		}
+		.Ym-loading-ele{
+			margin: 30px 0 0;
+			width: 38px;
+			height: 38px;
+			vertical-align: baseline;
+			font-size: 55px;
+			color: white;
+			display: inline-block;
+			animation: e 1s steps(12) infinite;
+			background: transparent url("data:image/svg+xml;charset=utf8, %3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'%3E%3Cpath fill='none' d='M0 0h100v100H0z'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23E9E9E9' rx='5' ry='5' transform='translate(0 -30)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23989697' rx='5' ry='5' transform='rotate(30 105.98 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%239B999A' rx='5' ry='5' transform='rotate(60 75.98 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23A3A1A2' rx='5' ry='5' transform='rotate(90 65 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23ABA9AA' rx='5' ry='5' transform='rotate(120 58.66 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23B2B2B2' rx='5' ry='5' transform='rotate(150 54.02 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23BAB8B9' rx='5' ry='5' transform='rotate(180 50 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23C2C0C1' rx='5' ry='5' transform='rotate(-150 45.98 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23CBCBCB' rx='5' ry='5' transform='rotate(-120 41.34 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23D2D2D2' rx='5' ry='5' transform='rotate(-90 35 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23DADADA' rx='5' ry='5' transform='rotate(-60 24.02 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23E2E2E2' rx='5' ry='5' transform='rotate(-30 -5.98 65)'/%3E%3C/svg%3E") no-repeat;
+			background-size: 100%
+		}
+
+		@-webkit-keyframes e {
+			0% {
+				-webkit-transform: rotate(0deg);
+				transform: rotate(0deg)
+			}
+			to {
+				-webkit-transform: rotate(1turn);
+				transform: rotate(1turn)
+			}
+		}
+		@keyframes e {
+			0% {
+				-webkit-transform: rotate(0deg);
+				transform: rotate(0deg)
+			}
+			to {
+				-webkit-transform: rotate(1turn);
+				transform: rotate(1turn)
+			}
+		}
+
+	 
+	 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+	<script type="text/javascript" src="/content/scripts/g.js"></script>
+	<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+	<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var imgObj = {"1":"icon_pt_meituan", "2":"icon_pt_ele", "3":"icon_pt_baidu"}
+			var logos = $('.logos'),store_img = $('.store_img'), store_info = $('.store_info')
+			G.loader({
+				url: "/shop/getConfirmConfigs",
+				method: "get",
+				headers: G.helper.get_common_header(),
+				before: function(){
+					G.Loading.show()
+				},
+				response: function(res){
+					G.Loading.hide();
+					if (res.status == "1") {
+						var state = res.data.Configs,imgStr = ''
+						for(var i =state.length-1; i>=0;i--){
+							imgStr += '<img src="/content/images/'+imgObj[state[i]['PlatformId']]+(state[i].Status?'':'_a')+'.png" alt="'+state[i]['PlatformName']+'">'
+						}
+						logos.html(imgStr)
+
+					} else {
+						if(G.check_login(res.status)){
+							G.prompt.error(res.data);
+						}
+					}
+				},
+			});
+			G.loader({
+				url: "/shop/getInfo",
+				method: "get",
+				headers: G.helper.get_common_header(),
+				before: function(){
+					G.Loading.show()
+				},
+				response: function(res){
+					G.Loading.hide();
+					if (res.status == "1") {
+						var store_detail = template("tpl_store_details", { store_detail: res.data});
+                        document.querySelector("#store_info_html").innerHTML = store_detail;
+					} else {
+						if(G.check_login(res.status)){
+							G.prompt.error(res.data);
+						}
+					}
+				},
+			});
+		})
+		
+		
+
+	</script>
+</div>
+</body>
+</html>

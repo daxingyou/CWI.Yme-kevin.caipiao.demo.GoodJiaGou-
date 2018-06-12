@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>平台管理</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container">
+	<div class="cells-title">平台列表</div>
+	<div class="row">
+		<div id="content_platform_list" class="cells pd-l-15 br-b-1">
+<!-- 			<div class="cell pd-offset-l">
+				<div class="cell-icon"><i class="icon icon-pt-baidu-a"></i></div>
+				<div class="cell-item">美团外卖</div>
+				<div class="cell-icon text-info">授权<i class="icon icon-right"></i></div>
+			</div>
+			<div class="cell pd-offset-l">
+				<a href="pt_view.html" class="show">
+				<div class="cell-icon"><i class="icon icon-pt-meituan"></i></div>
+				<div class="cell-item">美团外卖</div>
+				<div class="cell-icon text-spec">已授权<i class="icon icon-right"></i></div>
+				</a>
+			</div>
+			<div class="cell br-b pd-offset-l">
+				<a href="pt_view.html" class="show">
+				<div class="cell-icon"><i class="icon icon-pt-ele"></i></div>
+				<div class="cell-item">美团外卖</div>
+				<div class="cell-icon text-spec">已授权<i class="icon icon-right"></i></div>
+				</a>
+			</div> -->
+		</div>
+	</div>
+
+<script id="tpl_platform_list" type="text/html">
+	<% var platform = {"1":"icon-pt-meituan", "2":"icon-pt-ele", "3":"icon-pt-baidu"} %>
+	<% if (platform_data) { %>
+		<% for(var i=0; i<platform_data.length; i++){ %>
+            <% if (platform_data[i]['AuthStasus']) { %>
+                           <a href="/html/pt_view.html?AuthId=<%= platform_data[i]['AuthId'] %>" class="show">
+                               <% }else{ %>
+                               <a href="<%= platform_data[i]['LinkUrl'] %>" class="show">
+                                   <% } %>
+                                   <div class="cell <% if(i+1 === platform_data.length){print('br-b')} %> pd-offset-l">
+                                       <div class="cell-icon"><i class="icon <%= platform[platform_data[i]['PlatformId']] %><%= platform_data[i]['AuthStasus']?'':'-a' %>"></i></div>
+                                       <div class="cell-item"><%= platform_data[i]['PlatformName'] %></div>
+                                       <% if (platform_data[i]['AuthStasus']) { %>
+                                       <div class="cell-icon text-spec">已授权<i class="icon icon-right"></i></div>
+                                       <% }else{ %>
+                                       <div class="cell-icon text-info">授权<i class="icon icon-right"></i></div>
+                                       <% } %>
+                                   </div>
+                               </a>
+                               <% } %>
+                               <% } else { %>
+
+                               <% } %>
+</script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+<script type="text/javascript">
+G.loader({
+	url: "/platform/getShopPlatformList",
+	method: "get",
+	headers: G.helper.get_common_header(),
+	before: function(){
+		G.Loading.show();
+	},
+	response: function(res){
+		G.Loading.hide();
+		if (res.status == "1") {
+			var html = template("tpl_platform_list", {platform_data:res.data.Platforms});
+			document.querySelector("#content_platform_list").innerHTML = html;
+		} else {
+			if (G.check_login(res.status)) {
+				G.prompt.error(res.data);
+			}
+		}
+	}
+});
+
+</script>
+</div>
+</body>
+</html>

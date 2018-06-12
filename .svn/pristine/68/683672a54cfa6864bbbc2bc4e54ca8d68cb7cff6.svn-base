@@ -1,0 +1,578 @@
+/**
+ * 集成应用功能性类
+ * @param  {[type]} window [description]
+ * @return {[type]}        [description]
+ */
+/**
+ * [chek_login description]
+ * @return {[type]} [description]
+ */
+G.extend({
+	check_login: function (status,uri){
+		if (status == "3" || !G.cookie.get("ClientToken")) {
+		    location.href = "nologin.html?openid=" + G.get("openid") + (uri? '&returnUrl='+uri : '')
+		} else {
+			return true;
+		}
+	}
+});
+
+/**
+ * 让提示子类具有扩展功能
+ * @param  {[type]} a [description]
+ * @return {[type]}   [description]
+ */
+G.extend({
+	prompt:{
+		extend: function(a){
+			if (typeof a === "object") {
+				for (var b in a){
+					if (!this.hasOwnProperty(b)) {
+						this[b] = a[b];
+					}
+				}
+			}
+		}
+	}
+});
+
+G.prompt.extend({
+    error: function (a,t) {
+        var config = {
+            type: '',
+            msg: a,
+            callback: t || function () { }
+        }
+        var prams = config;
+
+        var imgSrc = '';
+
+        if (prams.type == 1) {
+            imgSrc = '<div style="padding:5px 10px 0 10px;margin-bottom:-5px">	<img style="width:25px;" src="img/alert-c.png"></div>'
+        }
+        if (prams.type == 2) {
+            imgSrc = '<div style="padding:5px 10px 0 10px;margin-bottom:-5px">	<img style="width:25px;" src="img/alert-s.png"></div>'
+        }
+        var alId = 'a' + parseInt(Math.random() * 10000)
+        var ele = $('<div id=' + alId + ' style="transition: all 0.3s;flex-direction:column;padding:10px 0;-webkit-transition: all 0.3s;transform: scale(0.8);-webkit-transform: scale(0.8);margin: auto;align-items:center;display:flex;color:#fff;bottom:10%;position: fixed;z-index: 11111;width:180px;background: rgba(0,0,0,0.6);border-radius:5px;text-align: center;margin-left:-90px;left:50%;min-height: 50px;"></div>')
+
+        ele.html(imgSrc + '</div><div style="flex:1;padding: 5px 15px;font-size:15px">' + prams.msg + '</div>')
+        $('body').append(ele).append('<div id="autoMask" class="loading-mask-transparent " style="background:transparent">')
+        setTimeout(function () {
+            ele.css({
+                'transform': 'scale(1)',
+                '-webkit-transform': 'scale(1)'
+            });
+        },150)
+        setTimeout(function () {
+            ele.animate({
+                'transform': 'scale(.8)',
+                '-webkit-transform': 'scale(.8)'
+            }, 400, 'swing', function () {
+                ele.fadeOut(300, function () {
+                    ele.remove();
+                    $('#autoMask').remove();
+                    console.log(prams.callback);
+                    prams.callback()
+                })
+            })
+            
+        }, 2000)
+
+
+		//var elem = document.createElement("div");
+		//	elem.className = "error";
+		//var elem_mask = document.createElement("div");
+		//	elem_mask.className = "error-mask";
+		//var elem_info = document.createElement("div");
+		//	elem_info.className = "error-info";
+		//	elem_info.innerText = a;
+		//elem.appendChild(elem_mask);
+		//elem.appendChild(elem_info);
+		//document.body.appendChild(elem);
+
+
+		//setTimeout(function(){
+		//	elem.parentNode.removeChild(elem);
+		//}, 3000);
+	}
+});
+
+/**
+ * [_GetVerifyCode 获取验证码]
+ * @type {Object}
+ */
+!function(){
+	var _GetVerifyCode = {
+		count_time: 120,
+		options: {
+			"elem" : "#get_verify_code",
+			"phone" : "#phone",
+			"img_code" : false,
+			"mess": "s",
+			"time": 120,
+			"action": function(){}
+		},
+		intval_id: "",
+		init: function(options){
+			for (var ok in options) {
+				if (this.options.hasOwnProperty(ok)) {
+					this.options[ok] = options[ok];
+					if (ok === "time") {
+						this.count_time = options[ok];
+					}
+				}
+			}
+
+			this.bind_action();
+		},
+		bind_action: function(){
+			var that = this;
+			this.elem_action = document.querySelector(this.options.elem);
+			this.elem_action_text = this.elem_action.innerText;
+			this.elem_action.addEventListener("click", function (e) {
+				e.preventDefault();
+	 			if (this.getAttribute("data-loading") === "0") {
+	 				this.setAttribute("data-loading", "1");
+	 				var phone_elem = document.querySelector(that.options.phone);
+	 				var imgcode_elem = document.querySelector(that.options.img_code);
+	 				var phone_number = phone_elem.value;
+	 				var img_code = that.options.img_code ? imgcode_elem.value : true;
+
+	 				var self = this;
+
+	 				var r = /^1[3-9][\d]{9}$/;
+	 				var _r = true;
+	 				if (!r.test(phone_number)) {
+	 					if (document.querySelector(that.options.phone + "_err")) {
+	 						document.querySelector(that.options.phone + "_err").classList.remove("hide");
+	 					}
+	 					this.setAttribute("data-loading", "0");
+	 					_r = false;
+	 				} else {
+	 					if (document.querySelector(that.options.phone + "_err")) {
+	 						document.querySelector(that.options.phone + "_err").classList.add("hide");
+	 					}
+	 				}
+	 				if (!img_code) {
+	 					$("#" + imgcode).val("").attr("placeholder", "请填写图形验证码");
+	 					$(this).attr("data-loading", "0");
+	 					_r = false;
+	 				}
+	 				if (_r) {
+	 					that.options.action.call({
+	 						error: function(){
+								that.elem_action.setAttribute("data-loading", "0");
+								_r = false;
+	 						},
+	 						success: function () {
+	 						    that.reset_text();
+								that.intval_id = setInterval(function() {
+									that.reset_text();
+								}, 1000);
+	 						}
+	 					},{
+	 						phone: phone_number,
+	 						imgcode: img_code
+	 					});
+	 				}
+	 			}
+				return false;
+			}, false);
+		},
+		reset_text: function(){
+			this.options.time--;
+			this.elem_action.innerText = this.options.time + this.options.mess;
+			if (this.options.time === 0) {
+				this.options.time = this.count_time;
+				this.elem_action.classList.remove("active");
+				this.elem_action.innerText = this.elem_action_text;
+				this.elem_action.setAttribute("data-loading", 0);
+				clearInterval(this.intval_id);
+			}
+		}
+	}
+
+	G.extend({
+		getverifycode: function(options){
+			_GetVerifyCode.init(options);
+		}
+	});
+}();
+
+/**
+ * 加载动画
+ * @return {[type]} [description]
+ */
+!function(window, G){
+	var _loadingText = {
+ 		elem: "",
+ 		elem_text: "",
+ 		init: function() {
+ 			var d = new Date();
+ 			this.elem_text = "loading_text_" + d.getTime();
+ 			var elem = document.createElement("div");
+ 				elem.className = "loading-text hide";
+ 			var loading_html = '<div class="loading-mask-transparent"></div>';
+ 				loading_html+= '<div class="loading-text-mask">';
+ 				loading_html+= '<div class="loading-text-info">';
+ 				loading_html+= '<div class="loading-dot">';
+ 				loading_html+= '<div class="loading-dot-item loading-dot-1"></div>';
+ 				loading_html+= '<div class="loading-dot-item loading-dot-2"></div>';
+ 				loading_html+= '<div class="loading-dot-item loading-dot-3"></div>';
+ 				loading_html+= '</div>';
+ 				loading_html+= '<span id="'+this.elem_text+'" class="loading-text-info-text"></span>';
+ 				loading_html+= '</div>';
+ 				loading_html+= '</div>';
+ 			elem.innerHTML = loading_html;
+ 			this.elem = elem;
+
+ 			document.body.appendChild(elem);
+ 		},
+ 		show: function(mess) {
+ 			this.elem.classList.remove("hide");
+ 			document.querySelector("#"+this.elem_text).innerText = mess;
+ 		},
+ 		hide: function() {
+ 			this.elem.classList.add("hide");
+ 		}
+	}
+	_loadingText.init();
+	G.extend({
+		loadingtext:{
+			show: function(mess){
+				_loadingText.show(mess);
+			},
+			hide: function(){
+				_loadingText.hide();
+			}
+		}
+	})
+}(window, G);
+
+/**
+ * 对话框
+ * @param  {[type]} window [description]
+ * @param  {[type]} G      [description]
+ * @return {[type]}        [description]
+ */
+!function(window, G){
+	var _dialog = {
+		
+	}
+	G.extend({
+		dialog: function(options){
+			
+		}
+	})
+}(window, G);
+
+/**
+ * 清除输入框值
+ * @param  {[type]} window [description]
+ * @param  {[type]} G      [description]
+ * @return {[type]}        [description]
+ */
+!function(window, G){
+	// default_config: {
+	// 	elem: "", Element
+	// 	icon_tag: "i", 标签
+	// 	icon_class: "icon icon-clear-input", 标签class名
+	// 	icon_child_html: "" 标签子元素[用于自定义清除输入框icon]
+	// }
+	var _clearInput = {
+		default_config: {
+			elem: "",
+			icon_tag: "i",
+			icon_class: "icon icon-clear-input",
+			icon_child_html: ""
+		},
+		init: function(options){
+			// 如果是同一个输入框就不再重新创建按钮了
+			if (options.elem.getAttribute("data-for-clear")) {
+				document.querySelector("#"+options.elem.getAttribute("data-for-clear")).classList.remove("hide");
+				return false;
+			}
+			this.config = this.default_config;
+			for (var k in options) {
+				if (this.default_config.hasOwnProperty(k)) {
+					this.config[k] = options[k];
+					this.change_conf = true;
+				}
+			}
+			this.create();
+		},
+		create: function(){
+			var clear_elem = document.createElement(this.config.icon_tag);
+			var for_input_id = this.config.elem.id ? this.config.elem.id: "clearinput_" + new Date().getTime();
+			var for_action_id = "clear_" + new Date().getTime();
+			this.config.elem.parentNode.appendChild(clear_elem);
+			this.config.elem.id = for_input_id;
+			this.config.elem.setAttribute("data-for-clear", for_action_id);
+			clear_elem.id = for_action_id
+				clear_elem.className = this.config.icon_class;
+			if (this.config.icon_child_html) {
+				clear_elem.innerHTML = this.config.icon_child_html;
+			}
+			var style = "position:absolute;top:50%;-webkit-transform:translate(0, -50%);transform:translate(0, -50%);";
+			if (this.config.elem.offsetParent !== this.config.elem.parentNode) {
+				this.config.parentNode.style.position = "relative";
+			}
+			
+			var offset_left = this.config.elem.offsetLeft + this.config.elem.offsetWidth - clear_elem.offsetWidth - 10;
+			style+= "left:" + offset_left + "px;";
+
+			clear_elem.setAttribute("style", style);
+			clear_elem.setAttribute("data-for", for_input_id);
+			clear_elem.addEventListener("click", this.bind_action, false);
+			clear_elem.addEventListener("touchstart", this.bind_action, false);
+		},
+		hide: function(options){
+			if (options.elem.getAttribute("data-for-clear")) {
+				document.querySelector("#"+options.elem.getAttribute("data-for-clear")).classList.add("hide");
+				return false;
+			}
+		},
+		bind_action: function(e){
+			var for_elem = document.querySelector("#"+this.getAttribute("data-for"));
+				for_elem.value = "";
+				this.classList.add("hide");
+		}
+	}
+	G.extend({
+		clearinput: {
+			add: function(options){
+				_clearInput.init(options);
+			},
+			remove: function(options){
+				console.log(options);
+				_clearInput.hide(options);
+			}
+		}
+	});
+
+	G.helper.extend({
+		clearinput: {
+			add: function(options){
+				_clearInput.init(options);
+			},
+			remove: function(options){
+				_clearInput.hide(options);
+			}
+		}
+	});
+}(window, G);
+
+/**
+ * 给helper类里添加 获取公共头的方法
+ * @param  {[type]} window [description]
+ * @param  {[type]} G      [description]
+ * @return {[type]}        [description]
+ */
+!function (window, G) {
+    G.helper.extend({
+        get_common_header: function () {
+            return [{ "Yingmei-Header": "AppSign=mcp_order;AppVersion=1.4.1;DeviceType=4;DeviceId=005056C00008;ClientToken=" + (G.cookie.get("ClientToken") || localStorage.getItem("ClientToken")) }];
+        }
+    });
+}(window, G);
+
+/**
+ * 获得指定日期
+ * @param  {[type]} options {date:基于的日期 默认是今天,separate:-,type:yyyy-mm-md,y:1|-1,m:1|-1,d:1|-1} 
+ *                          date格式 h:m:s m/d/yy 或者 m/d/yy h:m:s 或者 m/d/yy 或者 yyyy-mm-dd
+ *                          separate 连接符
+ *                          type 日期格式 默认是 2017-05-26
+ * @return {[type]}         日期 yyyy-mm-dd
+ */
+
+
+!function (window, G) {
+	var _date = {
+		init: function(options){
+			var year,month,day;
+			var config = {
+				date: new Date(),
+				separate: "-",
+				y: 0,
+				m: 0,
+				d: 0
+			}
+
+			for (var key in options) {
+				if (config.hasOwnProperty(key)) {
+					if (key === "date") {
+						config[key] = new Date(options[key]);
+					} else {
+						config[key] = options[key];
+					}
+				}
+			}
+
+			if (Math.abs(config.m) > 12) {
+				console.error("加减月数不应超过12个月");
+				return "";
+			}
+			if (Math.abs(config.d) > 31) {
+				console.error("加减天数不应超过31天");
+				return "";
+			}
+			this.config = config;
+			this.year = config.date.getFullYear();
+			this.month = config.date.getMonth() + 1;
+			this.day = config.date.getDate();
+
+			// 年份
+			this.year =  this.config.y > 0 ? this.year + this.config.y : Math.abs(this.year + this.config.y);
+
+			// 月份
+			if (this.config.m < 0 && this.month < Math.abs(this.config.m)) {
+				this.year--;
+			}
+
+			if (this.config.m > 0) {
+				this.month = this.month + this.config.m;
+			} else {
+				if (Math.abs(this.config.m) >= this.month) {
+					this.year = Math.abs(this.config.m) === this.month ? this.year-1: this.year;
+					this.month = 12 - Math.abs(this.month + this.config.m);
+				} else {
+					this.month = Math.abs(this.month + this.config.m);
+				}
+			}
+
+			//日期
+			var big_month = [1,3,5,7,8,10,11];
+			this.month_max_day = 0;
+			this.day = this.day + this.config.d;
+			if (this.day <= 0) {
+				if (this.month === 1) {
+					this.month = 12;
+					this.year--;
+				} else {
+					this.month--;
+				}
+			}
+			if (this.month in big_month) {
+				this.month_max_day = 31;
+			} else {
+				if (this.month === 2) {
+					this.month_max_day = this.year%4? 28: 29;
+				} else {
+					this.month_max_day = 31;
+				}
+			}
+			if (this.day <= 0) {
+				this.day = this.month_max_day + this.day;
+			}
+
+			if (this.day > this.month_max_day) {
+				this.day = this.day - this.month_max_day;
+				this.month++;
+			}
+			if (this.month > 12) {
+				this.month = this.month - 12;
+				this.year++;
+			}
+		},
+		get_date: function(options){
+			this.init(options);
+
+			var month = this.month > 9 ? this.month : "0" + this.month;
+			var day = this.day > 9 ? this.day : "0" + this.day;
+			return this.year + this.config.separate + month + this.config.separate + day;
+		}
+	}
+	window.get_date = function(options){
+		return _date.get_date(options);
+	}
+
+
+	//  获取几天前、后的时间，几年前、后的时间，几个月前、后的时间
+	/*
+		参数date: 基 时间
+			y： 加减年份
+			m:  加减月份
+			d:  加减天数
+			split ： 分割符
+	*/
+	function GetDate(opt){
+		this.config = {
+			date : new Date(),
+			y : 0,
+			m : 0,
+			d : 0,
+			split : '-'
+		}
+		this.init(opt);
+	}
+	GetDate.prototype.init = function(opt){
+		var config = this.config;
+		for (var key in opt) {
+			if( key === 'date' && typeof opt['date'] === 'string'){
+				var str = opt[key].replace(/\.|-/g,"/");
+				config[key] = new Date(str);
+			}else{
+				config[key] = opt[key]
+			}
+		}
+		if(config.d){
+			config.date.setDate(config.date.getDate() + config.d);
+		}
+		if(config.m){
+			config.date.setMonth(config.date.getMonth() + config.m);
+		}
+		if(config.y){
+			config.date.setFullYear(config.date.getFullYear() + config.y);
+		}
+	}
+	GetDate.prototype.getDate = function (){
+		var nDate = {};
+		var Dob = this.config.date;
+		nDate.y = Dob.getFullYear();
+		nDate.m = this.addZero(Dob.getMonth() + 1);
+		nDate.d = this.addZero(Dob.getDate());
+		return nDate.y + this.config.split + nDate.m + this.config.split + nDate.d
+	}
+	GetDate.prototype.addZero = function(n){
+		return n > 9 ? n : '0' + n;
+	}
+	
+	window.getDate = function(opt){
+		return new GetDate(opt).getDate();
+	}
+
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	G.extend({
+		date: {
+			get_date: function(options){
+				return _date.get_date(options);
+			},
+		}
+	});
+}(window, G)

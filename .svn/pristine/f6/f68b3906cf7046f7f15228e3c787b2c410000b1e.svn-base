@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Echarts</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+</head>
+<body>
+<div id="echarts" style="width:100%;height:400px;"></div>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/echarts/echarts.js"></script>
+
+<script type="text/javascript">
+G.loader({
+	url: "/report/getPlatformOrderDayRpt",
+	response: function(res){
+		var myChart = echarts.init(document.getElementById('echarts'));
+		var	option = {
+		        dataZoom: [
+		            {
+		                type: 'slider',
+		                show: true,
+		                start: 94,
+		                end: 100,
+		                handleSize: 20
+		            },
+		            {
+		                type: 'inside',
+		                start: 94,
+		                end: 100
+		            },
+		            {
+		                type: 'slider',
+		                show: true,
+		                yAxisIndex: 0,
+		                filterMode: 'empty',
+		                width: 12,
+		                height: '70%',
+		                handleSize: 8,
+		                showDataShadow: false,
+		                left: '93%'
+		            }
+		        ],
+			    title: {
+			    	show: false,
+			        text: '订单量(单)'
+			    },
+			    tooltip: {
+			        trigger: 'axis'
+			    },
+			    legend: {
+			        data:['美团','饿了么'],
+			        right: "0"
+			    },
+			    toolbox: {
+			        show: false,
+			        feature: {
+			            dataZoom: {
+			                yAxisIndex: 'none'
+			            },
+			            dataView: {readOnly: false},
+			            magicType: {type: ['line', 'bar']},
+			            restore: {},
+			            saveAsImage: {}
+			        }
+			    },
+
+			    xAxis:  {
+			        type: 'category',
+			        boundaryGap: false,
+			        data: res.data.Dates
+			    },
+			    yAxis: {
+			        type: 'value',
+			        name: '订单量(单)',
+			        nameLocation: 'middle',
+			        axisLabel: {
+			            formatter: '{value}'
+			        }
+			    },
+			    series: [
+			        {
+			            name:'美团',
+			            type:'line',
+			            data:res.data.PlatformData[1]
+			        },
+			        {
+			            name:'饿了么',
+			            type:'line',
+			            data:res.data.PlatformData["2"]
+			        }
+			    ]
+			};
+		myChart.setOption(option);
+	}
+});
+
+</script>
+</body>
+</html>

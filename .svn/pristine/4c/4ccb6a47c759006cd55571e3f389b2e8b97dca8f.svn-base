@@ -1,0 +1,197 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Wi-Fi配置";
+    var wifiKey = ViewBag.WiFiKey as string;
+    var configModel = ViewBag.ConfigModel as Yme.Mcp.Model.WeChat.WeChatJsApiParamsViewModel;
+}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+<!--弹框的基本样式-->
+<style type="text/css">
+    .km-mask {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .km-dialogs {
+        opacity: 0;
+        transition: all .5s;
+        -webkit-transition: all .5s;
+    }
+
+    .km-fadein {
+        opacity: 1;
+    }
+
+    .km-hide {
+        display: none;
+    }
+
+    .km-dialog {
+        position: fixed;
+        z-index: 5000;
+        width: 90%;
+        max-width: 300px;
+        top: 50%;
+        left: 50%;
+        min-height: 100px;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #FFFFFF;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .km-dialog-title {
+        color: #61d2b3;
+    }
+
+    .km-dialog-hd {
+        padding: .7em 1.6em;
+        position: relative;
+        font-size: 15px;
+    }
+
+        .km-dialog-hd:after, .km-dialog-bd:after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 1px;
+            transform-origin: center;
+            -webkit-transform: scale(0.5) translateX(-50%);
+            transform: scale(0.5) translateX(-50%);
+            left: 0;
+            bottom: 0;
+            background-color: #ddd;
+        }
+
+    .km-dialog-bd {
+        padding: 1.5em 1.6em;
+        font-size: 16px;
+        position: relative;
+        word-wrap: break-word;
+        word-break: break-all;
+        color: #000;
+    }
+
+    .km-dialog-ft {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+    }
+
+        .km-dialog-ft div {
+            flex: 1;
+            padding: 0.8em 0;
+            text-align: center;
+            position: relative;
+        }
+
+            .km-dialog-ft div:nth-child(2):after {
+                content: '';
+                position: absolute;
+                width: 1px;
+                height: 100%;
+                left: 0;
+                top: 0;
+                -webkit-transform: scale(0.5);
+                transform: scale(0.5);
+                background-color: #ddd;
+            }
+</style>
+<link rel="stylesheet" href="/content/css/common.css">
+<link rel="stylesheet" href="/content/css/main.css">
+<!--基本弹框结构-->
+<div class="km-dialogs">
+    <div class="km-mask"></div>
+    <div class="km-dialog">
+        <div class="km-dialog-hd">
+            <strong class="km-dialog-title">温馨提示</strong>
+        </div>
+        <div class="km-dialog-bd">
+            Wi-Fi配置成功！
+        </div>
+        <div class="km-dialog-ft">
+            <div class="km-dialog-btn-enter">重新连接</div>
+            <div class="km-dialog-btn-cenle">取消</div>
+        </div>
+    </div>
+</div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript">
+    window.onload = function () {
+        var km_Dialog = document.querySelector('.km-dialogs');
+        var kmEnter = document.querySelector('.km-dialog-btn-enter');
+        var kmCenle = document.querySelector('.km-dialog-btn-cenle');
+        var kmBody = document.querySelector('.km-dialog-bd');
+        document.querySelector('.km-dialog-btn-cenle').addEventListener('click', function () {
+            km_Dialog.classList.remove('km-fadein');
+            WeixinJSBridge.call('closeWindow')
+        });
+        document.querySelector('.km-dialog-btn-enter').addEventListener('click', function () {
+            km_Dialog.classList.remove('km-fadein');
+            if (this.innerText == '重新连接') {
+                location.href = "/device/config";
+            }
+            else {
+                WeixinJSBridge.call('closeWindow');
+            }
+        });
+        var CANCEL = "configWXDeviceWiFi:cancel";
+        var FAIL = "configWXDeviceWiFi:fail";
+        var OK = "configWXDeviceWiFi:ok";
+        wx.config({
+            beta: true, // 开启内测接口调用，注入wx.invoke方法
+            debug: false, // 开启调试模式
+            appId: '@configModel.appId',         // 第三方app唯一标识
+            timestamp: '@configModel.timestamp', // 生成签名的时间戳
+            nonceStr: '@configModel.nonceStr',   // 生成签名的随机串
+            signature: '@configModel.signature', // 签名
+            jsApiList: ['configWXDeviceWiFi']    // 需要使用的jsapi列表
+        });
+
+        wx.ready(function () {
+            wx.checkJsApi({
+                jsApiList: ['configWXDeviceWiFi'],
+                success: function (res) {
+                    wx.invoke('configWXDeviceWiFi', { 'key': '@wifiKey' }, function (res) {
+                        var err_msg = res.err_msg;
+                        if (err_msg == CANCEL) {
+                            kmEnter.innerHTML = "我知道了";
+                            kmCenle.classList.add('km-hide');
+                            kmBody.innerHTML = "Wi-Fi配置已取消！";
+                            km_Dialog.classList.add('km-fadein');
+                        }
+                        else if (err_msg == OK) {
+                            kmEnter.innerHTML = "我知道了";
+                            kmCenle.classList.add('km-hide');
+                            kmBody.innerHTML = "Wi-Fi配置成功！"
+                            km_Dialog.classList.add('km-fadein');
+                        }
+                        else if (err_msg == FAIL) {
+                            kmEnter.innerHTML = "重新连接";
+                            kmCenle.classList.remove('km-hide');
+                            kmBody.innerHTML = "Wi-Fi配置超时！"
+                            km_Dialog.classList.add('km-fadein');
+                        }
+                        else {
+                            kmEnter.innerHTML = "重新连接";
+                            kmCenle.classList.remove('km-hide');
+                            kmBody.innerHTML = res.err_msg;
+                            km_Dialog.classList.add('km-fadein');
+                        }
+                    });
+                }
+            });
+        });
+    }
+</script>

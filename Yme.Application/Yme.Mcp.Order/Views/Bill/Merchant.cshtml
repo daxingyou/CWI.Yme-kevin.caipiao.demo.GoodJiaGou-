@@ -1,0 +1,92 @@
+﻿@{Layout = null;}
+@using Yme.Util;
+@using Yme.Mcp.Entity.OrderManage;
+@using Yme.Mcp.Model.QueryModels;
+@using Yme.Mcp.Model.Enums;
+@using Yme.Util.Extension;
+@{
+    var order = ViewBag.Order as OrderEntity;
+    var invoice = ViewBag.Invoice as string;
+    var details = ViewBag.Details as List<OrderGroupQueryModel>;
+    var otherFee = ViewBag.OtherFee as OrderFeeQueryModel;
+    var qrcodeUrl = ViewBag.QrCodeUrl as string;
+    ViewBag.Title = "商家小票";
+}
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+    <!--小票基本信息-->
+    <p><label style="font-size:48px;font-weight:bold;">给商家</label><label style="font-size:24px;font-weight:bold;">-@(order != null ? (string.Format("{0}#{1}", ((PlatformType)order.PlatformId).GetRemark(), order.DaySeq)) : string.Empty)</label></p>
+    <hr style="print-char:-;">
+    <p style="text-align:center;font-weight:bold;">@(order != null ? order.ShopName : string.Empty)</p>
+    <p style="text-align: center;font-weight:bold;">-@(order != null ? (order.PayType == 2 ? "已线上支付" : "货到付款") : string.Empty)-</p>
+    <p><label style="font-weight:bold;">送达时间: </label><label style="font-size:24px;font-weight:bold;">@(order != null ? order.DeliveryTime : string.Empty)</label></p>
+    <hr style="print-char:*;">
+    <p><label>订单编号: </label><label>@(order != null ? order.OrderViewId : string.Empty)</label></p>
+    <p><label>下单时间: </label><label>@(order != null ? order.OrderTime.ToDateTimeString() : string.Empty)</label></p>
+    <p><label style="font-weight:bold;">用餐人数: </label><label style="font-weight:bold;">@(order != null ? order.DinnersNum : 1)</label></p>
+    @if (!string.IsNullOrWhiteSpace(invoice))
+    {
+        <p><label style="font-size:24px;font-weight:bold;">发票: </label><label style="font-size:24px;font-weight: bold;">@invoice</label></p>
+    }
+    @if (order != null && !string.IsNullOrWhiteSpace(order.Caution))
+    {
+        <p><label style="font-size:24px;font-weight:bold;">备注: </label><label style="font-size:24px;font-weight: bold;">@(order != null ? order.Caution : string.Empty)</label></p>
+    }
+    <!--小票明细-->
+    @if (details != null && details.Count > 0)
+    {
+        foreach (var d in details)
+        {
+            if (d != null && d.Items != null)
+            {
+                <hr style="print-char:-;print-text:@(string.Format("{0}号篮子", d.GroupId));">
+                foreach (var gi in d.Items)
+                {
+                    if (!string.IsNullOrWhiteSpace(gi.Qty))
+                    {
+                        <p>
+                            <label style="width:71%;font-weight:bold;">@(gi != null ? gi.Name : string.Empty)</label>
+                            <label style="width:13%;font-weight:bold;text-align:center;">@(gi != null ? gi.Qty : string.Empty)</label>
+                            <label style="width:16%;font-weight:bold;text-align:right;">@(gi != null ? gi.Price : "0.00")</label>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            <label style="width:85%;font-weight:bold;">@(gi != null ? gi.Name : string.Empty)</label>
+                            <label style="width:15%;font-weight:bold;text-align:right;">@(gi != null ? gi.Price : "0.00")</label>
+                        </p>
+                    }
+                }
+            }
+        }
+    }
+    <!--费用明细-->
+    <hr style="print-char:-;print-text:其它费用;">
+    @if (otherFee != null && otherFee.FeeDetail != null && otherFee.FeeDetail.Count > 0)
+    {
+        foreach (var e in otherFee.FeeDetail)
+        {
+            if (e != null)
+            {
+                <p>
+                    <label style="width:85%;font-weight:bold;">@e.Name</label>
+                    <label style="width:15%;font-weight:bold;text-align:right;">@e.Price</label>
+                </p>
+            }
+        }
+    }
+    <p><label style="text-align:right;font-weight:bold;font-size:48px;">总计: @(order != null ? order.PayAmount.ToString("#0.00") : "0.00")</label></p>
+    <!--配送信息-->
+    <hr style="print-char:*;">
+    <p><label style="font-weight:bold;">@(order != null ? order.RecipientAddress : string.Empty)</label></p>
+    <p><label style="font-weight:bold;">@(order != null ? order.RecipientName : string.Empty)</label></p>
+    <p><label style="font-weight:bold;">@(order != null ? ((order.RecipientPhone.StartsWith("95") && order.RecipientPhone.Length == 13) ? "匿名用户" : order.RecipientPhone.SplitMoblie()) : string.Empty)</label></p>
+    <br/>
+    <h3 style="text-align:center;font-size:48px;font-weight:bold;">@(order != null ? (string.Format("=== #{0}完 ===", order.DaySeq)) : string.Empty)</h3>
+</body>
+</html>

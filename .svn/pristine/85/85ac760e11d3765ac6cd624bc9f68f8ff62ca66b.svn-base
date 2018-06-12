@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{09A4C157-2C57-4CCB-9541-40730BECD897}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yme.Mcp.Service</RootNamespace>
+    <AssemblyName>Yme.Mcp.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Evt.Framework.Mvc">
+      <HintPath>..\..\Bin\Evt.Framework.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseManage\BilltemplateService.cs" />
+    <Compile Include="BaseManage\MerchantService.cs" />
+    <Compile Include="BaseManage\PrinterConfigService.cs" />
+    <Compile Include="BaseManage\ShopPlatformService.cs" />
+    <Compile Include="BaseManage\ShopPrinterService.cs" />
+    <Compile Include="BaseManage\ShopService.cs" />
+    <Compile Include="Common\BaiduwmService.cs" />
+    <Compile Include="Common\ElemeService.cs" />
+    <Compile Include="Common\MeituanService.cs" />
+    <Compile Include="BaseManage\PlatformService.cs" />
+    <Compile Include="DemoManage\DeviceTaskService.cs" />
+    <Compile Include="DemoManage\TaskService.cs" />
+    <Compile Include="DemoManage\DeviceService.cs" />
+    <Compile Include="OrderManage\OrderDetailService.cs" />
+    <Compile Include="OrderManage\OrderDishService.cs" />
+    <Compile Include="OrderManage\OrderInvoiceService.cs" />
+    <Compile Include="OrderManage\OrderService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportManage\CustomerDaystatisService.cs" />
+    <Compile Include="ReportManage\OrderDaystatisService.cs" />
+    <Compile Include="ReportManage\PlatformdishDaystatisService.cs" />
+    <Compile Include="ReportManage\PlatformorderDaystatisService.cs" />
+    <Compile Include="SystemManage\AreaService.cs" />
+    <Compile Include="Common\BillCodeCreator.cs" />
+    <Compile Include="SystemManage\DictCodeService.cs" />
+    <Compile Include="SystemManage\LoginLogService.cs" />
+    <Compile Include="SystemManage\LogService.cs" />
+    <Compile Include="SystemManage\ParameterService.cs" />
+    <Compile Include="SystemManage\SmsService.cs" />
+    <Compile Include="SystemManage\SystemService.cs" />
+    <Compile Include="SystemManage\VerifyCodeService.cs" />
+    <Compile Include="WeChatManage\WxJsapiticketService.cs" />
+    <Compile Include="WeChatManage\WxTokenService.cs" />
+    <Compile Include="WeChatManage\WxUserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Yme.Core\Code\Yme.Code\Yme.Code.csproj">
+      <Project>{79049299-93c1-4190-ac74-67f11025cb8f}</Project>
+      <Name>Yme.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Data\Yme.Data.Repository\Yme.Data.Repository.csproj">
+      <Project>{79f48b8f-215e-4231-a35d-52ce03e08710}</Project>
+      <Name>Yme.Data.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Data\Yme.Data\Yme.Data.csproj">
+      <Project>{6c4c21b9-64f8-4c73-a756-6d7e540d992c}</Project>
+      <Name>Yme.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Util\Yme.Util.Exceptions\Yme.Util.Exceptions.csproj">
+      <Project>{24dca079-0809-4941-9e35-df6c8c4e227e}</Project>
+      <Name>Yme.Util.Exceptions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Util\Yme.Util.Extension\Yme.Util.Extension.csproj">
+      <Project>{ef69964d-aba5-4555-b3e8-599e0148a566}</Project>
+      <Name>Yme.Util.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Util\Yme.Util.Log\Yme.Util.Log.csproj">
+      <Project>{fbfd60f8-e08f-4837-a41c-2f4973388f88}</Project>
+      <Name>Yme.Util.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Util\Yme.Util.WebControl\Yme.Util.WebControl.csproj">
+      <Project>{a9feee7a-17ae-461e-9ecb-418c208ae31a}</Project>
+      <Name>Yme.Util.WebControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Util\Yme.Util\Yme.Util.csproj">
+      <Project>{3c1a88ed-2c65-4509-9026-da0518ce42f7}</Project>
+      <Name>Yme.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Model\Yme.Mcp.Entity\Yme.Mcp.Entity.csproj">
+      <Project>{51642c1a-d01c-4f24-883a-0acdf72b4445}</Project>
+      <Name>Yme.Mcp.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Model\Yme.Mcp.Model\Yme.Mcp.Model.csproj">
+      <Project>{78761fb2-7697-4d7e-93f0-c21923aa3ffd}</Project>
+      <Name>Yme.Mcp.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yme.Mcp.IService\Yme.Mcp.IService.csproj">
+      <Project>{c1fc6f24-174e-4c92-8825-a895fc041952}</Project>
+      <Name>Yme.Mcp.IService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

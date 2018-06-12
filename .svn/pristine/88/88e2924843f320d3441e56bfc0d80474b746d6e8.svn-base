@@ -1,0 +1,538 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>今日订单</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+	<link rel="stylesheet" href="/content/css/order.css">
+	
+</head>
+<body class="order orderSerch">
+	<div id="h" class="fixed_h">
+		<form  class=" container" id="formMit" action="order_search_list.html">
+			<div class="cells cells-searchbar">
+				<div class="cell">
+					<div class="cell-icon">
+						<i class="icon icon-search"></i>
+					</div>
+					<div class="cell-item">
+						<input id="enterSearch" oninput="search_action.call(this, event);" type="search" name="KeyWords" class="form-control " placeholder="订单号 、平台日序号、手机号">
+					</div>
+					<div class="cell-btn">
+						<button style="padding: 6px 20px;" id="search_btn" disabled="disabled" class="btn  btn-disabled">搜索</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="statusBox">
+			<div class="">
+				<p><span>选择平台</span></p>
+				<ul class="none">
+					<li type="1" PlatformId="0" class="active">全部平台</li>
+					<li type="1"  PlatformId="2" >饿了么</li>
+					<li type="1"  PlatformId="1" >美团外卖</li>
+					<li type="1"  PlatformId="3" >百度外卖</li>
+				</ul>
+			</div>
+			<div class="disa">
+				<p class="bor-r-l"><span>选择订单状态</span></p>
+				<ul class="none">
+					<li type="2"  OrderStatus="0" class="active">全部状态</li>
+					<li type="2"  OrderStatus="3" >进行中</li>
+					<li type="2"  OrderStatus="4" >已完成</li>
+					<li type="2"  OrderStatus="5" >已取消</li>
+				</ul>
+				
+			</div>
+			<div>
+				<p><span>选择打印状态</span></p>
+				<ul class="none">
+					<li type="3"  PrintStatus="0"  class="active">全部打印状态</li>
+					<li type="3"  PrintStatus="1" >待打印</li>
+					<li type="3"  PrintStatus="2" >已打印</li>
+					<li type="3"  PrintStatus="3" >打印失败</li>
+				</ul>
+			</div>
+		</div>
+		<p class="tip"></p>
+	</div>
+	
+	
+	
+	
+	
+	<div id="c" class="container mg-btm-58 pd-160 ">
+		<div class="KaMo-refresh-content" style="padding-bottom: 0;">
+			<div id="content_order_list" class="row ">
+				
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	 <!--mast-->
+	<div class="mark none"></div>
+	<div class="alert none">
+		<div class="alert_tite">请选择打印场景</div>
+		<div class="alert_con">
+			<div class="mr">
+				默认打印商家设置的全部场景
+			</div>
+			<div class="billCon">
+				
+			</div>
+			
+		</div>
+		<div class="btns">
+			<div class="cancel">取消</div>
+			<div class="enter">确定</div>
+		</div>
+	</div>
+	
+	
+	<!--alert-->
+		
+<script id="alert" type="text/html">
+	<% for(var i=0; i < bill.length; i++){ %>
+		<div class="opt" >
+			<input class="checkbox" bill="<%= bill[i].BillId %>" type="checkbox" checked="checked" name="layout" id="c<%= i %>">
+			<label for="c<%= i %>"><%= bill[i].BillName %></label>
+		</div>
+	 <% } %>
+</script>
+	
+<script id="tpl_order_total" type="text/html">
+	<div data-status="3"  class="bottombar-item tc">
+		<a data-status="3" class="show bottombar_action <%= total.staus==3?'bottombar-active':'' %> " href="javascript:;">
+			<i class="icon icon-order-bottom-dps">
+				<% if(total.DoingTotal){ %><i class="count"><%= total.DoingTotal %></i><% } %>
+			</i>
+			<p class="text-info lh-1">进行中</p>
+		</a>
+	</div>
+	<div data-status="4"  class="bottombar-item tc">
+		<a data-status="4" class="show bottombar_action <%= total.staus==4? 'bottombar-active':'' %> " href="javascript:;">
+			<i class="icon icon-order-bottom-psz">
+				<% if(total.CompletedTotal){ %><i class="count"><%= total.CompletedTotal %></i><% } %>
+			</i>
+			<p class="text-info lh-1">已完成</p>
+		</a>
+	</div>
+	<div data-status="5"  class="bottombar-item tc">
+		<a data-status="5" class="show bottombar_action <%= total.staus==5?'bottombar-active':'' %> " href="javascript:;">
+			<i class="icon icon-order-bottom-ywc">
+				<% if(total.CanceledTotal){ %><i class="count"><%= total.CanceledTotal %></i><% } %>
+			</i>
+			<p class="text-info lh-1">已取消</p>
+		</a>
+	</div>
+</script>
+
+
+<script type="text/html" id="tpl_order_list">
+    <% var platform = {"1":"icon-pt-meituan", "2":"icon-pt-ele", "3":"icon-pt-baidu"} %>
+    <% var platChat = {"1":"美团外卖", "2":"饿了么", "3":"百度外卖"} %>
+    <% var className = {"1":"dai", "2":"ok", "3":"shibai","4":"chaoshi"} %>
+    <% if(data.length){ %>
+    <% for(var i=0; i < data.length; i++){ %>
+   
+    <div class="cells  pd-l-15 br-b-1 orderList">
+		<div class="cell pd-offset-l">
+			<a href="oi.html?k=<%= data[i]['OrderKey'] %>"  class="show">
+			<div class="cell-item">订单号：<%= data[i]["OrderId"] %></div>
+			<div class="cell-icon"><i class="icon icon-right"></i></div>
+			</a>
+		</div>
+		<div class="cell pd-offset-l br-b <%= className[data[i]['PrintStatus']] %> <%= [data[i]['OrderType']]==2?'yu':'' %>">
+			<div class="cell-icon"><i class="icon  <%= platform[data[i]['PlatformId']] %>"></i></div>
+			<div class="cell-item">
+				<div class="store">
+					<span><%= platChat[data[i]['PlatformId']] %>#<%=data[i]['DaySeq'] %></span>
+					<p><%= data[i]["OrderTime"] %> </p>
+				</div>
+				<div class="listInfo">
+					<p class="text-info">用户名：<%= data[i]["CustomerName"] %></p>
+					<p class="text-info">手机号：<%= data[i]["Phone"] %></p>
+				</div>
+			</div>
+			<div class="cell-icon">
+				<p class=" tc staC"><%= data[i]["PrintDesc"] %> </p>
+				<% if(data[i]["PrintStatus"] !== 1){ %>
+					<div class="btn_"  morderid="<%= data[i]['MorderId'] %>" status="<%= data[i]['PrintStatus'] %>"><%= data[i]['PrintStatus'] == 2 ? "重打": "补打" %></div>
+				<% } %>
+
+				<% if(data[i]["IsShowConfirm"] == 1){ %>
+					<div class="orders"  morderid="<%= data[i]['MorderId'] %>" status="<%= data[i]['PrintStatus'] %>">接单</div>
+				<% } %>
+			</div>
+		</div>
+	</div> 
+    <% } %>
+    <% } else { %>
+    	<!--<p class="tc text-info pd-tm-15">目前没有订单</p>-->
+    <% } %>
+</script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/main.js"></script>
+<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+<script type="text/javascript" src="/content/scripts/pullrefresh.js"></script>
+
+<script type="text/javascript">
+	
+	function search_action(e) {
+        var elem_btn = document.querySelector("#search_btn");
+        if (this.value) {
+            elem_btn.removeAttribute("disabled");
+            elem_btn.classList.add("btn-action");
+            elem_btn.classList.remove("btn-disabled");
+        } else {
+            elem_btn.setAttribute("disabled", "disabled");
+            elem_btn.classList.remove("btn-action");
+            elem_btn.classList.add("btn-disabled");
+        }
+    }
+	function getQueryString(name) {  
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");  
+        var r = window.location.search.substr(1).match(reg);  
+        if (r != null) return unescape(r[2]);  
+        return null;  
+    }  
+	
+	
+	var pullRefresh;
+	var SearchEle = $('#enterSearch');
+	var statusBox = $('.statusBox div');
+	
+	var winPrams = {
+		SearchType: getQueryString('SearchType')
+	}
+	
+	document.setTitle = function (t) {
+		var titleStr = {
+			'1': '今日订单',
+			'2': '预订单',
+			'3': '补打订单'
+		}
+		alert
+        document.title = titleStr[t] || "全部订单搜索";
+        var i = document.createElement('iframe');
+        i.src = '/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function () {
+            setTimeout(function () {
+                i.remove();
+            }, 9)
+        }
+        document.body.appendChild(i);
+    }
+	document.setTitle(winPrams.SearchType);
+	
+	
+	var strTip = {
+		'1': '搜索今日的订单',
+		'2': '搜索最近7日进行中的预订单',
+		'3': '搜索最近7日打印失败的订单'
+	}
+	$('.tip').html(strTip[winPrams.SearchType])
+	if(winPrams.SearchType == 2){
+//		$('.statusBox').children('div').eq(1).attr('status',3).find('li').eq(1).addClass('active').siblings().removeClass('active').attr('disabled','disabled')
+		$('.statusBox').children('div').eq(1).attr('status',3).find('p').attr('disabled','disabled').addClass('none_After').find('span').html('进行中')
+	}
+	if(winPrams.SearchType == 3){
+//		$('.statusBox').children('div').eq(1).attr('status',3).find('li').eq(1).addClass('active').siblings().removeClass('active').attr('disabled','disabled')
+		$('.statusBox').children('div').eq(2).attr('status',3).find('p').attr('disabled','disabled').addClass('none_After').find('span').html('打印失败')
+	}
+	
+	if(!winPrams.SearchType || (winPrams.SearchType!=1 && winPrams.SearchType!=2 && winPrams.SearchType!=3)){
+		statusBox.eq(0).find('span').addClass('act').html('全部平台')
+		statusBox.eq(1).find('span').addClass('act').html('全部状态')
+		statusBox.eq(2).find('span').addClass('act').html('全部打印状态')
+		winPrams.SearchType = 4;
+		winPrams.KeyWords = SearchEle.val();
+		winPrams.PlatformId = statusBox.eq(0).attr('status')-0 || 0;
+		winPrams.OrderStatus  = statusBox.eq(1).attr('status')-0 || 0;
+		winPrams.PrintStatus  = statusBox.eq(2).attr('status')-0 || 0;
+		getSerchList(winPrams,false,false);
+	}
+	
+	$(function(){
+		
+		//搜索
+		$('.statusBox p').on('tap', function(e){
+			if($(this).attr('disabled') == 'disabled'){ 
+//				G.prompt.error('此状态不可选');
+				return}
+			$(this).parent('div').siblings().removeClass('active').find('ul').addClass('none')
+			$(this).parent('div').toggleClass('active').find('ul').toggleClass('none')
+			
+			return false;
+		})
+		
+		var allLi = $('.statusBox li');
+		allLi.on('click', function(){
+			if($(this).parent().hasClass('none')){return}
+			var chatO = {
+				'1': 'platformid',
+				'2': 'orderstatus',
+				'3': 'printstatus'
+			}
+			var type =chatO[$(this).attr('type')]
+			var tNum = $(this).attr(type);
+			
+			$(this).parents('.active').attr('status',tNum)
+			
+			winPrams.KeyWords = SearchEle.val();
+			winPrams.PlatformId = statusBox.eq(0).attr('status')-0 || 0;
+			winPrams.OrderStatus  = statusBox.eq(1).attr('status')-0 || 0;
+			winPrams.PrintStatus  = statusBox.eq(2).attr('status')-0 || 0;
+			getSerchList(winPrams,false,false);
+			
+			
+			
+			$(this).addClass('active').siblings().removeClass('active')
+			$(this).parents('.active').removeClass('active').find('span').addClass('act').html($(this).html())
+			$(this).parents('ul').addClass('none');
+		})
+		
+		$('#search_btn').on('click', function(){
+			winPrams.KeyWords = SearchEle.val();
+			winPrams.PlatformId = statusBox.eq(0).attr('status')-0 || 0;
+			winPrams.OrderStatus  = statusBox.eq(1).attr('status')-0 || 0;
+			winPrams.PrintStatus  = statusBox.eq(2).attr('status')-0 || 0;
+			getSerchList(winPrams,false,false);
+			return false;
+			
+		})
+		$('#formMit').on('submit', function(){
+			winPrams.KeyWords = SearchEle.val();
+			winPrams.PlatformId = statusBox.eq(0).attr('status')-0 || 0;
+			winPrams.OrderStatus  = statusBox.eq(1).attr('status')-0 || 0;
+			winPrams.PrintStatus  = statusBox.eq(2).attr('status')-0 || 0;
+			getSerchList(winPrams,false,false);
+			return false;
+		})
+
+
+		$('#content_order_list').on('click','.orders', function(){
+			var morderid = $(this).attr('morderid')
+			G.loader({
+				url: "/order/doConfirmOrder",
+				param: {"MorderId": morderid},
+				method: "post",
+				headers: G.helper.get_common_header(),
+				before: function(){
+					G.Loading.show("操作中...")
+				},
+				response: function(res){
+					G.Loading.hide();
+					if(res.status == 1){
+						res.data == 'ok' && (G.prompt.error('已成功接单！'))
+						getSerchList(winPrams,false,false);
+					}else{
+						G.prompt.error(res.data);
+					}
+				}
+			})
+		})
+
+		var mast = $('.mark'),alertEle = $('.alert')
+		$('#content_order_list').on('touchstart', '.btn_', function(){
+			
+			var morderid = $(this).attr('morderid')
+			var sta = $(this).attr('status')
+			G.loader({
+			    url: "/order/getPrintConfigs?MorderId="+morderid,
+				method: "get",
+				headers: G.helper.get_common_header(),
+				before: function(){
+//					if(typeof p !== 'string'){
+//					G.loadingtext.show("加载中");}
+				},
+				response: function(res){
+//					G.loadingtext.hide();
+					if(res.status == 1){
+
+						if(res.data.Configs.length == 0){
+							G.dialog({
+								title:'打印请求失败',
+								text: `
+									您还未设置打印机打印场景，<br />请完成设置后再操作。
+								
+								`,
+								btns:['取消','<a href="/html/printer_manage.html" style="color: inherit;">前往设置</a>']
+							})
+							return	
+						}
+
+						var html2 = template("alert", {bill:res.data.Configs});
+						document.querySelector(".billCon").innerHTML = html2;
+						mast.fadeIn();
+//						setTimeout(function(){
+							alertEle.fadeIn().find('.enter').attr('morderid',morderid).attr('sta',sta)
+//						},100)
+					}else{
+						G.prompt.error(res.data);
+					}
+				}
+			
+			})
+//			mast.fadeIn();
+//			setTimeout(function(){
+//				alertEle.fadeIn().find('.enter').attr('morderid',morderid).attr('sta',sta)
+//			},100)
+		})
+		
+		var flag = true;
+		$('.enter').on('tap', function(){
+			var morderid = $(this).attr('morderid')
+			var sta = $(this).attr('sta')
+			var arr = []
+			
+			alertEle.find('input:checked').each(function(){
+				arr.push($(this).attr('bill'))
+			})
+			if(flag){
+				flag = false;
+				G.loader({
+				    url: "/order/doRePrint",
+					method: "post",
+					param: {MorderId: morderid,BillIds:arr.join(',') },
+					headers: G.helper.get_common_header(),
+					before: function(){
+						
+					},
+					response: function(res){
+						if(res.status == 1){
+							G.prompt.error('打印任务已发送成功！',function(){flag = true;});
+						}else{
+							G.prompt.error('打印任务已发送失败！',function(){flag = true;});
+						}
+					}
+					
+				})
+				mast.fadeOut();
+				alertEle.fadeOut()
+			}
+			
+		})
+		$('.cancel').on('tap', function(){
+			mast.fadeOut();
+			alertEle.fadeOut()
+		})
+		
+		
+		pullRefresh = new PullRefresh({
+			container: document.querySelector('.KaMo-refresh-content'),
+			triggerDistance: 150,
+			friction: 10,
+			callback: function(e){
+				
+				if(e.status == 'fail'){
+					return
+				}
+				winPrams.KeyWords = SearchEle.val();
+				winPrams.PlatformId = statusBox.eq(0).attr('status')-0 || 0;
+				winPrams.OrderStatus  = statusBox.eq(1).attr('status')-0 || 0;
+				winPrams.PrintStatus  = statusBox.eq(2).attr('status')-0 || 0;
+				getSerchList(winPrams,false,false);
+			}
+		});
+		
+	})
+	
+	document.addEventListener("scroll", function(){
+		var scroll_top = document.body.scrollTop || document.documentElement.scrollTop;
+		if(scroll_top>0){
+			$('.KaMo-refresh-load').hide()
+			$('#h').removeClass('fixed_h')
+			$('#c').removeClass('pd-160').css({'padding-top':0})
+		}else{
+			$('#h').addClass('fixed_h')
+			$('#c').addClass('pd-160')
+			$('.KaMo-refresh-load').show()
+		}
+		
+	}, false);
+	
+	
+	
+	
+	function getSerchList (param,n,b){
+		var params = {
+			KeyWords: param.KeyWords,
+			PlatformId:  param.PlatformId,
+			OrderStatus:  param.OrderStatus,
+			PrintStatus:  param.PrintStatus,
+			SearchType:  param.SearchType,
+			PageSize: 10
+		}
+		params.PageIndex = param.PageIndex ? param.PageIndex : 1;
+		
+		 var func_set_loading = function () { };
+//      if (arguments.length === 2) {
+            func_set_loading = n || func_set_loading;
+//      }
+		G.loader({
+            url: "/order/doSearch",
+            method: "get",
+            headers: G.helper.get_common_header(),
+            param: params,
+            before: function () {
+                G.Loading.show();
+            },
+            response: function (res) {
+                G.Loading.hide();
+                pullRefresh.cancelLoading();
+                
+               
+                func_set_loading(false);
+                if (res.status == "1") {
+                    if (params.PageIndex === 1) { 
+                        G.scrollload({
+                            page: 2,
+                            page_count: res.data.PageCount,
+                            load: function (call) {
+                            	console.log(this.page , this.page_count,call)
+                                if (this.page > this.page_count) {
+                                	
+                                    call(true);
+                                } else {
+                                    params.PageIndex = this.page;
+                                    getSerchList(params, call,true);
+                                }
+                            }
+                        });
+                        
+                    }
+                    
+                   
+                	if(res.data.Orders.length > 0){
+	               		$('.tip').html('相关订单');
+	               	}else{
+	               		$('.tip').html('没有您想要的结果')
+	               	}
+                    var html = template("tpl_order_list", { data: res.data.Orders });
+                    if(!b){
+                    	document.querySelector("#content_order_list").innerHTML = html;
+                    	return
+                    }
+                    document.querySelector("#content_order_list").innerHTML += html;
+                    
+                } else {
+                    if (G.check_login(res.status)) {
+                        G.prompt.error(res.data);
+                    }
+                }
+            }
+        });
+		
+		
+	}
+</script>
+</body>
+</html>

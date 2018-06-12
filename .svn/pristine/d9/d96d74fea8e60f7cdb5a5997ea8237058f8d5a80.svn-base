@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>打印机设置</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id="content_printer_view" class="cells pd-l-15 br-b-1">
+			
+<!-- 			<div class="cell pd-offset-l">
+				<a href="printer_update_name.html" class="show">
+				<div class="cell-item">名称</div>
+				<div class="cell-item tr text-info">美团外卖</div>
+				<div class="cell-icon"><i class="icon icon-right"></i></div>
+				</a>
+			</div>
+			
+			<div class="cell pd-offset-l">
+				<div class="cell-text">型号</div>
+				<div class="cell-item tr text-info">美团外卖</div>
+			</div>
+			<div class="cell pd-offset-l">
+				<a href="printer_print_case.html" class="show">
+				<div class="cell-item">打印场景</div>
+				<div class="cell-item tr text-info">1，2，4</div>
+				<div class="cell-icon"><i class="icon icon-right"></i></div>
+				</a>
+			</div>
+			<div class="cell pd-offset-l br-b">
+				<div class="cell-text">使用状态</div>
+				<div class="cell-item tr text-info pd-r-15">正常</div>
+				<div class="cell-icon"><button class="btn-on"></button></div>
+			</div> -->
+		</div>
+	</div>
+	<div class="col-12">
+		<p><span class="text-spec">提示：</span></p>
+		<p><span class="text-info">1、完成打印场景设置，才能使用打印功能</span></p>
+		<p><span class="text-info">2、停用后，该打印机不能对门店订单执行打印操作</span></p>
+	</div>
+	<div class="col-12">
+		
+		<div class="line-btn" style="width:100%;">
+			<a href="javascript:cancel_bind.call(this, event);" class="btn btn-action">解除绑定</a>
+		</div>	
+	</div>
+	
+</div>
+<div id="dialog_confirm" class="dialog dialog-confirm dialog-hide">
+	<div class="dialog-mask-transparent"></div>
+	<div class="dialog-content">
+		<div class="dialog-heading">
+			<h3>温馨提示</h3>
+		</div>
+		<div class="dialog-body tc"></div>
+		<div class="dialog-footer">
+			<button class="dialog-btn-cancel">再考虑下</button>
+			<button class="dialog-btn-action">继续解除</button>
+		</div>
+	</div>
+</div>
+<script id="tpl_printer_view" type="text/html">
+    <% if(printer_data) { %>
+    <%
+    var link_up_name = "printer_update_name.html?PrinterCode=" + printer_data.PrinterCode+ "&PrinterName=" +printer_data.PrinterName;
+    var link_set_case = "printer_print_case.html?PrinterCode=" +printer_data.PrinterCode;
+    %>
+    <div class="cell pd-offset-l">
+        <a href="<%= printer_data.Status?link_up_name:'javascript:void(0)' %>" class="show">
+            <div class="cell-item">名称</div>
+            <div class="cell-item tr text-info"><%= printer_data.PrinterName %></div>
+            <div class="cell-icon"><i class="icon icon-right"></i></div>
+        </a>
+    </div>
+
+    <div class="cell pd-offset-l">
+        <div class="cell-text">型号</div>
+        <div class="cell-item tr text-info"><%= printer_data.PrinterType %></div>
+    </div>
+    <div class="cell pd-offset-l">
+        <a href="<%= printer_data.Status?link_set_case:'javascript:void(0)' %>" class="show">
+            <div class="cell-item">打印场景</div>
+            <div class="cell-item tr text-info"><%= printer_data.PrintConfig %></div>
+            <div class="cell-icon"><i class="icon icon-right"></i></div>
+        </a>
+    </div>
+    <div class="cell pd-offset-l br-b">
+        <div class="cell-text">使用状态</div>
+        <div id="status_text" class="cell-item tr text-info pd-r-15"><%= printer_data.Status?"正常":"停用" %></div>
+        <div class="cell-icon"><button onclick="change_status.call(this, event);" data-status="<%= printer_data.Status %>" class="btn-<%= printer_data.Status?'on':'off' %>"></button></div>
+    </div>
+    <% } %>
+</script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/main.js"></script>
+<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+<script type="text/javascript">
+G.loader({
+	url: "/printer/getInfo?PrinterCode="+ G.get("PrinterCode"),
+	method: "get",
+	headers: G.helper.get_common_header(),
+	before: function(){
+		// G.loadingtext.show("加载中");
+		G.Loading.show();
+	},
+	response: function(res){
+		G.Loading.hide();
+		if (res.status == "1") {
+			var html = template("tpl_printer_view", {printer_data:res.data});
+			document.querySelector("#content_printer_view").innerHTML = html;
+		} else {
+			if(G.check_login(res.status)){
+				G.prompt.error(res.data);
+			}
+		}
+	},
+});
+function change_status(e) {
+    var status = $(this).attr("data-status") == 0 ? 1 : 0;
+    var param = {
+        PrinterCode: G.get("PrinterCode"),
+        "Status": status
+    }
+    var that = this;
+    G.loader({
+        url: "/printer/updateStatus",
+        method: "post",
+        headers: G.helper.get_common_header(),
+        param: param,
+        before: function () {
+			//G.loadingtext.show("正在更改");
+			G.Loading.show('更改中');
+        },
+        response: function (res) {
+			G.Loading.hide();
+            if (res.status == "1") {
+                /*				var cla = "btn-off";
+                                var text = "停用";
+                                if (res.data == "1") {
+                                    cla = "btn-on";
+                                    text = "正常";
+                                }
+                                that.className = cla;
+                                $("#status_text").html(text);
+                                $(that).attr("data-status", status);*/
+                location.reload();
+            } else {
+                if (G.check_login(res.status)) {
+                    G.prompt.error(res.data);
+                }
+            }
+        },
+    });
+}
+function cancel_bind(e){
+	$("#dialog_confirm").dialog({
+		mess: "解除绑定后，打印机将不能执行对门店订单的打印功能（解除绑定时，请关闭打印机）",
+		method: "confirm",
+		callback: function(bol){
+			if (bol) {
+				G.loader({
+					url: "/printer/doUnBind",
+					method: "post",
+					headers: G.helper.get_common_header(),
+					param: {PrinterCode: G.get("PrinterCode")},
+					before: function(){
+						//G.loadingtext.show("正在解除");
+						G.Loading.show('正在解除');
+					},
+					response: function(res){
+						G.Loading.hide();
+						if (res.status == "1") {
+							location.href = "printer_manage.html";
+						} else {
+							if(G.check_login(res.status)){
+								G.prompt.error(res.data);
+							}
+						}
+					}
+				});
+			}
+		}
+	});
+
+}
+</script>
+</body>
+</html>

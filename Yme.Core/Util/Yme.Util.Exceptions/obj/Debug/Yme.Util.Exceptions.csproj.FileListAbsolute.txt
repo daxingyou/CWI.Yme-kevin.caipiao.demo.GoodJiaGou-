@@ -1,0 +1,5 @@
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\bin\Debug\Yme.Util.Exceptions.dll
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\bin\Debug\Yme.Util.Exceptions.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Debug\Yme.Util.Exceptions.csproj.CoreCompileInputs.cache
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Debug\Yme.Util.Exceptions.dll
+D:\WorkYh\微云打server_order\Yme.Core\Util\Yme.Util.Exceptions\obj\Debug\Yme.Util.Exceptions.pdb

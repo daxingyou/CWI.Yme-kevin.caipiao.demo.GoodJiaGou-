@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>系统设置</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+	<style>
+		.no-login{
+			background-color:#bbb;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="cells pd-l-15 br-b-1">
+            <div class="cell pd-offset-l">
+                <a href="about.html" class="show">
+                    <div class="cell-item">关于</div>
+                    <div class="cell-icon"><i class="icon icon-right"></i></div>
+                </a>
+            </div>
+            <div class="cell pd-offset-l">
+                <a href="guide.html" class="show">
+                    <div class="cell-item">使用指南</div>
+                    <div class="cell-icon"><i class="icon icon-right"></i></div>
+                </a>
+            </div>
+            <div class="cell pd-offset-l br-b">
+                <a href="setting_change_phone_number.html" class="show">
+                    <div class="cell-item">更换绑定手机号</div>
+                    <div class="cell-icon"><i class="icon icon-right"></i></div>
+                </a>
+            </div>
+        </div>
+	</div>
+	<div class="btn-login-box">
+        <a id="content_setting" href="javascrdipt:;" class="btn btn-action   hide no-login  ">退出登录</a>
+        <a id="content_setting_log" href="login.html" class="btn btn-action hide">登录</a>
+	</div>
+</div>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/main.js"></script>
+<script type="text/javascript">
+    //$('#content_setting').attr("href", "login.html?&openid=" + G.get("openid"));
+
+
+    $('#content_setting_log').attr("href", "login.html?&openid=" + G.get("openid"));
+
+//  if (G.cookie.get("ClientToken") || localStorage.getItem('ClientToken')) {
+//      $('#content_setting').addClass('show').removeClass("hide").siblings().hide();
+//  } else {
+//      $('#content_setting_log').addClass('show').removeClass("hide").siblings().hide();
+//      G.cookie.set("SessionID", "", 0);
+//  }
+    $('#content_setting').on("click", function (e) {
+        G.loader({
+            url: "/shop/doLogout",
+            method: "get",
+            headers: G.helper.get_common_header(),
+            response: function (res) {
+                if (res.status == "1") {
+                    G.cookie.set("ClientToken", "", 0);
+                    localStorage.removeItem("ClientToken")
+                    $('#content_setting_log').addClass('show').removeClass("hide").siblings().hide();
+                    navigator.userAgent.match('MicroMessenger') ? WeixinJSBridge.invoke('closeWindow') : window.location.href = "index.html";
+                    return false
+                } else {
+                    if (G.check_login(res.status)) {
+                        G.prompt.error(res.data);
+                    }
+                }
+            }
+        });
+       
+    })
+
+
+	$(function(){
+		
+	    G.loader({
+	          url: "/shop/checkLogin",
+	          method: "get",
+	          headers: G.helper.get_common_header(),
+	          before: function () {
+	          },
+	          response: function (res) {
+	              if (res.status == "1") {
+	              	$('#content_setting').addClass('show').removeClass("hide").siblings().hide();
+	              }else{
+	              	$('#content_setting_log').addClass('show').removeClass("hide").siblings().hide();
+	              }
+	          }
+	      });
+		
+		
+	})
+
+
+	
+</script>
+</body>
+</html>

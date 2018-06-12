@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>平台授权</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="/content/css/common.css">
+    <link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+    <form id="form" action="">
+        <div class="container">
+            <div class="row" >
+                <div class="cells cells-table pd-l-15 br-b-1" style="border: none;">
+                    <div class="cell" style="border: none;">
+                        <div class="cell-text  pd-offset-l"  style="font-size: 15px;">百度外卖门店ID：</div>
+                        <div class="cell-item " style="border: none;">
+                            <input id="PlatformShopId" type="text" class="form-control" name="PlatformShopId" placeholder="请输入百度门店ID" data-verify-len="10" data-verify-space="0,不能输入空格">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="color:#1bdd7f;padding-left: 10px;">提示：</p>
+			<ul  style="font-size: 15px; color:#888;padding:0 8px">
+				<li>
+					1. 门店ID获取路径：
+					<p style="text-indent: 1em;">a. 登录小度掌柜网页版：<a style="color:#00f;word-break: break-all;" href="https://wmcrm.baidu.com/crm?qt=shoptradedetail&module=wand&path=shop_shopinfo&type=basicInfo"> https://wmcrm.baidu.com/</a>或登录小度掌柜电脑版客户端
+ </p>
+					<p style="text-indent: 1em;">b. 登录后，进入‘门店信息’  >>  ‘基础信息’ >> ‘门店网址’，门店网址链接后的数字字符串即为门店ID 
+</p>
+				</li>
+				<li style="margin-top: 8px;">2. 请确保输入的门店 ID与小度掌柜的账户和密码同属于一个门店</li>
+			</ul>
+            <div  style="padding: 8px;margin: 45px auto;"><button id="btn_action" type="submit" class="btn btn-action" style="width: 100%;">去授权</button></div>
+        </div>
+    </form>
+    <script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.app.js"></script>
+    <script type="text/javascript" src="/content/scripts/main.js"></script>
+    <script type="text/javascript" src="/content/scripts/validate_form.js"></script>
+    <script type="text/javascript">
+        // 去授权
+        $("#form").validateForm({
+            submit_verify_type: true,
+            allow_submit: function () {
+                $("#btn_action").addClass("btn-action");
+                $("#btn_action").removeClass("btn-disabled");
+            },
+            submit: function (form) {
+                G.loader({
+                    url: "/platform/mapShopAuth",
+                    method: "post",
+                    headers: G.helper.get_common_header(),
+                    param: { PlatformShopId: form[0].value },
+                    before: function () {
+                        G.Loading.show("提交中");
+                    },
+                    response: function (res) {
+                        G.Loading.hide();
+                        if (res.status == "1") {
+                            location.href = res.data;
+                        } else {
+                            if (G.check_login(res.status)) {
+                                G.prompt.error(res.data);
+                            }
+                        }
+                    }
+                });
+            },
+            render: function (conf) {
+                if (!conf.verify) {
+                    conf.elem.value = "";
+                    conf.elem.setAttribute("placeholder", conf.mess);
+                    G.helper.clearinput.remove({
+                        elem: conf.elem
+                    });
+                } else {
+                    G.clearinput.add({
+                        elem: conf.elem
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    padding: 0 15px;
+    background-color: #f5f5f5;
+    font-family: "Microsoft YaHei";
+}
+
+img {
+    vertical-align: middle;
+}
+
+.color-red {
+    color: #fd5452;
+}
+
+.color-blue {
+    color: #44a3e7;
+}
+
+.ball-item {
+    width: 20px;
+    color: inherit;
+    line-height: 20px;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 100%;
+    border: 1px solid #e1e1e1;
+}
+
+.ball-item.active {
+    color: #fff;
+}
+
+.flex-box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hd-title {
+    line-height: 50px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.remove-icon {
+    width: 24px;
+    height: 24px;
+    background: url("../images/guanb.png") no-repeat center;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+}
+
+[class^=btn] {
+    min-width: 30%;
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 20px;
+    text-align: center;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    box-sizing: border-box;
+}

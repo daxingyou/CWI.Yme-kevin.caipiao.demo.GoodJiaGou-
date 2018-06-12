@@ -1,0 +1,302 @@
+﻿using System;
+using System.Collections.Generic;
+using Yme.Util.Extension;
+using Yme.Util.Enums;
+using Yme.Util.Log;
+
+namespace Yme.Util
+{
+    public class SmsUtil
+    {
+        #region 公用方法
+
+        /// <summary>
+        /// 验证码
+        /// </summary>
+        /// <param name="mobile">手机号</param>
+        /// <param name="validateCode">验证码</param>
+        public static void SendValidCode(string mobile, string validateCode, decimal validateCodeExpire, SmsFuncType funcType)
+        {
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("code", validateCode);
+            dic.Add("code_expire", validateCodeExpire);
+            string[] paramArray = new string[] { validateCode, validateCodeExpire.ToString() };
+
+            //发送渠道
+            var sendWay = ConfigUtil.SmsWay;
+
+            switch (funcType)
+            {
+                case SmsFuncType.Login:
+                case SmsFuncType.BindMobile:
+                    switch (sendWay)
+                    {
+                        case 0:
+                            //SendSmsByDx(mobile, dic, SmsTemplateType.MMS_DX_ValidCode.GetHashCode());
+                            break;
+                        case 1:
+                            SendSmsByRly(mobile, paramArray, SmsTemplateType.ORD_RLY_ValidCodeLogin.GetHashCode());
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region 0-【电信】私有
+
+        /// <summary>
+        /// 获取访问令牌API接口
+        /// </summary>
+        private static readonly string GetDxSmsTokenApi = "https://oauth.api.189.cn/emp/oauth2/v3/access_token";
+
+        /// <summary>
+        /// 发送短信API接口
+        /// </summary>
+        private static readonly string SendDxSmsApi = "http://api.189.cn/v2/emp/templateSms/sendSms";
+
+        /// <summary>
+        /// Token字典
+        /// </summary>
+        private static Dictionary<string, Tuple<string, DateTime>> _dXSmsToken = new Dictionary<string, Tuple<string, DateTime>>();
+
+        /// <summary>
+        /// 获取登录Token
+        /// </summary>
+        /// <param name="tryNum"></param>
+        /// <returns></returns>
+        private static string GetDxSmsAccessToken(int tryNum)
+        {
+            string key = "smstoken";
+            if (_dXSmsToken.ContainsKey(key))
+            {
+                var kv = _dXSmsToken[key];
+                if (kv.Item2 > DateTime.Now)
+                {
+                    return kv.Item1;
+                }
+            }
+            Dictionary<string, string> paras = new Dictionary<string, string>();
+            paras.Add("grant_type", "client_credentials");
+            paras.Add("app_id", ConfigUtil.SmsAppId_dx);
+            paras.Add("app_secret", ConfigUtil.SmsAppSecret_dx);
+            try
+            {
+                string res = HttpRequestUtil.SendPostRequest(GetDxSmsTokenApi, paras);
+                Dictionary<string, string> resDic = JsonUtil.ToObject<Dictionary<string, string>>(res);
+                if (resDic.ContainsKey("access_token"))
+                {
+                    _dXSmsToken.Clear();
+                    _dXSmsToken.Add(key, new Tuple<string, DateTime>(resDic["access_token"], DateTime.Now.AddSeconds(resDic["expires_in"].ToInt(0))));
+                    return resDic["access_token"];
+                }
+                else
+                {
+                    LogUtil.Debug(resDic["res_message"]);
+                    return string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Error(ex.ToString());
+                System.Threading.Thread.Sleep(200);
+                if (tryNum < 3)
+                {
+                    return GetDxSmsAccessToken(++tryNum);
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 【电信】发送短信
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="templateParam"></param>
+        /// <param name="tempateId"></param>
+        private static void SendSmsByDx(string mobile, Dictionary<string, object> templateParam, int tempateId)
+        {
+            string token = GetDxSmsAccessToken(0);
+            if (string.IsNullOrEmpty(token))
+            {
+                return;
+            }
+            Dictionary<string, string> paras = new Dictionary<string, string>();
+
+            paras.Add("acceptor_tel", mobile);
+            paras.Add("access_token", token);
+            paras.Add("app_id", ConfigUtil.SmsAppId_dx);
+            paras.Add("template_id", tempateId.ToString());
+            paras.Add("template_param", JsonUtil.ToJson(templateParam));
+            paras.Add("timestamp", DateTime.Now.ToString(Const.DATETIME_FORMAT));
+
+            try
+            {
+                string res = HttpRequestUtil.SendPostRequest(SendDxSmsApi, paras);
+                LogUtil.Debug(string.Format("发送手机短信：{0},{1}", mobile, JsonUtil.ToJson(templateParam)));
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Error(ex.ToString());
+            }
+        }
+
+        #endregion
+
+        #region 1-【荣联云】私有
+
+        /// <summary>
+        /// 【荣联云】短信平台域名
+        /// </summary>
+        private static readonly string RlySmsIpDomain = "sandboxapp.cloopen.com";
+
+        /// <summary>
+        /// 【荣联云】短信平台端口
+        /// </summary>
+        private static readonly string RlySmsPort = "8883";
+
+        /// <summary>
+        /// 【荣联云】发送短信
+        /// </summary>
+        private static void SendSmsByRly(string mobile, string[] templateParam, int tempateId)
+        {
+            CCPRestSDK api = new CCPRestSDK();
+            bool isInit = api.init(RlySmsIpDomain, RlySmsPort);
+            api.setAccount(ConfigUtil.SmsAccountSid_rly, ConfigUtil.SmsAuthToken_rly);
+            api.setAppId(ConfigUtil.SmsAppId_rly);
+
+            try
+            {
+                if (isInit)
+                {
+                    Dictionary<string, object> retData = api.SendTemplateSMS(mobile, tempateId.ToString(), templateParam);
+                    string ret = GetRlySmsDictData(retData);
+                    LogUtil.Info(ret);
+                }
+                else
+                {
+                    LogUtil.Error("短信模版初始化失败！");
+                }
+            }
+            catch (Exception exc)
+            {
+                LogUtil.Error(exc.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 获取短信数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static string GetRlySmsDictData(Dictionary<string, object> data)
+        {
+            string ret = null;
+            foreach (KeyValuePair<string, object> item in data)
+            {
+                if (item.Value != null && item.Value.GetType() == typeof(Dictionary<string, object>))
+                {
+                    ret += item.Key.ToString() + "={";
+                    ret += GetRlySmsDictData((Dictionary<string, object>)item.Value);
+                    ret += "};";
+                }
+                else
+                {
+                    ret += item.Key.ToString() + "=" + (item.Value == null ? "null" : item.Value.ToString()) + ";";
+                }
+            }
+            return ret;
+        }
+
+        #endregion
+
+        #region 短信平台JM
+        /// <summary>
+        /// 发送短信【JM短信平台】
+        /// </summary>
+        /// <param name="smsmodel">短信模板</param>
+        /// <returns>
+        ///0提交成功；  
+        ///101 无此用户
+        ///102 密码错
+        ///103 提交过快（提交速度超过流速限制）
+        ///104 系统忙（因平台侧原因，暂时无法处理提交的短信）
+        ///105 敏感短信（短信内容包含敏感词）
+        ///106 消息长度错（>536或<=0）
+        ///107 包含错误的手机号码
+        ///108 手机号码个数错（群发>50000或<=0;单发>200或<=0）
+        ///109 无发送额度（该用户可用短信数已使用完）
+        ///110 不在发送时间内
+        ///111 超出该账户当月发送额度限制
+        ///112 无此产品，用户没有订购该产品
+        ///113 extno格式错（非数字或者长度不对）
+        ///115 自动审核驳回
+        ///116 签名不合法，未带签名（用户必须带签名的前提下）
+        ///117 IP地址认证错,请求调用的IP地址不是系统登记的IP地址
+        ///118 用户没有相应的发送权限
+        ///119 用户已过期
+        ///  </returns>
+        public static string SendSmsByJM(SmsModel smsmodel)
+        {
+            try
+            {
+                string _needstatus = string.IsNullOrEmpty(smsmodel.needstatus) ? "false" : smsmodel.needstatus;
+                string _product = string.IsNullOrEmpty(smsmodel.product) ? "" : ("&product=" + smsmodel.product);
+                string param = "account=" + smsmodel.account + "&pswd=" + smsmodel.pswd + "&mobile=" + smsmodel.mobile + "&msg=" + smsmodel.msg + "&needstatus=" + _needstatus + _product;
+                string res = HttpRequestUtil.HttpPost(smsmodel.url, param);
+                return res;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        #endregion
+    }
+
+    #region 数据传输模型
+    /// <summary>
+    /// 短息发送接口模型
+    /// </summary>
+    public class SmsModel
+    {
+        /// <summary>
+        /// 账号
+        /// </summary>
+        public string account { get; set; }
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string pswd { get; set; }
+        /// <summary>
+        /// 短信接口地址
+        /// </summary>
+        public string url { get; set; }
+        /// <summary>
+        /// 电话
+        /// </summary>
+        public string mobile { get; set; }
+        /// <summary>
+        /// 短信内容
+        /// </summary>
+        public string msg { get; set; }
+        /// <summary>
+        /// 是否需要状态报告，默认为false
+        /// </summary>
+        public string needstatus { get; set; }
+        /// <summary>
+        /// 产品id（可不填）
+        /// </summary>
+        public string product { get; set; }
+
+    }
+    #endregion
+}

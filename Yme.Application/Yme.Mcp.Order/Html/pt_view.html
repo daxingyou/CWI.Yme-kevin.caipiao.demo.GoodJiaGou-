@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>平台详情</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id="content_platform_view" class="cells pd-l-15 br-b-1">
+<!-- 			<div class="cell pd-offset-l">
+				<div class="cell-text">平台类型</div>
+				<div class="cell-item tr text-info">美团外卖</div>
+			</div>
+			<div class="cell pd-offset-l">
+				<div class="cell-text">门店名称</div>
+				<div class="cell-item tr text-info">美团外卖</div>
+			</div>
+			<div class="cell pd-offset-l">
+				<div class="cell-text">店主姓名</div>
+				<div class="cell-item tr text-info">美团外卖</div>
+			</div>
+			<div class="cell pd-offset-l">
+				<div class="cell-text">联系电话</div>
+				<div class="cell-item tr text-info">美团外卖</div>
+			</div>
+			<div class="cell pd-offset-l">
+				<div class="cell-text">所属城区</div>
+				<div class="cell-item tr text-info">深圳市南山区(高新园商圈)</div>
+			</div>
+			<div class="cell pd-offset-l">
+				<div class="cell-text">详细地址</div>
+				<div class="cell-item tr text-info">高新园区九州电气大厦B1101</div>
+			</div>
+			<div class="cell br-b pd-offset-l">
+				<div class="cell-text">经营范围</div>
+				<div class="cell-item tr text-info">快餐</div>
+			</div> -->
+		</div>
+	</div>
+	<div class="line-btn">
+		<button id="cancel_auth" class="btn btn-action">取消授权</button>
+	</div>
+</div>
+<div id="dialog_confirm" class="dialog dialog-confirm dialog-hide">
+	<div class="dialog-mask-transparent"></div>
+	<div class="dialog-content">
+		<div class="dialog-heading">
+			<h3>温馨提示</h3>
+		</div>
+		<div class="dialog-body tc"></div>
+		<div class="dialog-footer">
+			<button class="dialog-btn-action">再考虑下</button>
+			<button class="dialog-btn-cancel">继续取消</button>
+		</div>
+	</div>
+</div>
+<script id="tpl_platform_view" type="text/html">
+	<% var platform = {"1":"美团外卖", "2":"饿了么", "3":"百度外卖"} %>
+    <% if (platform_data) { %>
+    <div class="cell pd-offset-l">
+        <div class="cell-text">平台类型</div>
+        <div class="cell-item tr text-info"><%= platform_data['PlatformName'] %></div>
+    </div>
+    <div class="cell pd-offset-l">
+        <div class="cell-text">门店名称</div>
+        <div class="cell-item tr text-info"><%= platform_data['ShopName'] %></div>
+    </div>
+    <div class="cell pd-offset-l">
+        <div class="cell-text">联系电话</div>
+        <div class="cell-item tr text-info"><%= platform_data['Mobile'] %></div>
+    </div>
+    <div class="cell pd-offset-l">
+        <div class="cell-text">详细地址</div>
+        <div class="cell-item tr text-info"><%= platform_data['ShopAddress'] %></div>
+    </div>
+    <div class="cell br-b pd-offset-l">
+        <div class="cell-text">经营范围</div>
+        <div class="cell-item tr text-info"><%= platform_data['BusinessScope'] %></div>
+    </div>
+    <% } %>
+</script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/main.js"></script>
+<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+<script type="text/javascript">
+	var platform_info = {};
+	G.loader({
+		url: "/platform/getShopPlatformDetail?AuthId=" + G.get("AuthId"),
+		method: "get",
+		headers: G.helper.get_common_header(),
+		before: function(){
+			G.Loading.show();
+		},
+		response: function(res){
+			G.Loading.hide();
+			if (res.status == "1") {
+				platform_info = res.data;
+				var html = template("tpl_platform_view", {platform_data:res.data});
+				document.querySelector("#content_platform_view").innerHTML = html;
+			} else {
+				if (G.check_login(res.status)) {
+					G.prompt.error(res.data);
+				}
+			}
+		}
+	});
+
+document.querySelector("#cancel_auth").addEventListener("click", function(){
+	var txt ='';
+	if(platform_info.PlatformId == 3){
+		txt = '(在取消操作页面，点击\'确认取消授权\'后，再点击\'退出登录\'，以完成最终取消)'
+	}else if(platform_info.PlatformId == 2){
+		txt = '(请在饿了么商家版删除对应应用)'
+	}else{
+		txt ='';
+	}
+	
+	var dia = G.dialog({
+		title:'温馨提示',
+		text: "取消授权后,将不能管理和打印该平台订单" + txt,
+		btns:['继续取消','再考虑下'],
+		callback: function(e){
+			if(!e){
+				if(platform_info.PlatformId == 2){
+					G.loader({
+						url: platform_info.CancelUrl,
+						method: "get",
+						headers: G.helper.get_common_header(),
+						before: function(){
+							G.Loading.show();
+						},
+						response: function(res){
+							G.Loading.hide();
+							if (res.status == "1") {
+								dia.hide();
+								G.prompt.error('操作成功！', function(){
+									location.href = '/html/pt_manage.html';
+								});
+							} else {
+								G.prompt.error(res.data);
+							}
+						}
+					});
+				
+					return false;
+
+				}else{
+					location.href = platform_info.CancelUrl;
+				}
+			}
+			
+		}
+	})
+
+	
+    // $("#dialog_confirm").dialog({
+    //     mess: "取消授权后,将不能管理和打印该平台订单" + txt,
+    //     method: "confirm",
+    //     callback: function (bol) {
+    //         if (!bol) {
+	// 			if(platform_info.PlatformId == 2){
+					// G.loader({
+					// 	url: platform_info.CancelUrl,
+					// 	method: "get",
+					// 	headers: G.helper.get_common_header(),
+					// 	before: function(){
+					// 		G.loadingtext.show("加载中");
+					// 	},
+					// 	response: function(res){
+					// 		G.loadingtext.hide();
+					// 		$("#dialog_confirm .dialog-btn-cancel").prev().html('确定').next().hide();
+					// 		if (res.status == "1") {
+					// 			// $("#dialog_confirm .dialog-btn-cancel").prev().html('确定').next().remove();
+					// 			$("#dialog_confirm").dialog({
+					// 				mess: "取消授权成功！",
+					// 				method: "notice",
+					// 				callback: function (bol) {
+					// 					location.href = '/html/pt_manage.html';
+					// 				}
+					// 			});
+					// 		} else {
+					// 			$("#dialog_confirm").dialog({
+					// 				mess: res.data,
+					// 				method: "notice",
+					// 				callback: function (bol) {
+					// 					$("#dialog_confirm .dialog-btn-cancel").show();
+					// 				}
+					// 			});
+					// 		}
+					// 	}
+					// });
+				
+			// 	}else{
+			// 		location.href = platform_info.CancelUrl;
+				
+			// 	}
+			// }
+       // }
+    //});
+});
+</script>
+</body>
+</html>

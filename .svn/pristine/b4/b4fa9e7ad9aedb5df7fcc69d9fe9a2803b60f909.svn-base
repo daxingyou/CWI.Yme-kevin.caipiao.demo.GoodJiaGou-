@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微云打订单管理平台使用指南</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<!-- 1 -->
+		<div class="cells pd-l-15">
+			<div class="cell br-b pd-offset-l show_category" data-for="category_1" data-for-icon="category_icon_1">
+				<div class="cell-icon"><i class="icon icon-text-circle bg-ccc">1</i></div>
+				<div class="cell-item">系统设置</div>
+				<div class="cell-icon"><i id="category_icon_1" class="icon icon-circle-right"></i></div>
+			</div>
+		</div>
+		<div id="category_1" class="cells hide pd-l-15 br-t mg-offset-t-10">
+			<div class="cell br-t-1 show_content" data-for="content_1_1" data-for-icon="content_icon_1_1">
+				<div class="cell-item">1.1 登录</div>
+				<div class="cell-icon"><i id="content_icon_1_1" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_1_1" class="cell hide">
+				<div class="cell-item">
+					<p class="white-space">1.1.1 关注并进入“微云打”微信服务号。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/1_1_1.png" alt="">
+					</div>
+					<p class="white-space">1.1.2 点击微信公众号关注回复或者下方菜单栏中“我的门店”-“系统设置”选项，进入“系统设置”页面。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/1_1_2.png" alt="">
+					</div>
+					<p class="white-space">1.1.3 点击“登录”按钮，输入账号绑定的手机号码，点击右方“获取验证码”按钮，系统会将验证码以短信的形式发送到手机，填写验证码，最后点击“登录”按钮即可。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/1_1_3.png" alt="">
+					</div>
+					<p class="white-space">1.1.4 登录之后，如果不退出登录，下次进入公众号时，就无需再重新登录。</p>
+				</div>
+			</div>
+			<div class="cell show_content" data-for="content_1_2" data-for-icon="content_icon_1_2">
+				<div class="cell-item">1.2 退出登录</div>
+				<div class="cell-icon"><i id="content_icon_1_2" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_1_2" class="cell hide">
+				<div class="cell-item">
+					<p class="white-space">1.2.1 点击“微云打”服务号下方菜单栏中“我的门店”-“系统设置”选项，进入“系统设置”页面。</p>
+					<p class="white-space">1.2.2 点击“退出登录”按钮，即可退出此账号。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/1_2_1.png" alt="">
+					</div>
+					
+				</div>
+			</div>
+			<div class="cell br-b show_content" data-for="content_1_3" data-for-icon="content_icon_1_3">
+				<div class="cell-item">1.3 更换绑定电话</div>
+				<div class="cell-icon"><i id="content_icon_1_3" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_1_3" class="cell hide">
+				<div class="cell-item">
+					<p class="white-space">1.3.1 点击“微云打”服务号下方菜单栏中“我的门店”-“系统设置”选项，进入“系统设置”页面。</p>
+					<p class="white-space">1.3.2 点击“更换绑定电话”按钮，填写原手机号和新手机号，点击“获取验证码”按钮，系统会向新手机号发送验证码，填写验证码，点击“更换”按钮即可。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/1_3_1.png" alt="">
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="br-t-1 mg-offset-t-10"></div>
+		<!-- 2 -->
+		<div class="cells pd-l-15 br-t">
+			<div class="cell pd-offset-l br-b show_category" data-for="category_2" data-for-icon="category_icon_2">
+				<div class="cell-icon"><i class="icon icon-text-circle bg-ccc">2</i></div>
+				<div class="cell-item">平台管理</div>
+				<div class="cell-icon"><i id="category_icon_2" class="icon icon-circle-right"></i></div>
+			</div>
+		</div>
+		<div id="category_2" class="cells hide pd-l-15 mg-offset-t-10 br-t">
+			<div class="cell br-t-1 show_content" data-for="content_2_1" data-for-icon="content_icon_2_1">
+				<div class="cell-item">2.1 平台授权</div>
+				<div class="cell-icon"><i id="content_icon_2_1" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_2_1" class="cell hide">
+				<div class="cell-item">
+					<p class="white-space">商户可以通过“微云打”服务号，对已入驻的外卖平台（美团、饿了么、百度外卖）的订单进行集中管理和打印。</p>
+					<p class="white-space mgt-10">2.1.1 点击“微云打”服务号公下方菜单栏中“我的门店”-“平台管理”选项，进入“平台管理”页面。</p>
+					<p class="white-space mgt-10">2.1.2 选择需要接入的外卖平台：点击“>”按钮，进入授权页面，填写该外卖平台的账号和密码，并点击授权，即可接入平台。</p>
+					<p class="white-space mgt-10">2.1.2 各外卖平台的接入流程均相同。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/2_1_1.png" alt="">
+					</div>
+					
+				</div>
+			</div>
+			<div class="cell br-b show_content" data-for="content_2_2" data-for-icon="content_icon_2_2">
+				<div class="cell-item">2.2 取消授权</div>
+				<div class="cell-icon"><i id="content_icon_2_2" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_2_2" class="cell br-b br-t-1 hide">
+				<div class="cell-item">
+					<p class="white-space">在“平台管理”页面，点击已授权平台右侧的“>”按钮，进入平台详情页面，点击“取消授权”按钮。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/2_2_1.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="br-t-1 mg-offset-t-10"></div>
+		<!-- 3 -->
+		<div class="cells pd-l-15 br-t">
+			<div class="cell pd-offset-l br-b show_category" data-for="category_3" data-for-icon="category_icon_3">
+				<div class="cell-icon"><i class="icon icon-text-circle bg-ccc">3</i></div>
+				<div class="cell-item">打印机管理</div>
+				<div class="cell-icon"><i id="category_icon_3" class="icon icon-circle-right"></i></div>
+			</div>
+		</div>
+		<div id="category_3" class="cells br-t hide pd-l-15 mg-offset-t-10">
+			<div class="cell br-t-1 show_content" data-for="content_3_1" data-for-icon="content_icon_3_1">
+				<div class="cell-item">3.1 新增打印机</div>
+				<div class="cell-icon"><i id="content_icon_3_1" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_3_1" class="cell hide">
+				<div class="cell-item">
+					<p class="white-space">3.1.1 点击“微云打”服务号下方菜单栏中“我的门店”-“打印机管理”，进入“打印机管理”页面。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/3_1_1.png" alt="">
+					</div>
+					<p class="white-space mgt-10">3.1.2 绑定打印机，目前支持两种方式绑定。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/3_1_2.png" alt="">
+					</div>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/3_1_3.png" alt="">
+					</div>
+					<p class="white-space mgt-10">①　扫码绑定：点击“新增打印机”-“扫码绑定”，扫描微云打打印机底部标签的二维码，绑定此台打印机。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 250px;" src="/content/images/guide/3_1_4.png" alt="">
+					</div>
+					<p class="white-space mgt-10">②　录入“制造编号”绑定：点击“新增打印机”-“录入制造编号绑定”，用户可通过输入打印机的制造编号和校验码（每台打印机均有单独的制造编号和校验码），完成绑定。</p>
+				</div>
+			</div>
+			<div class="cell br-b show_content" data-for="content_3_2" data-for-icon="content_icon_3_2">
+				<div class="cell-item">3.2 打印机设置</div>
+				<div class="cell-icon"><i id="content_icon_3_2" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_3_2" class="cell br-b br-t-1 hide">
+				<div class="cell-item">
+					<p class="white-space">成功绑定打印机后，点击弹窗的“前去设置”按钮，进入“打印机设置”页面，即可对该打印机进行设置；</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/3_2_1.png" alt="">
+					</div>
+					<p class="white-space mgt-10">如需修改打印机的设置，在“打印机管理”页面的打印机列表中找到该打印机，点击打印机状态中的“>”按钮，进入打印机设置页面，更改设置；</p>
+					<p class="white-space mgt-10">还未设置过的打印机，右方会显示“待设置”状态，点击右侧“>”按钮，即可对该打印机进行设置。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/3_1_1.png" alt="">
+					</div>
+					<p class="white-space mgt-10">3.2.1 打印机名称设置</p>
+					<p class="white-space mgt-10">在打印机设置页面，点击‘名称’字段的“>”，可对该打印机重新命名，否则将显示该打印机的默认名称。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/3_2_3.png" alt="">
+					</div>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/3_2_4.png" alt="">
+					</div>
+					<p class="white-space mgt-10">3.2.2 设置打印场景</p>
+					<p class="white-space mgt-10">在打印机设置页面，点击“>”按钮，即可勾选该打印机的使用场景，查看打印模板；共有3种打印场景可供选择，根据需要选择其中一种或者多种打印场景。</p>
+					<p class="white-space mgt-10">a.外卖小票：供外卖派送时查看使用</p>
+					<p class="white-space mgt-10">b.订单小票：供财务对账使用</p>
+					<p class="white-space mgt-10">c.厨房小票：供厨师安排任务使用</p>
+					<p class="white-space mgt-10">d.取消小票：用户取消订单的小票</p>
+					<p class="white-space mgt-10">3.2.3 设置打印份数</p>
+					<p class="white-space mgt-10">通过点击“-”和“+”号，增加或者减少份数（每种小票最多能打印5份）。点击“保存”按钮，即可设置成功。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/3_2_5.png" alt="">
+					</div>
+					<p class="white-space mgt-10">3.2.4 更改使用状态</p>
+					<p class="white-space mgt-10">打印机使用状态默认为“正常。如需暂时停用，点击状态按钮即可暂停该打印机。再次点击按钮即可重新恢复正常，并保留之前的设置。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/3_2_6.png" alt="">
+					</div>
+					<p class="white-space mgt-10">3.2.5 解除绑定</p>
+					<p class="white-space mgt-10">在打印机设置页面，点击“解除绑定”按钮，可将打印机从列表中删除。</p>
+					<div class="tc mgt-10 mgb-10">
+						<img style="width: 200px;" src="/content/images/guide/3_2_7.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 4 -->
+		<div class="br-t-1 mg-offset-t-10"></div>
+		<div class="cells pd-l-15 br-t">
+			<div class="cell pd-offset-l br-b show_category" data-for="category_4" data-for-icon="category_icon_4">
+				<div class="cell-icon"><i class="icon icon-text-circle bg-ccc">4</i></div>
+				<div class="cell-item">查看门店信息</div>
+				<div class="cell-icon"><i id="category_icon_4" class="icon icon-circle-right"></i></div>
+			</div>
+			<div id="category_4" class="cell hide br-b br-t-1">
+				<div class="cell-item">
+					<p class="white-space">点击公众号菜单栏“我的门店”-“门店信息”，即可查看门店信息。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/4_1.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 5 -->
+		<div class="br-t-1 mg-offset-t-10"></div>
+		<div class="cells pd-l-15 br-t">
+			<div class="cell pd-offset-l br-b show_category" data-for="category_5" data-for-icon="category_icon_5">
+				<div class="cell-icon"><i class="icon icon-text-circle bg-ccc">5</i></div>
+				<div class="cell-item">订单管理</div>
+				<div class="cell-icon"><i class="icon icon-circle-right"></i></div>
+			</div>
+		</div>
+		<div id="category_5" class="cells hide pd-l-15 mg-offset-t-10 br-t">
+			<div class="cell br-t-1 show_content" data-for="content_5_1" data-for-icon="content_icon_5_1">
+				<div class="cell-item">5.1 今日订单</div>
+				<div class="cell-icon"><i id="content_icon_5_1" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_5_1" class="cell hide">
+				<div class="cell-item">
+					<p class="white-space">点击微信公众号下方菜单“订单管理-今日订单”，即可进入“今日订单”页面，查看当天的订单。</p>
+					<p class="white-space">有三种订单状态：</p>
+					<p class="white-space">进行中：当天成功接单后尚处于进行中的订单。</p>
+					<p class="white-space">已完成：当天已完成的订单。</p>
+					<p class="white-space">已取消：当天已取消的订单。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/5_1_1.png" alt="">
+					</div>
+					<p class="white-space">5.1.1 订单详情</p>
+					<p class="white-space">点击订单号右方的“>”按钮，即可查看相应的订单详情。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/5_1_2.png" alt="">
+					</div>
+					<!--<p class="white-space">5.1.2 预订单</p>
+					<p class="white-space">消费者预定好送达时间的订单即为预订单，带有“ <img style="width: 20px;" src="/content/images/guide/5_icon.png"/> ”标记。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/5_1_3.png" alt="">
+					</div>-->
+					
+					<p class="white-space">5.1.2 小票打印状态</p>
+					<p class="white-space">每笔订单的小票打印状态有3种：</p>
+					<p class="white-space">待打印：已经接单，正在准备打印小票。</p>
+					<p class="white-space">已打印：已经打印过小票。（如需重新打印小票，可点击“重打”按钮。）</p>
+					<p class="white-space">打印失败：打印失败和长时间未打印的订单。点击“补打”按钮，即可再次打印小票。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/5_1_1.png" alt="">
+					</div>
+					
+					
+					<p class="white-space">5.1.3 重打/补打 </p>
+					<p class="white-space">重打：</p>
+					<p class="white-space">点击订单右侧“<img style="width: 60px;" src="/content/images/guide/5_icon1.png"/> ”按钮，勾选需要打印的场景（默认全部勾选，点击勾选框可取消），即可重新打印相应的小票。</p>
+					<p class="white-space">补打：</p>
+					<p class="white-space">点击订单右侧“ <img style="width: 60px;" src="/content/images/guide/5_icon2.png"/> ”按钮，勾选需要打印的场景（默认全部勾选，点击勾选框可取消），即可补充打印相应的小票。</p>
+
+					<div class="tc mgt-10">
+						<img style="width: 50%;" src="/content/images/guide/5_1_1.png" alt="">
+						<img style="width: 50%;" src="/content/images/guide/5_1_6.png" alt="">
+					</div>
+					
+				</div>
+			</div>
+			<div class="cell  show_content" data-for="content_5_2" data-for-icon="content_icon_5_2">
+				<div class="cell-item">5.2 预订单</div>
+				<div class="cell-icon"><i id="content_icon_5_2" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_5_2" class="cell hide br-b">
+				<div class="cell-item">
+					<p class="white-space">点击微信公众号下方菜单“订单管理-预订单”，进入“预订单”页面，可查看最近7天进行中的订单，以便商户能按时间的先后顺序及时准备。</p>
+					<p class="white-space">PS:消费者预定好送达时间的订单即为预订单，带有“ <img style="width: 20px;" src="/content/images/guide/5_icon.png"/>  ”标记。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/5_1_7.png" alt="">
+					</div>
+				</div>
+			</div>
+			
+			<div class="cell show_content" data-for="content_5_3" data-for-icon="content_icon_5_3">
+				<div class="cell-item">5.3 订单补打</div>
+				<div class="cell-icon"><i id="content_icon_5_3" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_5_3" class="cell hide br-b">
+				<div class="cell-item">
+					<p class="white-space">点击微信公众号下方菜单“订单管理-订单补打”，可迅速找到所有需要补打小票的订单。</p>
+					
+
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/5_1_8.png" alt="">
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="cell br-b show_content" data-for="content_5_4" data-for-icon="content_icon_5_4">
+				<div class="cell-item">5.4 订单查询</div>
+				<div class="cell-icon"><i id="content_icon_5_4" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_5_4" class="cell hide br-b br-t-1">
+				<div class="cell-item">
+					<p class="white-space">点击微信公众号下方菜单“订单管理-订单查询”，查询最近7日的订单。</p>
+					<p class="white-space">（1）在输入框中输入需要查询的订单号/手机号/平台订单序号。</p>
+					<p class="white-space">（2）选择需要查询的平台，订单状态和打印状态。</p>
+					<p class="white-space">（3）点击搜索按钮即可查询。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/5_1_10.png" alt="">
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		<!-- 6 -->
+		<div class="br-t-1 mg-offset-t-10"></div>
+		<div class="cells pd-l-15 br-t">
+			<div class="cell pd-offset-l br-b show_category" data-for="category_6" data-for-icon="category_icon_6">
+				<div class="cell-icon"><i class="icon icon-text-circle bg-ccc">6</i></div>
+				<div class="cell-item">数据报表</div>
+				<div class="cell-icon"><i id="category_icon_6" class="icon icon-circle-right"></i></div>
+			</div>
+		</div>
+		<div id="category_6" class="cells hide pd-l-15 mg-offset-t-10 br-t">
+			<div class="cell br-t-1 show_content" data-for="content_6_1" data-for-icon="content_icon_6_1">
+				<div class="cell-item">6.1 业绩日报</div>
+				<div class="cell-icon"><i id="content_icon_6_1" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_6_1" class="cell hide">
+				<div class="cell-item">
+					<p class="white-space">根据商户所授权的外卖平台营业状况，从订单，菜品，客户三个维度，生成的详细可视化数据报表（当天数据次日生成）。</p>
+					<p class="white-space mgt-10">默认显示前一天的订单日报，可查看单日订单数据，共有6项数据：</p>
+					<p class="white-space ti-2">a.订单总量，即所选日期已完成和已取消的订单数量；</p>
+					<p class="white-space ti-2">b.取消订单数，即所选日期已取消订单的数量；</p>
+					<p class="white-space ti-2">c.订单日环比，即所选日期与前一天的订单总数相对比的增减率；</p>
+					<p class="white-space ti-2">d.订单总额，即所选日期全天的已完成和已取消的订单总额；</p>
+					<p class="white-space ti-2">e.取消金额，即所选日期全天取消订单的总额；</p>
+					<p class="white-space ti-2">f.订单总额日环比，即所选日期与前一天的订单收入总额相比的增减率。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/6_1_1.png" alt="">
+					</div>
+					<p class="white-space mgt-10">1)查看单日订单数据</p>
+					<p class="white-space mgt-10">点击“业绩日报”右侧的<img style="width: 32px;" src="/content/images/icon_date.png" alt="">按钮，选择要查看的日期，即可查看详细数据。折线图可以向左滑动，直观显示不同平台营业状况的对比，帮助商家优化资源配置。</p>
+					<p class="white-space mgt-10">2)查看多日订单数据</p>
+					<p class="white-space mgt-10">点击“平台统计”右侧的<img style="width: 32px;" src="/content/images/icon_date.png" alt="">图标，即可选择需要查看的起止时间（商户自行选择日期范围，区间最长为6个月）。</p>
+					<p class="white-space mgt-10">“微云打”可查看订单总量数据折线图，横坐标表示时间，纵坐标表示订单总量，不同平台会以不同颜色加以区分，通过选择平台图标，选择查看外卖平台订单数据的范围，直观展示不同平台连续多天的经营情况。</p>
+				</div>
+			</div>
+			<div class="cell show_content" data-for="content_6_2" data-for-icon="content_icon_6_2">
+				<div class="cell-item">6.2 菜品数据报表</div>
+				<div class="cell-icon"><i id="content_icon_6_2" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_6_2" class="cell hide">
+				<div class="cell-item">
+					<p class="white-space">可统计菜品销量排名，以及在每个外卖平台的销量。</p>
+					<p class="white-space mgt-10">点击“菜品销量”右侧的三角形图标，报表数据可按由多到少或由少到多的顺序排列。</p>
+					<p class="white-space mgt-10">向右滑动屏幕，即可查看更多菜品的相关数据。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/6_2_1.png" alt="">
+					</div>
+				</div>
+			</div>
+			<div class="cell br-b show_content" data-for="content_6_3" data-for-icon="content_icon_6_3">
+				<div class="cell-item">6.3 客户数据报表</div>
+				<div class="cell-icon"><i id="content_icon_6_3" class="icon icon-right"></i></div>
+			</div>
+			<div id="content_6_3" class="cell br-b br-t-1 hide">
+				<div class="cell-item">
+					<p class="white-space">选择日期后，可查看所有外卖客户的人数总量。</p>
+					<div class="tc mgt-10">
+						<img style="width: 200px;" src="/content/images/guide/6_3_1.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="br-t-1 mg-offset-t-10"></div>
+	</div>
+</div>
+    <script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript">
+$(".show_category").on("click", function(){
+	var for_id = $(this).attr("data-for");
+	var for_icon_id = $(this).attr("data-for-icon");
+	if ($(this).attr("data-on")) {
+		$(this).attr("data-on", "");
+		$("#"+for_id).addClass("hide");
+		$("#"+for_icon_id).removeClass("icon-circle-down").addClass("icon-circle-right");
+	} else {
+		$(this).attr("data-on", "1");
+		$("#"+for_id).removeClass("hide");
+		$("#"+for_icon_id).removeClass("icon-circle-right").addClass("icon-circle-down");
+	}
+
+});
+$(".show_content").on("click", function(){
+	var for_id = $(this).attr("data-for");
+	var for_icon_id = $(this).attr("data-for-icon");
+	if ($(this).attr("data-on")) {
+		$(this).attr("data-on", "");
+		$("#"+for_id).addClass("hide");
+		$("#"+for_icon_id).removeClass("icon-down").addClass("icon-right");
+	} else {
+		$(this).attr("data-on", "1");
+		$("#"+for_id).removeClass("hide");
+		$("#"+for_icon_id).removeClass("icon-right").addClass("icon-down");
+	}
+
+});
+</script>
+</body>
+</html>

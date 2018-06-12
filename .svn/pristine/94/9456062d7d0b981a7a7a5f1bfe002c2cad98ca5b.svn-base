@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>厨房小票打印模板</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+	<link rel="stylesheet" href="/content/css/template.css">
+	
+</head>
+<body  style="width:100%;">
+	
+	<div class="ticket">
+		<div class="ticketList">
+			
+			<h3>给厨房 - <span class="beig-in">美团外卖#XXX</span></h3>
+			<ul>
+				<li>送达时间：<span class="beig-in">立即|大约15：15送达</span></li>
+					
+			</ul>
+			<div class="asterisk">*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************</div>
+			<ul>
+				<li>订单编号：**********</li>
+				<li>下单时间：年/月/日 时：分：秒</li>
+				<li class="weight">用餐人数：3人</li>
+				<li class="beig">备注：不放辣</li>
+			</ul>
+			<table class="firstTab" cellspacing="" cellpadding="">
+				<tr><td colspan="3"><div class="role"><span>1号篮子</span></div></td></tr>
+				<tr><td class="blod"><span class="beig-in">xx鸭脖200g装（冷）</span></td><td><span class="beig-in">X3</span></td></tr>
+				<tr><td class="blod"><span class="beig-in">xx鸭翅200g装（热）</span></td><td><span class="beig-in">X2</span></td></tr>
+				<tr><td class="blod"><span class="beig-in">xx卤莲藕200g装</span></td><td><span class="beig-in"></span></td></tr>
+				<tr><td class="blod"><span class="beig-in">xx卤鸡蛋</span></td><td><span class="beig-in">X1</span></td></tr>
+				<tr><td colspan="3"><div class="role"><span>2号篮子</span></div></td></tr>
+				<tr><td class="blod"><span class="beig-in">xx鸭脖200g装（冷）</span></td><td><span class="beig-in">X3</span></td></tr>
+				<tr><td class="blod"><span class="beig-in">xx鸭翅200g装（热）</span></td><td><span class="beig-in">X2</span></td></tr>
+			</table>
+			<div class="asterisk">*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************</div>
+			<div class="count">总计：26件</div>
+			
+		</div>
+<!-- 		
+		<div class="ticketList">
+			
+			<h3 class="two">给厨房 - <span class="beig-in">美团外卖#XXX</span></h3>
+			<ul>
+					<li>送达时间：<span class="beig-in">指定|04-15(星期六)15：45</span></li>
+						
+				</ul>
+				<div class="asterisk">*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************</div>
+				<ul>
+					<li>订单编号：**********</li>
+					<li>下单时间：年/月/日 时：分：秒</li>
+					<li class="weight">用餐人数：3人</li>
+					<li class="beig">备注：不放辣</li>
+				</ul>
+				<table class="firstTab" cellspacing="" cellpadding="">
+					<tr><td colspan="3"><div class="role"><span>1号篮子</span></div></td></tr>
+					<tr><td class="blod">xx鸭脖200g装（冷）</td><td>X3</td></tr>
+					<tr><td class="blod">xx鸭翅200g装（热）</td><td>X2</td></tr>
+					<tr><td class="blod">xx卤莲藕200g装</td><td>X3</td></tr>
+					<tr><td class="blod">xx卤鸡蛋</td><td>X1</td></tr>
+					<tr><td colspan="3"><div class="role"><span>2号篮子</span></div></td></tr>
+					<tr><td class="blod">xx鸭脖200g装（冷）</td><td>X3</td></tr>
+					<tr><td class="blod">xx鸭翅200g装（热）</td><td>X2</td></tr>
+				</table>
+				<div class="asterisk">*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************</div>
+				<div class="count">总计：26.00</div>
+		</div> -->
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    <!--<img src="/content/images/templates/3_01.jpg" alt="" class="show">
+    <img src="/content/images/templates/3_02.jpg" alt="" class="show">
+    <img src="/content/images/templates/3_03.jpg" alt="" class="show">
+    <img src="/content/images/templates/3_04.jpg" alt="" class="show">
+    <img src="/content/images/templates/3_05.jpg" alt="" class="show">
+    <img src="/content/images/templates/3_06.jpg" alt="" class="show">
+    <img src="/content/images/templates/3_07.jpg" alt="" class="show">-->
+    	
+    <!--<img src="/content/images/template/cf1_01.png" style="margin-top: 20px;"   class="show"/>
+    <img src="/content/images/template/cf1_02.png"   class="show"/>
+    <img src="/content/images/template/cf1_03.png"   class="show"/>
+    <img src="/content/images/template/cf1_04.png"   class="show"/>
+    <img src="/content/images/template/cf2_01.png"  style="margin-top: 20px;"  class="show"/>
+    <img src="/content/images/template/cf2_02.png"   class="show"/>
+    <img src="/content/images/template/cf2_03.png"   class="show"/>
+    <img src="/content/images/template/cf2_04.png"  style="margin-bottom: 20px;"  class="show"/>-->
+    	
+    	
+    	
+    	
+    	
+    	
+</body>
+</html>

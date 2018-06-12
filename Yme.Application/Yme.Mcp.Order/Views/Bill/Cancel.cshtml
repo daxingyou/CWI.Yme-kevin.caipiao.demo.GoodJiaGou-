@@ -1,0 +1,52 @@
+﻿@{Layout = null;}
+@using Yme.Util;
+@using Yme.Mcp.Entity.OrderManage;
+@using Yme.Mcp.Model.QueryModels;
+@using Yme.Mcp.Model.Enums;
+@using Yme.Util.Extension;
+@{
+    var order = ViewBag.Order as OrderEntity;
+    var details = ViewBag.Details as List<OrderGroupQueryModel>;
+    var otherFee = ViewBag.OtherFee as OrderFeeQueryModel;
+    var qrcodeUrl = ViewBag.QrCodeUrl as string;
+    ViewBag.Title = "取消小票";
+}
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+    <!--小票基本信息-->
+    <p><label style="font-size:48px;font-weight:bold;">@ViewBag.Title</label><label style="font-size:24px;font-weight:bold;">-@(order != null ? (string.Format("{0}#{1}", ((PlatformType)order.PlatformId).GetRemark(), order.DaySeq)) : string.Empty)</label></p>
+    <hr style="print-char:-;">
+    <p style="text-align:center;font-weight:bold;">@(order != null ? order.ShopName : string.Empty)</p>
+    <hr style="print-char:*;">
+    <p><label>订单编号: </label><label>@(order != null ? order.OrderViewId : string.Empty)</label></p>
+    <p><label>下单时间: </label><label>@(order != null ? order.OrderTime.ToDateTimeString() : string.Empty)</label></p>
+    <!--小票明细-->
+    @if (details != null && details.Count > 0)
+    {
+        foreach (var d in details)
+        {
+            if (d != null && d.Items != null)
+            {
+                <hr style="print-char:-;print-text:@(string.Format("{0}号篮子", d.GroupId));">
+                foreach (var gi in d.Items)
+                {
+                    <p>
+                        <label style="width:85%;font-size:24px;font-weight:bold;">@(gi != null ? gi.Name : string.Empty)</label>
+                        <label style="width:15%;font-size:24px;font-weight:bold;text-align: right;">@(gi != null ? gi.Qty : string.Empty)</label>
+                    </p>
+                }
+            }
+        }
+    }
+    <!--备注信息-->
+    <hr style="print-char:*;">
+    <p><label style="font-weight:bold;">取消原因: </label><label style="font-weight:bold;">@(order != null ? order.CancelReason : string.Empty)</label></p>
+    <p><label style="font-weight:bold;">取消时间: </label><label style="font-weight:bold;">@(order != null && order.CancelTime.HasValue ? order.CancelTime.Value.ToDateTimeString() : string.Empty)</label></p>
+    <br/>
+    <h3 style="text-align:center;font-size:48px;font-weight:bold;">@(order != null ? (string.Format("=== #{0}完 ===", order.DaySeq)) : string.Empty)</h3>
+</body>
+</html>

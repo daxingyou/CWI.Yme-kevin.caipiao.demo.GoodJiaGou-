@@ -1,0 +1,24 @@
+2018-04-13 00:21:46,384 [77] ERROR Yme.Util.Log.LogUtil [(null)] - mcp_demo|Error|2018-04-13 00:21:46.384|Application_Error:System.Web.HttpException (0x80004005): 从客户端(:)中检测到有潜在危险的 Request.Path 值。
+   在 System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   在 System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+2018-04-13 00:22:42,269 [78] ERROR Yme.Util.Log.LogUtil [(null)] - mcp_demo|Error|2018-04-13 00:22:42.269|Application_Error:System.Web.HttpException (0x80004005): 从客户端(:)中检测到有潜在危险的 Request.Path 值。
+   在 System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   在 System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+2018-04-13 00:27:30,875 [82] ERROR Yme.Util.Log.LogUtil [(null)] - mcp_demo|Error|2018-04-13 00:27:30.875|Application_Error:System.Web.HttpException (0x80004005): 从客户端(:)中检测到有潜在危险的 Request.Path 值。
+   在 System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   在 System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+2018-04-13 00:37:12,301 [63] ERROR Yme.Util.Log.LogUtil [(null)] - mcp_demo|Error|2018-04-13 00:37:12.301|Application_Error:System.Web.HttpException (0x80004005): 从客户端(:)中检测到有潜在危险的 Request.Path 值。
+   在 System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   在 System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+2018-04-13 00:41:01,850 [84] ERROR Yme.Util.Log.LogUtil [(null)] - mcp_demo|Error|2018-04-13 00:41:01.850|Application_Error:System.Web.HttpException (0x80004005): 从客户端(:)中检测到有潜在危险的 Request.Path 值。
+   在 System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   在 System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+2018-04-13 00:43:51,478 [81] ERROR Yme.Util.Log.LogUtil [(null)] - mcp_demo|Error|2018-04-13 00:43:51.478|Application_Error:System.Web.HttpException (0x80004005): 从客户端(:)中检测到有潜在危险的 Request.Path 值。
+   在 System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   在 System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+2018-04-13 00:45:47,520 [80] ERROR Yme.Util.Log.LogUtil [(null)] - mcp_demo|Error|2018-04-13 00:45:47.520|Application_Error:System.Web.HttpException (0x80004005): 从客户端(:)中检测到有潜在危险的 Request.Path 值。
+   在 System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   在 System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+2018-04-13 00:49:08,958 [75] ERROR Yme.Util.Log.LogUtil [(null)] - mcp_demo|Error|2018-04-13 00:49:08.958|Application_Error:System.Web.HttpException (0x80004005): 从客户端(:)中检测到有潜在危险的 Request.Path 值。
+   在 System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   在 System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)

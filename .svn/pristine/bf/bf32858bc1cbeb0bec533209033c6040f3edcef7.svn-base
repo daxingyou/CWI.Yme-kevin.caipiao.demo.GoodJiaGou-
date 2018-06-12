@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>未登录</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body class="bg-white">
+<div class="container">
+    <div style="width:35%;margin:20% auto 7% auto;">
+        <img src="/content/images/img_nologin.png" alt="">
+    </div>
+	<p class="tc">抱歉，您还没登录。请登录后，再使用此功能</p>
+	<p class="tc mgt-10"><a id="login" href="login.html" class="text-spec">登录>></a></p>
+</div>
+    <script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.app.js"></script>
+    <script type="text/javascript">
+//      $('#login').attr("href", "login.html?openid=" + G.get("openid"));
+        $('#login').attr("href", "login.html"+window.location.search );
+    </script>
+</body>
+</html>

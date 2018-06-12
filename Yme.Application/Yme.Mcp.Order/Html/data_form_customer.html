@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>客户数据报表</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+	<link rel="stylesheet" href="/content/css/LCalendar/LCalendar.min.css">
+</head>
+<body>
+	<div class="container">
+	<div class="bgW row" style="background-color:#fff;padding-bottom:10px;">
+		<div class="">
+			<div class="cells">
+				<div class="cell">
+					<div class="cell-item">客户统计</div>
+					<div class="cell-icon"><i class="icon icon-date"></i><input   onfocus='this.blur();'  class="LCalendar_input" type="text" id="date_total"></div>
+				</div>
+			</div>
+		</div>
+		<div class="clear-fix ">
+		<div class="col-6">
+			<div class="row">
+				<div class="border-box pd-offset mg-r-5">
+					<div class="cells br-t mg-offset-b">
+						<div id="content_data_total" class="cell br-b bg-dff2fc pd-lr-8" style="display:block">
+						<!-- <div class="cell-item">
+								<h3 class="text-info">客户总量(单)</h3>
+								<p class="fs-big">100</p>
+							</div>
+							<div class="cell-icon">4.4%</div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+	<div class="bottombar colm-3">
+		<div class="bottombar-item tc">
+			<a class="show" href="data_form_order.html">
+				<i class="icon icon-form-bottom-dd"></i>
+				<p class="text-info lh-1">订单</p>
+			</a>
+		</div>
+		<div class="bottombar-item tc">
+			<a class="show" href="data_form_food.html">
+				<i class="icon icon-form-bottom-cp"></i>
+				<p class="text-info lh-1">菜品</p>
+			</a>
+		</div>
+		<div class="bottombar-item tc">
+			<a class="show bottombar-active" href="data_form_customer.html">
+				<i class="icon icon-form-bottom-kh"></i>
+				<p class="text-info lh-1">客户</p>
+			</a>
+		</div>
+	</div>
+<script id="tpl_data_customer" type="text/html">
+<% if(total){ %>
+<div class="cell-item">
+	<h3 class="text-info">当日客户总量</h3>
+	<p class="fs-big" style="color:#333;font-size:18px;"><%= total.CustomerTotal %>
+		<span style="
+			font-size: 12px;
+			color: #999;
+		">人</span>
+	</p>
+</div>
+<div class="cell-icon fd6363  <%= total.TotalRelativeRatio>=0? '' : 'reduce_color'%> "><i class="icon"></i>
+	<% if(total.TotalRelativeRatio != '--'){ %>
+		<%= total.TotalRelativeRatio>=0?(total.TotalRelativeRatio == 0 ? '':'+'):'-' %><%= window.Math.abs(total.TotalRelativeRatio) %>%
+
+	<% } else { %>
+		<span style="color:#000"> -- </span>
+	<% } %>   
+
+</div>
+<% } %>
+</script>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+<script type="text/javascript" src="/content/scripts/LCalendar/LCalendar.js"></script>
+<script type="text/javascript">
+//统计日期
+var calendar_total = new LCalendar();
+var default_date =  getDate({d:-1});
+calendar_total.init({
+    'trigger': '#date_total', //标签id
+    'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+    'minDate': '2010-1-1', //最小日期
+    'maxDate':default_date, //最大日期
+    'confirm': function(res){
+    	get_customer_day_rpt(res);
+    }
+});
+
+
+$("#date_total").val(default_date);
+get_customer_day_rpt(default_date);
+
+function get_customer_day_rpt(d) {
+    G.loader({
+        url: "/report/getCustomerDayRpt?QueryDate=" + d,
+        method: "get",
+        headers: G.helper.get_common_header(),
+        before: function () {
+			G.Loading.show();
+        },
+        response: function (res) {
+            G.Loading.hide();
+            if (res.status == "1") {
+				//'<p style="background:#F6F5FA;padding:10px;text-align:center;">暂无数据</p>'
+                var html_total = template("tpl_data_customer", { total: res.data, window: window });
+                document.querySelector("#content_data_total").innerHTML = html_total;
+            } else {
+                if (G.check_login(res.status)) {
+                    G.prompt.error(res.data);
+                }
+            }
+        }
+    });
+}
+</script>
+</body>
+</html>

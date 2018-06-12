@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微信配置</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+	<style type="text/css">
+		.row{
+			margin: -8px;
+		}
+		
+		.imgToText{
+			background-color: #fff;
+		}
+		.imgToText h3,.imgToText h4{
+			padding:5px 0;
+		}
+		.imgToText{
+			padding:10px;
+			line-height: 1.3;
+		}.imgToText  ol{
+			margin: 5px auto;
+			padding-left: 10px;
+			margin-left: 10px;
+		}
+		.imgToText li{
+			list-style-type: none;
+		}
+		.row img{
+			display: block;
+			width: 90%;
+			border: none;
+			margin: 20px auto;
+		}
+		.imgToText p,.imgToText .thr{
+			/*padding-left: 10px;*/
+			position: relative;
+			margin: 10px 0;
+			/*padding-left: 25px;*/
+		}
+		/*.imgToText p:before,.imgToText .thr:before{
+			content: '1';
+			text-align: center;
+			line-height: 20px;
+			border-radius: 50%;
+			left:0;
+			position: absolute;
+			width:20px;
+			height:20px;
+			color:#fff;
+			background-color: #eaeaea;
+		}*/
+		/*.imgToText .two:before{
+			content: '2';
+		}
+		.imgToText .thr:before{
+			content: '3';
+		}
+		.imgToText .four:before{
+			content: '4';
+		}*/
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		
+		<div class="imgToText">
+			<p style="text-indent: 1em;">1. 确认手机或其它移动设备成功连接上Wi-Fi，网络处于可正常使用的状态。</p>
+			<p style="text-indent: 2em;margin-top: -8px;"><span style="color:red">温馨提示：</span>建议单次仅针对一台打印机进行Wi-Fi配网。</p>
+			<p style="text-indent: 1em;" class="two">2. 按打印机设备后下方‘Wi-Fi RESET ’键2秒，Wi-Fi指示灯快闪进入可配置状态（此时打印机会自动打印‘打印机已进入配网模式’的通知）。</p>
+		<!--	<p style="text-indent: 1em;" >（此时打印机会自动打印‘打印机已进入配置状态’的通知）</p>>-->
+			<p style="text-indent: 1em;" class="two">3. 点击公众号下方菜单“我的门店”-“Wi-Fi配置”。 
+</p>		<!--<p style="text-indent: 1em;" >（此时打印机会自动打印‘获取Wi-Fi内容’的通知）</p>-->
+			
+			<img style="margin-top:0;width:65%;"  src="/content/images/guide/wifi1.jpg"/>
+			<p style="text-indent: 1em;" class="four">4. 在输入框中输入Wi-Fi密码，然后点击“连接”按钮（此时打印机会自动打印‘获取Wi-Fi信息’的通知）；
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 收到配置成功的提示后即完成配置（此时打印机会自动打印‘Wi-Fi配置成功’的结果通知）。网络配置成功后Wi-Fi指示灯慢闪。</p>
+			<p style="text-indent: 1em;" >&nbsp; <span style="color:#f11;">注：</span>打印机目前只支持2.4G的网络</p>
+			<div style="margin: 0 auto; width: 90%;overflow: hidden;">
+				<img style="margin-top:10px;float: left;width:49%;"  src="/content/images/guide/wifi2.png"/>
+				<img style="margin-top:10px;float: left;width:49%;margin-left: 2%;"  src="/content/images/guide/wifi3.jpg"/>
+			</div>
+		</div>
+		
+		
+	</div>
+</div>
+</body>
+</html>

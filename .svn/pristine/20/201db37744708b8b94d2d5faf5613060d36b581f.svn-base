@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>购买双色彩票</title>
+    <link rel="stylesheet" href="../Content/css/main.css">
+    <style>
+        .flex-box {
+            padding: 5px;
+            margin: 0 -15px;
+        }
+
+        .btn-white {
+            flex: 1;
+            color: inherit;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+
+        .cells {
+            margin: 0 -15px;
+        }
+
+        .cell-box {
+            display: flex;
+            padding: 10px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cell-item {
+            display: flex;
+            margin-left: 5px;
+        }
+
+        .cell-item:first-child {
+            margin-left: 0;
+        }
+
+        .cell-item.flex {
+            flex: 1;
+        }
+
+        .cell-item input {
+            width: 20px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .ball-min-item {
+            width: 20px;
+            text-align: center;
+            height: 20px;
+            line-height: 20px;
+            padding: 2px;
+            border-radius: 100%;
+            color: #fff;
+            font-size: 12px;
+            background-color: #fd5452;
+            margin-left: 3px;
+        }
+
+        .ball-min-item:first-child {
+            margin-left: 0;
+        }
+
+        .ball-min-item:last-child {
+            color: #fff;
+            background-color: #44a3e7;
+        }
+
+        .ctr-jian {
+            width: 24px;
+            height: 24px;
+            background: url("../Content/images/jian.png") no-repeat center;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-right: none;
+        }
+
+        .ctr-jia {
+            width: 24px;
+            height: 24px;
+            background: url("../Content/images/jia.png") no-repeat center;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-left: none;
+        }
+
+        .cell-item input {
+            width: 30px;
+            text-align: center;
+            height: 24px;
+            box-sizing: border-box;
+            outline: none;
+            -webkit-appearance: none;
+            border: 1px solid #ddd;
+        }
+
+        .footer {
+            font-size: 13px;
+            padding: 5px 10px;
+            line-height: 24px;
+            background-color: #fff;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        .btn-primary {
+            flex: 1;
+            font-size: 16px;
+            background-color: #fd5452;
+            color: #fff;
+        }
+    </style>
+</head>
+<body style="padding-bottom: 94px">
+<div class="flex-box">
+    <a class="btn-white" href="lottery.html">+自选号码</a>
+    <span class="btn-white" onclick="randomNum()">+机选五注</span>
+</div>
+<div class="cells"></div>
+<div class="footer">
+    <div class="btn-primary" onclick="enterLottery()">投注并打印</div>
+    <div style="text-align: center;">我已经阅读并同意<span class="color-blue">《委托投注规则》</span></div>
+</div>
+<script src="../Content/scripts/ajax.min.js"></script>
+<script src="../Content/scripts/main.js"></script>
+<script>
+    var ajax = ajax({
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    var selectBall = sessionStorage.getItem('selectBall'), isEnter = true;
+    if (selectBall) cellBoxRender(JSON.parse(selectBall));
+
+    /* 小于10补0 */
+    function numFormat(num) {
+        return num < 10 ? '0' + num : num
+    }
+
+    /* cellbox 渲染 */
+    function cellBoxRender(selectBall) {
+        var html = '<div class="cell-box"><div class="cell-item flex">';
+        selectBall.forEach(function (n) {
+            n = Number(n);
+            html += '<div class="ball-min-item">' + (n < 10 ? '0' + n : n) + '</div>'
+        });
+        html += '</div><div class="cell-item"><span class="ctr-jian"></span><input type="number" value="1"><span class="ctr-jia"></span></div><div class="cell-item"><i class="remove-icon"></i></div></div>';
+        document.querySelector('.cells').insertAdjacentHTML('afterbegin', html);
+        document.querySelectorAll('.ctr-jian').forEach(function (elem) {
+            elem.onclick = function () {
+                if (this.nextElementSibling.value > 1) {
+                    isEnter = true;
+                    this.nextElementSibling.value--
+                }
+            }
+        });
+        document.querySelectorAll('.ctr-jia').forEach(function (elem) {
+            elem.onclick = function () {
+                isEnter = true;
+                this.previousElementSibling.value++
+            }
+        });
+        document.querySelectorAll('.remove-icon').forEach(function (elem) {
+            elem.onclick = function () {
+                isEnter = true;
+                this.parentNode.parentNode.remove()
+            }
+        })
+    }
+
+    /* 机选5注 */
+    function randomNum() {
+        isEnter = true;
+        sessionStorage.setItem('ballMode', '机选');
+        document.querySelector('.cells').innerHTML = '';
+        if (selectBall) sessionStorage.removeItem('selectBall');
+        for (var i = 0; i < 5; i++) cellBoxRender(randomArry());
+    }
+
+    /* 确定投注 */
+    function enterLottery() {
+        if (!isEnter) return alert('请勿重复提交');
+
+        var ballsNumber = [],
+            toDay = new Date();
+
+        document.querySelectorAll('.cell-box').forEach(function (elem, i) {
+            var ballItem = elem.querySelectorAll('.ball-min-item'), redNum = [];
+            for (var i = 0; i < 6; i++) redNum.push(ballItem[i].innerHTML);
+            ballsNumber.push({
+                rednum: redNum.join(' '),
+                redmode: sessionStorage.getItem('ballMode'),
+                bluenum: ballItem[6].innerHTML,
+                bluemode: sessionStorage.getItem('ballMode'),
+                n: Number(elem.querySelector('input').value)
+            })
+        });
+
+
+        var params = {
+            type: 2,
+            maxcount: 0,
+            p1_1: '单式',
+            p1_2: '1',
+            p1_num: ballsNumber,
+            p2_1: '121515123',
+            p2_2: '20171116',
+            p2_3: '2017/11/16',
+            p2_4: '16502100',
+            p2_5: '015775',
+            p2_6: numFormat(toDay.getFullYear()) + '/' + numFormat(toDay.getMonth() + 1) + '/' + numFormat(toDay.getDate()),
+            p2_7: numFormat(toDay.getHours()) + ':' + numFormat(toDay.getMinutes()) + ':' + numFormat(toDay.getSeconds()),
+            p2_8: '￥' + ballsNumber.length * 2,
+            p3_1: 'www.bw1c.net',
+            p3_2: '6170-046178049-120667',
+            p3_3: 'HT2G9T-K24CNS-MQL1YJ-CLY5QD-GB84Q',
+            p3_4: '012345678912345678'
+        };
+        console.log(params);
+        if (!params.p1_num.length) return alert('请选择双色球');
+        isEnter = false;
+        ajax.post('/api/demo/doBuylottery', {data: JSON.stringify(params)}).then(function (res) {
+            if (res.status) {
+                if (selectBall) sessionStorage.removeItem('selectBall');
+                return alert('提交成功，请等待打印……');
+            }
+            isEnter = true;
+            return alert(res.data)
+        })
+    }
+</script>
+</body>
+</html>

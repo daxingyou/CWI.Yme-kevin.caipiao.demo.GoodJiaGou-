@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<appSettings>  
+  <!-- ================== 1：开发系统相关配置 ================== -->
+  <!-- 关闭vsBrowserLink功能-->
+  <add key = "vs:EnableBrowserLink" value = "false"/>
+  <!-- 启用系统日志-->
+  <add key = "IsLog" value = "true" />
+  <!-- 数据库超时间-->
+  <add key = "CommandTimeout" value = "180" />
+  <!-- 是否测试模式 -->
+  <add key = "IsTestModel" value = "1"/>
+  <!-- 验证码失败次数 -->
+  <add key = "VarifyCodeFailCount" value = "10"/>
+  <!--验证码有效时间，单位：秒-->
+  <add key = "ValidatecodeExpire" value = "600"/>
+  <!--微云打任务密钥-->
+  <add key = "TaskSecrcetKey" value = "wyd@2017!"/>
+  <!--微云打私有云回调服务Url-->
+  <add key = "CallBackUrl" value = "http://demo.yingmei.me/api/microprint/"/>
+  <!--微云打Demo口令-->
+  <add key = "LoginCmd" value = "159753"/>
+  <!--微云打彩票打印机编码串-->
+  <add key = "LotDeviceIds" value = "17080373WV,17380109YT"/>
+  <!--应用标识-->
+  <add key = "SystemAppSign" value = "mcp_demo"/>
+
+  <!-- ================== 2：短信参数 ================== -->
+  <!--发送短信平台【0-电信短信平台，1-荣联云短信平台 】-->
+  <add key = "SmsWay" value = "1"/>
+  <!--电信短信平台-->
+  <add key ="SmsAppId_dx" value ="110407370000040823"/>
+  <add key ="SmsAppSecret_dx" value ="33a1e5cc4a1f0f0354b366d27acb9aef"/>
+  <!--荣联云短信平台-->
+  <add key ="SmsAppId_rly" value = "8aaf07085b8e61c6015b9da38ed6038e"/>
+  <add key ="SmsAppSecret_rly" value = "fe8161189c822808e75a7608404f6cdd"/>
+  <add key ="SmsAccountSid_rly" value = "aaf98f894aec8568014af16b9a1202a3"/>
+  <add key ="SmsAuthToken_rly" value = "813f97bd092e4578af63be059fd2865b" />
+
+  <!-- ================== 3：彩票演示相关配置 ================== -->
+  <!--向正式环境添加任务-->
+  <add key="url" value="http://mcp.yingmei.me:8686/mcp/sys/PrintDemonstration" />
+  <add key="app_id" value="2ef79a0b02f34987896c71f773f004b51" />
+  <add key="access_token" value="d76e222fb69a4fafa279314f326a9533" />
+  <add key="merchant_code" value="2018" />
+  <add key="template_id" value="T0020101" />
+  <add key="copies" value="1" />
+  <add key="bill_no" value="2018-04-12-17-46-31" />
+  <add key="bill_type" value="3" />
+
+  <!--向测试环境添加任务-->
+  <!--
+    <add key="url" value="http://mcp.yinmei.me:8686/mcp/sys/PrintDemonstration" />
+    <add key="app_id" value="45d4b930501c477d9f254e3415b9889c" />
+    <add key="access_token" value="7a330d89818e4351890dc355d988599d" />
+    <add key="merchant_code" value="2018" />
+    <add key="template_id" value="T0020101" />
+    <add key="copies" value="1" />
+    <add key="bill_no" value="2018-04-12-17-46-31" />
+    <add key="bill_type" value="3" />
+    -->
+</appSettings>

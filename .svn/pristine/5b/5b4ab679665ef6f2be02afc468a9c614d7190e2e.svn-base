@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container" style=" display:none;">
+	<div class="login" style="width:62%;margin: 6% auto 8% auto;">
+		<img src="/Content/images/logo.png" style="display: block;"/>
+	</div>
+
+	<form id="form" action="">
+	<div class="row">
+		<div class="cells cells-table pd-l-15 br-b-1">
+			<div class="cell">
+				<div class="cell-text br-b-1 pd-offset-l">手机号</div>
+				<div class="cell-item br-b-1">
+					<input id="phone" type="tel" maxlength="11"  oninput="this.value=this.value.replace(/\D/g,'');"  class="form-control" name="ShopAccount" placeholder="请输入绑定手机号" data-verify-phone>
+				</div>
+				<!-- <div class="cell-text br-b-1"><i class="icon icon-clear-input"></i><a id="getverifycode" href="" class="btn btn-code" data-loading="0">获得验证码</a></div> -->
+				<div class="cell-text br-b-1"><a id="getverifycode"  class="btn btn-code" data-loading="0">获取验证码</a></div>
+			</div>
+			<div class="cell">
+				<div class="cell-text pd-offset-l">验证码</div>
+				<div class="cell-item"><input  type="tel"  maxlength="6"  class="form-control" name="VerifyCode" placeholder="请输入短信验证码" data-verify-len="6"  oninput="this.value=this.value.replace(/\D/g,'');" ></div>
+				<div class="cell-text"></div>
+			</div>
+		</div>
+	</div>
+	<div class="btn-login-box">
+	<button id="submit" type="submit" class="btn btn-action">登录</button>
+	</div>
+    <p id="agreement" class="text-info mg-top-10">
+            <label class="label-check show-lb va-s">
+                <input id="activation_form" name="name1" type="checkbox" checked="" data-verify-check="">
+            </label>
+            <span>同意并遵守<a href="agreement.html">《卡莫外卖管家用户协议》</a></span>
+        </p>
+	</form>
+</div>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/main.js"></script>
+<script type="text/javascript" src="/content/scripts/validate_form.js"></script>
+<script type="text/javascript">
+G.loader({
+        url: "/shop/checkLogin",
+        method: "get",
+        headers: G.helper.get_common_header(),
+        response: function (res) {
+            G.loadingtext.hide();
+            if (res.status == "1") {
+                $(".container").hide();
+                location.href = "setting.html?&openid=" + G.get("openid");
+            }
+            else
+            {
+                $(".container").show();
+            }
+        }
+});
+if (G.cookie.get("shop_account")) {
+    $("#phone").val(G.cookie.get("shop_account"));
+    $("#agreement").addClass("hide");
+}
+// 获取验证码
+G.getverifycode({
+	"elem": "#getverifycode",
+	"mess": "s",
+	"phone": "#phone",
+	"time": 120,
+	"action": function(res){
+		var that = this;
+		G.loader({
+			url: "/shop/getVerifyCode",
+			method: "get",
+			headers: G.helper.get_common_header(),
+			param: {Mobile: res.phone, CodeType: "1"},
+			response: function(res){
+				if (res.status == "1") {
+					that.success();
+				} else {
+					G.prompt.error(res.data);
+					that.error();
+				}
+			},
+		});
+	}
+});
+// 登录
+$("#form").validateForm({
+    submit: function (form) {
+        G.loader({
+            url: "/shop/doLogin",
+            method: "post",
+            headers: G.helper.get_common_header(),
+            param: $(form).serialize() + "&openid=" + G.get("openid"),
+            before: function () {
+				// G.loadingtext.show("正在登录");
+				G.Loading.show('正在登录');
+            },
+            response: function (res) {
+                G.Loading.hide();
+                if (res.status == "1") {
+                	//9999-12-31 23:59:59
+                    G.cookie.set("ClientToken", res.data.AccessToken, 60 * 60 * 24 * 30);
+                    G.cookie.set("shop_account", $("#phone").val(), 60 * 60 * 24 * 30);
+                    localStorage.setItem('ClientToken',res.data.AccessToken)
+                    if(G.get("returnUrl")){
+						 location.href =  G.get("returnUrl").split('-')[0] +'?k='+ G.get("returnUrl").split('-')[1]
+						 return
+					}
+                    navigator.userAgent.match('MicroMessenger') ? WeixinJSBridge.invoke('closeWindow') : window.location.href = "index.html";
+//                  alert(document.cookie)
+//                  alert(localStorage.getItem('ClientToken'))
+					
+                    //location.href = "index.html"
+                    
+                } else {
+                    G.prompt.error(res.data);
+                }
+            }
+        });
+    },
+	render: function(conf){
+		if (!conf.verify) {
+			if (conf.verify_type === "check") {
+				$("#submit").removeClass("btn-action");
+				$("#submit").addClass("btn-disabled");
+				$("#submit").css("width","100%");
+				$("#submit").attr("disabled","disabled");
+			} else {
+				conf.elem.value = "";
+				conf.elem.setAttribute("placeholder", conf.mess);
+			}
+		} else {
+			if (conf.verify_type !== "check") {
+				G.clearinput.add({
+					elem: conf.elem
+				});
+			} else {
+				$("#submit").removeClass("btn-disabled");
+				$("#submit").addClass("btn-action");
+				$("#submit").removeAttr("disabled");
+			}
+		}
+	}
+});
+</script>
+</body>
+</html>

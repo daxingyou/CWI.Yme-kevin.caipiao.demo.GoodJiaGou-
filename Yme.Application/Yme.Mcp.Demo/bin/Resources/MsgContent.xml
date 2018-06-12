@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MsgContentCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/2001/XSL/Transform" >
+  <MsgDescription>
+    <!--登录或绑定管理员手机验证码-->
+    <MsgKey>SmsValidCode</MsgKey>
+    <MsgFormat>您的验证码为{0}，请于{1}分钟内正确输入，如非本人操作，请忽略此短信。</MsgFormat>
+    <MsgStatus>1</MsgStatus>
+    <MsgExamples>您的验证码为5482，请于30分钟内正确输入，如非本人操作，请忽略此短信。</MsgExamples>
+  </MsgDescription>
+</MsgContentCollection>

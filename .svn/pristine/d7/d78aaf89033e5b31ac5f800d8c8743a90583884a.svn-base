@@ -1,0 +1,162 @@
+.ticket{
+	margin-bottom: 20px;
+}
+.ticketList{
+	background-color: #fff;
+	padding:1px 15px;
+	margin-top: 15px;
+			
+}
+.ticketList p{
+	padding: 10px 5px;
+	font-size: 20px;
+	font-weight: 600;
+	border-bottom: 1px dashed #888;
+}
+.ticketList h3{
+	font-size: 20px;
+	padding: 10px  5px;
+	padding-left: 0;
+	font-weight: 600;
+	position: relative;
+	padding-right: 30px;
+	border-bottom: 1px dashed #888;
+}
+/*.ticketList h3:after{
+	content: '1';
+	position: absolute;
+	width:30px;
+	line-height: 30px;
+	font-size: 22px;
+	color:#fff;
+	right:2%;
+	top:50%;
+	margin-top: -15px;
+	height:30px;
+	text-align: center;
+	border-radius: 50%;
+	background-color: #ededed;
+}*/
+.ticketList .two:after{
+	content: '2';
+}
+.asterisk{
+	font-size: 12px;
+	line-height: 1;
+	color:#999;
+	overflow: hidden;
+}
+.ticketList ul{
+	padding: 8px 0 8px 0px;
+}
+.ticketList ul li{
+	font-size: 16px;
+}
+/* .ticketList ul li:nth-child(1){
+	color: #888;
+}
+.ticketList ul li:nth-child(2){
+	color: #888;
+} */
+.ticketList table{
+	border-collapse: collapse;
+	width:100%;
+	margin: 0px auto 5px auto;
+	font-size: 16px;
+	line-height: 1.2;
+}
+.ticketList table tr:first-child{
+	line-height: 1.5;
+}
+/* .ticketList .firstTab tr:first-child{
+	color: #aaa;
+} */
+.ticketList table tr td:nth-child(3){
+	text-align: right;
+}
+.ticketList table tr td:nth-child(2){
+	text-align: center;
+}
+/* .ticketList .countPay{
+	color:#888;
+	line-height: 1.2;
+			
+} */
+.payMoney{
+	text-align: right;
+	font-size: 22px;
+	color:#111;
+	line-height: 1.5;
+	padding-top: 5px;
+}
+.ticket .addr{
+	font-size:20px;
+    font-weight:bold;
+}
+.twoCode{
+	width:50%;
+	margin: 15px auto;
+}
+.blod{
+	font-weight:600;
+	font-size:20px;
+}
+.role{
+	position: relative;
+	/*width:100%;*/
+	margin: 0 auto;
+	text-align: center;
+}
+.role span{
+	background-color: #fff;
+	position: relative;
+	padding:2px 3.5px;
+	z-index: 1;
+			
+}
+.role:after{
+	content: '';
+	width:100%;
+	height: 1px;
+	position: absolute;
+	left:0;
+	top:50%;
+	margin-top: -1px;
+	right:0;
+	border-bottom:1px dashed #555;
+}
+
+.weight{
+	font-weight: bold;
+}
+.f-s-20{
+	font-size: 20px !important;
+}
+
+.beig{
+	transform: scale(1,1.5);
+	-webkit-transform: scale(1,1.5);
+    margin-bottom:5px;
+    font-size:14px !important;
+    font-weight:800;
+        /*font-family: serif;*/
+}
+.beig-in{
+	transform: scale(1,1.5);
+	-webkit-transform: scale(1,1.5);
+	display: inline-block;
+    font-weight:800;
+    font-size:14px !important;
+        /*font-family: serif;*/
+}
+.count{
+	text-align: right;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 3px 0px 6px 0;
+}
+.fs-16 {
+    font-size:16px;
+    text-align:center;
+    padding-top:5px;
+}

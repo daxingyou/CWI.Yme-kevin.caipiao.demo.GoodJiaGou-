@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网页配置</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+	<style type="text/css">
+		.row{
+			margin: -8px;
+		}
+		.head{
+			background-color: #fff;
+			padding:10px;
+		}
+		.head h3{
+			padding:5px 0;
+			/*font-size: 18px;*/
+		}
+		.head h4{
+			padding:5px 0;
+			font-size: 16px;
+			font-weight: 500;
+		}
+		.head p{
+			font-size: 14px;
+			line-height: 1.3;
+			color:#555
+		}
+		.imgToText{
+			margin-top: 10px;
+			background-color: #fff;
+		}
+		.imgToText h3,.imgToText h4{
+			padding:5px 0;
+		}
+		.imgToText{
+			padding:10px;
+			line-height: 1.3;
+		}.imgToText  ol{
+			margin: 5px auto;
+			padding-left: 10px;
+			margin-left: 10px;
+		}
+		.imgToText li{
+			list-style-type: none;
+		}
+		.row img{
+			display: block;
+			width: 75%;
+			border: none;
+			margin: 20px auto;
+		}
+		.imgToText p,.imgToText .thr{
+			/*padding-left: 10px;*/
+			position: relative;
+			/*padding-left: 25px;*/
+		}
+		/*.imgToText p:before,.imgToText .thr:before{
+			content: '1';
+			text-align: center;
+			line-height: 20px;
+			border-radius: 50%;
+			left:0;
+			position: absolute;
+			width:20px;
+			height:20px;
+			color:#fff;
+			background-color: #eaeaea;
+		}*/
+		/*.imgToText .two:before{
+			content: '2';
+		}
+		.imgToText .thr:before{
+			content: '3';
+		}
+		.imgToText .four:before{
+			content: '4';
+		}*/
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="head">
+			<h3>名词解释</h3>
+			<!--<h4>打印机制造编号</h4>-->
+			<p style="text-indent: 1em;">
+				<span style="font-size: 14px;color:#000000">打印机制造编号：</span>
+				每台打印机都有一个唯一的制造编号，为数字与字母的组合。
+			</p>
+			
+			<p style="text-indent: 1em; word-break: break-all;margin-top: 10px;">
+				<span style="font-size: 14px;color:#000000">打印机热点：</span>
+				打印机设备自带一个AP热点，出厂默认名称为 “MCP_xxxxxx”格式，其中“xxxxxx”为打印机制造编号的后6位字符；
+				可用移动设备或PC的Wi-Fi连接此热点，对打印机进行配置及自定义打印机热点名称。
+			</p>
+		</div>
+		<div class="imgToText">
+			<h3>打印机WI-FI配置</h3>
+			<p style="text-indent: 1em;">1. 在移动设备或PC上打开无线网，找到打印机热点进行连接（初始热点名为“MCP”开头）。</p>
+			<img src="/content/images/guide/1.png"/>
+			<p style="text-indent: 1em;" class="two">2. 在浏览器中输入：192.168.201.1 ，打开登录页面，输入打印机制造编号进行验证。</p>
+			<img src="/content/images/guide/2.png"/>
+			<div class="thr" style="text-indent: 1em;">
+				3. 配置打印机Wi-Fi &nbsp;
+				
+				<ol style="padding-left: 28px;">
+					<li  style="text-indent: 0em;">3.1 进入设置页面，点击下拉框，选择要连接的Wi-Fi热点并输入Wi-Fi密码，点击“连接”按钮进行连接 ；</li>
+					<li  style="text-indent: 0em;">3.2 连接成功后，会显示当前热点名称和状态；</li>
+					<li  style="text-indent: 0em;">3.3 点击“更新热点”按钮可更换连接热点。</li>
+				</ol>
+				<p style="text-indent:2.5em;"><span style="color:#f11;">注：</span>打印机目前只支持2.4G的网络</p>
+				
+			</div>
+			<img style="margin-bottom:0" src="/content/images/guide/3.png"/>
+			<img style="margin-top:0"  src="/content/images/guide/3.1.png"/>
+			<p style="text-indent: 1em;" class="four">4. 如需修改打印机热点名称，点击“为打印机热点命名”可进入名称修改页面，进行修改。</p>
+			<img src="/content/images/guide/4.png"/>
+		</div>
+		
+		
+	</div>
+</div>
+</body>
+</html>

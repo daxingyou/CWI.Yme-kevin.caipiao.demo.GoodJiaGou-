@@ -1,0 +1,565 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单详情</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="/content/css/common.css">
+    <link rel="stylesheet" href="/content/css/main.css">
+	<link rel="stylesheet" href="/content/css/order.css">
+    <style type="text/css">
+    	.role{
+			position: relative;
+			/*width:100%;*/
+			margin: 0 -3%;
+			text-align: center;
+		}
+		.role span{
+			background-color: #fff;
+			position: relative;
+			padding:2px 3.5px;
+			z-index: 1;
+			
+		}
+		.role:after{
+			content: '';
+			width:100%;
+			height: 1px;
+			position: absolute;
+			left:0;
+			top:50%;
+			margin-top: -1px;
+			right:0;
+			border-bottom:1px dashed #555;
+		}
+		
+		#PlatformName{
+			font-size: 18px; padding:15px 23px; background: #fff;margin-bottom: 10px;	
+		}
+		.mg_-8{
+			margin-top: -8px;
+		}
+		 .cells-title{
+		 	padding:0.5em;
+		 	margin-bottom: 0;
+		 }
+		 .reprintBtn,.order{
+			border-radius: 3px;
+			border: 1px solid rgb(49,199,160);
+			color:rgb(49,199,160);
+			font-size: 14px;
+			text-align: center;
+			float: right;
+			padding:2px 10px;
+		}
+		.cancelBorder{
+			position: relative;
+			line-height: 2.4;
+			overflow: hidden;
+		}
+		.cancelBorder:after{
+			content: '';
+			width:100%;
+			height: 1px;
+			background-color: #eaeaea;
+			display: block;
+			position: absolute;
+			top:50%;
+			margin-top: -0.5px;
+		}
+		.PlatformName:after{
+			content: '预';
+			display: inline-block;
+			width:18px;
+			height: 18px;
+			line-height: 18px;
+			text-align: center;
+			background-color: #31c7a0;
+			color:#fff;
+			margin-top: -2px;
+			margin-left: 5PX;vertical-align: middle;
+			font-size: 12px;
+		}
+    </style>
+</head>
+<body style="width:100%">
+    <div class="container">
+        <div class="row mg_-8">
+			<p id="PlatformName"></p>
+            <table class="table table-noborder pd-lr-15">
+                <tbody id="content_order_info">
+                    <!-- <tr>
+                        <td>订单来源：美团外卖</td>
+                    </tr>
+                    <tr>
+                        <td>订单编号：</td>
+                    </tr>
+                    <tr>
+                        <td>下单时间：</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+        <div class="cells-title pd-l-15">订单明细</div>
+        <div class="row">
+            <table class="table table-noborder pd-lr-15">
+                <thead>
+                    <tr>
+                        <td>品名</td>
+                        <td class="tc">数量</td>
+                        <td class="tr">单价</td>
+                    </tr>
+                </thead>
+                <tbody id="content_order_detail">
+                    <!-- 					<tr>
+                                            <td>红烧肉饭</td>
+                                            <td class="tc">X1</td>
+                                            <td class="tr">25.00</td>
+                                        </tr>
+                                        <tr class="text-info">
+                                            <td colspan="3" style="border-top: 1px dashed #ccc;">其它费用</td>
+                                        </tr>
+                                        <tr class="text-info">
+                                            <td>红烧肉饭</td>
+                                            <td class="tc">X1</td>
+                                            <td class="tr">25.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tr" colspan="3">在线支付：25.00</td>
+                                        </tr> -->
+                </tbody>
+            </table>
+        </div>
+        <div class="cells-title pd-l-15">备注信息</div>
+        <div class="row">
+            <table class="table table-noborder pd-lr-15">
+                <tbody id="content_order_remark">
+                    <!-- 					<tr>
+                                            <td>送达时间：明天（周三）11:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>用餐人数：3人</td>
+                                        </tr>
+                                        <tr>
+                                            <td>备注：加辣</td>
+                                        </tr> -->
+                </tbody>
+            </table>
+        </div>
+        <div class="cells-title pd-l-15">配送信息</div>
+        <div class="row">
+            <table class="table table-noborder pd-lr-15">
+                <tbody id="content_order_delivery">
+                    <!-- 					<tr>
+                                            <td>配送服务：美团外卖配送</td>
+                                        </tr>
+                                        <tr>
+                                            <td>配送地址：高新园XXX大厦XX座XX楼XX室</td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系人：王先生</td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系电话：138-0013-8000</td>
+                                        </tr> -->
+                </tbody>
+            </table>
+        </div>
+        <div class="cells-title pd-l-15">打印状态</div>
+        <div class="row">
+            <div id="content_print_status" class="table table-noborder pd-lr-15" style="padding: 10px 23px;">
+               
+            </div>
+        </div>
+        
+        <div class="cells-title pd-l-15">订单状态</div>
+        <div class="row">
+            <div id="content_order_status" class="table table-noborder pd-lr-15" style="padding: 10px 23px;">
+               
+            </div>
+        </div>
+        
+        
+        <div class="mark none"></div>
+		<div class="alert none">
+			<div class="alert_tite">请选择打印场景</div>
+			<div class="alert_con">
+				<div class="mr">
+					默认打印商家设置的全部场景
+				</div>
+				<div class="billCon">
+					<!--<div class="opt">
+						<input class="checkbox" type="checkbox" name="layout" id="c1">
+						<label for="c1">给厨房</label>
+					</div>
+					<div class="opt">
+						<input class="checkbox" type="checkbox" name="layout" id="c2">
+						<label for="c2">给配送</label>
+					</div>
+					
+					<div class="opt">
+						<input class="checkbox" type="checkbox" name="layout" id="c3">
+						<label for="c3">取消小票</label>
+					</div>-->
+				</div>
+			
+			</div>
+			<div class="btns">
+				<div class="cancel">取消</div>
+				<div class="enter">确定</div>
+			</div>
+		</div>
+        
+        
+    </div>
+    <script id="tpl_order_info" type="text/html">
+        <% if(info){ %>
+      <!-- 
+		<tr>
+            <td>订单来源：<%= info.OrderPlatform %></td>
+        </tr>
+		-->
+        <tr>
+            <td>订单编号：<%= info.OrderId %></td>
+        </tr>
+        <tr>
+            <td>下单时间：<%= info.OrderTime %></td>
+        </tr>
+        <% } %>
+    </script>
+    <script id="tpl_order_detail" type="text/html">
+        <% if(detail){ %>
+	      <% for(var i=0; i < detail.length; i++){ %>
+	      	<tr><td colspan="3"><div class="role"><span><%= detail[i]["GroupId"] %>号篮子</span></div></td></tr>
+	      	 	<% for(var j=0; j < detail[i].Items.length; j++){ %>
+	      	 		<tr>
+			         
+			            <td><%= detail[i].Items[j]["Name"] %></td>
+			           
+			            <td class="tc"><%= detail[i].Items[j]["Qty"] %></td>
+			            <td class="tr"><%= detail[i].Items[j]["Price"] %></td>
+			        </tr>
+	      	 	<% } %>	
+	        <% } %>
+	        
+	        <tr class="">
+				<td colspan="3"><div class="role"><span>其它费用</span></div></td>
+	            <!-- <td colspan="3" style="border-top: 1px dashed #ccc;">其它费用</td> -->
+	        </tr>
+	        <% for(var i=0; i < other_detail.FeeDetail.length; i++){ %>
+	        <tr class="">
+	            <td><%= other_detail['FeeDetail'][i]["Name"] %></td>
+	            <td class="tc"></td>
+	            <td class="tr"><%= other_detail['FeeDetail'][i]["Price"] %></td>
+	        </tr>
+	        <% } %>
+	        <tr>
+	            <td class="tr" colspan="3"><%= other_detail.PayDesc %>：<%= other_detail.PayAmount %></td>
+	        </tr>
+        <% } %>
+    </script>
+    <script id="tpl_order_remark" type="text/html">
+        <% if(remark){ %>
+			<tr>
+				<td>送达时间：<%= remark.DeliveryTime %></td>
+			</tr>
+			<tr>
+				<td>用餐人数：<%= remark.DinnersNum %></td>
+			</tr>
+			<% if(remark.InvoiceInfo){ %>
+				<tr>
+					<td>发票：<%= remark.InvoiceInfo %></td>
+				</tr>
+			<% } %>
+			<% if(remark.Caution){ %>
+				<tr>
+					<td>备注：<%= remark.Caution %></td>
+				</tr>
+			<% } %>
+			
+        <% } %>
+    </script>
+    <script id="tpl_order_delivery" type="text/html">
+        <% if(delivery){ %>
+        <tr>
+            <td>配送服务：<%= delivery.DeliveryService %></td>
+        </tr>
+        <tr>
+            <td>配送地址：<%= delivery.RecipientAddress %></td>
+        </tr>
+        <tr>
+            <td>联系人：<%= delivery.RecipientName %></td>
+        </tr>
+        <tr>
+            <td>联系电话：<a style="color:#00e" href="tel://<%= delivery.RecipientPhone %>"><%= delivery.RecipientPhone %></a></td>
+        </tr>
+        <% } %>
+    </script>
+    <script id="tpl_order_status" type="text/html">
+		
+	
+        <% if(statusText){ %>
+        <tr style="">
+            <td  style="padding:5px 8px; <% if(statusCode != 1){ %> border-bottom:1px solid #eaeaea; <% } %>"><%= statusText %></td>
+        </tr>
+		<% } %>
+		<% if(statusCode>1){ %>
+		<tr >
+            <td style="line-height:1.3;padding-top:8px;">
+				<div>打印时间：<%= PrintTime %></div>
+				<% if(statusCode == 4){ %>
+					<div>完成时间：<%= CompleteTime %></div>
+				<% } %>
+				<% if(statusCode == 5){ %>
+					<div>取消原因：<%= CancelReason %></div>
+					<div>取消时间：<%= CancelTime %></div>
+				<% } %>
+				
+			</td>
+        </tr>
+		<% } %>
+		
+		
+    </script>
+    
+    
+    
+    
+    <script id="alert" type="text/html">
+		<% for(var i=0; i < bill.length; i++){ %>
+			<div class="opt" >
+				
+				<input class="checkbox" bill="<%= bill[i].BillId %>" type="checkbox" checked="checked" name="layout" id="c<%= i %>">
+				<label for="c<%= i %>"><%= bill[i].BillName %></label>
+			</div>
+		 <% } %>
+			<!--<div class="opt">
+				<input class="checkbox" type="checkbox" name="layout" id="c2">
+				<label for="c2">给配送</label>
+			</div>
+			
+			<div class="opt">
+				<input class="checkbox" type="checkbox" name="layout" id="c3">
+				<label for="c3">取消小票</label>
+			</div>-->
+	</script>
+    <script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.app.js"></script>
+    <script type="text/javascript" src="/content/scripts/main.js"></script>
+    <script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+    <script type="text/javascript">
+    	
+    	
+    	
+    	
+    	var morderid = null,sta = null;
+    	$(function(){
+	        G.loader({
+	            url: "/order/getDetail?k=" + G.get("k"),
+	            method: "get",
+	            headers: G.helper.get_common_header(),
+	            before: function () {
+	               G.Loading.show("加载中");
+	            },
+	            response: function (res) {
+					
+					G.Loading.hide();
+	                if (res.status == "1") {
+	                    var html1 = template("tpl_order_info", {
+	                        info: {
+	                            "OrderPlatform": res.data.OrderPlatform,
+	                            "OrderId": res.data.OrderId,
+	                            "OrderTime": res.data.OrderTime,
+	                            "OrderStatus": res.data.OrderStatus,
+	                        }
+	                    });
+	                    morderid = res.data.MorderId
+	                    sta = res.data.PrintStatus
+	                    var str = ''
+	                    if(res.data.PrintStatus != 1 && res.data.IsLogin !=0 ){
+	                    	str = "<span class='reprintBtn'>"+ (res.data.PrintStatus == 2 ? "重打": "补打") + "</span>"
+	                    }
+						if(res.data.IsShowConfirm == 1 ){
+	                    	str = "<span class='order' morderid='"+morderid+"'>接单</span>"
+	                    }
+	                    if(res.data.OrderType == 2){
+	                    	$('#PlatformName').addClass('PlatformName')
+	                    }
+	                   
+						document.querySelector("#PlatformName").innerHTML = '订单来源：'+res.data.OrderPlatform + "#" + res.data.DaySeq + str;
+	                    var html2 = template("tpl_order_detail", { detail: res.data.OrderDetail, other_detail: res.data.OtherFee });
+	                    var html3 = template("tpl_order_remark", { remark: res.data.Remark });
+	                    var html4 = template("tpl_order_delivery", { delivery: res.data.Delivery });
+	                    var html5 = template("tpl_order_status", { 
+							statusText: res.data.OrderStatus,
+							statusCode: res.data.StatusCode,
+							PrintTime: res.data.PrintTime,
+							CompleteTime: res.data.CompleteTime,
+							CancelTime: res.data.CancelTime,
+							CancelReason: res.data.CancelReason
+						});
+	                    document.querySelector("#content_order_info").innerHTML = html1;
+	                    document.querySelector("#content_order_detail").innerHTML = html2;
+	                    document.querySelector("#content_order_remark").innerHTML = html3;
+	                    document.querySelector("#content_order_delivery").innerHTML = html4;
+	//                  document.querySelector("#content_order_status").innerHTML = html5;
+						if(res.data.OrderStatus==5){
+							document.querySelector("#content_order_status").classList.add('cancelBorder')
+							
+						}
+						
+						var tipStr = '进行中'
+						//3,4,5
+						if(res.data.OrderStatus == 4){
+							tipStr = res.data.OrderDesc + '('+res.data.CompleteTime+')'
+						}
+						if(res.data.OrderStatus == 5){
+							tipStr = res.data.OrderDesc + ' ('+res.data.CancelTime+')'+ '<br/>' +'取消原因：'+res.data.CancelReason
+						}
+						document.querySelector("#content_order_status").innerHTML = tipStr;
+						if(res.data.OrderStatus<=3){
+							document.querySelector("#content_order_status").innerHTML = tipStr
+						}
+						document.querySelector("#content_print_status").innerHTML = res.data.PrintDesc + (res.data.PrintStatus == 1? '':' ('+  res.data.PrintTime +')')
+	                    G.loadingtext.hide();
+	                } else {
+	                    if (G.check_login(res.status)) {
+	                        G.prompt.error(res.data);
+	                    }
+	                }
+	            }
+	        });
+	        
+    	})
+    	
+        
+        
+        
+        
+        $(function(){
+        	var mast = $('.mark'),alertEle = $('.alert')
+			$('#PlatformName').on('click', '.reprintBtn', function(){
+				G.loader({
+				    url: "/order/getPrintConfigs?MorderId=" + morderid,
+					method: "get",
+					headers: G.helper.get_common_header(),
+					before: function(){
+	//					if(typeof p !== 'string'){
+	//					G.loadingtext.show("加载中");}
+					},
+					response: function(res){
+	//					G.loadingtext.hide();
+						if(res.status == 1){
+
+							if(res.data.Configs.length == 0){
+								G.dialog({
+									title:'打印请求失败',
+									text: `
+										您还未设置打印机打印场景，<br />请完成设置后再操作。
+									
+									`,
+									btns:['取消','<a href="/html/printer_manage.html" style="color: inherit;">前往设置</a>']
+								})	
+								return
+							}
+
+							var html2 = template("alert", {bill:res.data.Configs});
+							document.querySelector(".billCon").innerHTML = html2;
+							mast.fadeIn();
+							alertEle.fadeIn()
+						}else {
+							if (G.check_login(res.status,location.pathname+ '-' +location.search.substr(3))) {
+								G.prompt.error(res.data);
+							}
+						}
+					}
+				})
+			})
+			
+
+
+
+			$('#PlatformName').on('click','.order', function(){
+				var morderid = $(this).attr('morderid')
+				G.loader({
+					url: "/order/doConfirmOrder",
+					param: {"MorderId": morderid},
+					method: "post",
+					headers: G.helper.get_common_header(),
+					before: function(){
+						G.Loading.show("操作中...")
+					},
+					response: function(res){
+						
+						G.Loading.hide()
+						if(res.status == 1){
+							res.data == 'ok' && (G.prompt.error('已成功接单！',function(){location.reload();}))
+							
+						}else{
+							G.prompt.error(res.data);
+						}
+					}
+				})
+			})
+
+
+
+
+
+
+
+
+
+
+
+
+			//重打 补打
+			var flag = true;
+			var trim = null;
+			alertEle.on('click', '.enter', function(){
+//				var morderid = $(this).attr('morderid')
+//				var sta = $(this).attr('sta')
+				clearTimeout(trim);
+				trim = setTimeout(function(){
+					
+					if(flag){
+						flag = false;
+						var arr = []
+						alertEle.find('input:checked').each(function(){
+							arr.push($(this).attr('bill'))
+						})
+						G.loader({
+						    url: "/order/doRePrint",
+							method: "post",
+							param: {MorderId: morderid,BillIds:arr.join(',') },
+							headers: G.helper.get_common_header(),
+							before: function(){
+								
+							},
+							response: function(res){
+								if(res.status == 1){
+									G.prompt.error('打印任务已发送成功！',function(){flag = true;});
+								}else{
+									G.prompt.error(res.data, function(){flag = true;});
+								} 
+								
+							}
+							
+						})
+						mast.fadeOut();
+						alertEle.fadeOut()
+					}
+					
+				},600)
+				
+			})
+			
+			alertEle.on('click', '.cancel', function(){
+				mast.hide();
+				alertEle.hide()
+			})
+        })
+    </script>
+</body>
+</html>

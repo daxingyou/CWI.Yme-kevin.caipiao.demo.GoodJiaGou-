@@ -1,0 +1,6 @@
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\bin\Debug\Yme.Cache.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\bin\Debug\Yme.Cache.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Debug\Yme.Cache.csproj.CoreCompileInputs.cache
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Debug\Yme.Cache.dll
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Debug\Yme.Cache.pdb
+D:\WorkYh\微云打server_order\Yme.Core\Cache\Yme.Cache\obj\Debug\Yme.Cache.csprojResolveAssemblyReference.cache

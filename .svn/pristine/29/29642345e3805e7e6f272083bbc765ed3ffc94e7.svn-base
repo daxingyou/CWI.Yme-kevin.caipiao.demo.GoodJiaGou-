@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<unity>
+  <typeAliases>
+    <typeAlias alias="IDatabase" type="Yme.Data.IDatabase,Yme.Data" />
+    <typeAlias alias="EFDatabase" type="Yme.Data.EF.Database,Yme.Data.EF" />
+    <typeAlias alias="IDbContext" type="Yme.Data.EF.IDbContext,Yme.Data.EF" />
+    <typeAlias alias="MySql" type="Yme.Data.EF.MySqlDbContext,Yme.Data.EF" />
+    <typeAlias alias="SqlServer" type="Yme.Data.EF.SqlServerDbContext,Yme.Data.EF" />
+  </typeAliases>
+  <containers>
+    <container name="DBcontainer">
+      <type type="IDatabase" mapTo="EFDatabase" ></type >
+      <!-- 默认数据库软件类型：MySql,SqlServer,Oracle,Access,SQLite-->
+      <type type="IDbContext" mapTo="MySql" ></type >
+      <type type="IDbContext" mapTo="MySql" name="MySql"></type>
+    </container>
+  </containers>
+</unity>

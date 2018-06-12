@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>录入制造编号绑定</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="/content/css/common.css">
+	<link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container">
+	<form action="" id="form">
+	<div class="row">
+		<div class="cells pd-l-15 br-b-1">
+			<div class="cell pd-offset-l">
+				<div class="cell-text">制造编号：</div>
+				<div class="cell-item"><input type="text" style="ime-mode:disabled"   maxlength="10"  name="PrinterCode" data-verify-len="10" class="form-control"></div>
+			</div>
+			<div class="cell pd-offset-l br-b">
+				<div class="cell-text">校验码：</div>
+				<div class="cell-item"><input type="text" name="CheckCode" data-verify-len="4"  maxlength="4"  class="form-control"></div>
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-action">绑定</button>
+	</form>
+</div>
+<div id="dialog_confirm" class="dialog dialog-confirm dialog-hide">
+	<div class="dialog-mask-transparent"></div>
+	<div class="dialog-content">
+		<div class="dialog-heading">
+			<h3>温馨提示</h3>
+		</div>
+		<div class="dialog-body tc"></div>
+		<div class="dialog-footer">
+			<button class="dialog-btn-cancel">以后再说</button>
+			<button class="dialog-btn-action">前去设置</button>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="/content/scripts/g.js"></script>
+<script type="text/javascript" src="/content/scripts/g.app.js"></script>
+<script type="text/javascript" src="/content/scripts/main.js"></script>
+<script type="text/javascript" src="/content/scripts/validate_form.js"></script>
+<script type="text/javascript">
+// 绑定打印机
+
+
+//value=value.replace(/[^\w\.\/]/ig,''); this.value = this.value.slice(0,4)
+$("#form").validateForm({
+	submit: function(form){
+		G.loader({
+			url: "/printer/doBind",
+			method: "post",
+			headers: G.helper.get_common_header(),
+			param: $(form).serialize(),
+			before: function(){
+				G.Loading.show("绑定中");
+			},
+			response: function(res){
+				
+				G.Loading.hide();
+				if (res.status == "1") {
+
+					location.href = "printer_print_case.html?PrinterCode="+res.data.PrinterCode;
+
+					// $("#dialog_confirm").dialog({
+					// 	mess: "绑定成功",
+					// 	method: "confirm",
+					// 	callback: function(bol){
+					// 		if (bol) {
+					// 			location.href = "printer_print_case.html?PrinterCode="+res.data.PrinterCode;
+					// 		} else {
+					// 			location.href = "printer_manage.html";
+					// 		}
+
+					// 	}
+					// });
+					
+				} else {
+					G.prompt.error(res.data);
+				}
+			}
+		});
+	},
+	render: function(conf){
+		if (!conf.verify) {
+			conf.elem.value = "";
+			conf.elem.setAttribute("placeholder", conf.mess);
+		} else {
+			G.clearinput.add({
+				elem: conf.elem
+			})
+		}
+	}
+});
+</script>
+</body>
+</html>

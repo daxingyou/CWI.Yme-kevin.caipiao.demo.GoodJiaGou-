@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微云打-订单</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+	<link rel="stylesheet" href="/content/css/common.css">
+    <link rel="stylesheet" href="/content/css/main.css">
+</head>
+<body>
+<div class="container">
+	<div class="cells-title">我的门店</div>
+	<div class="row">
+		<div class="cells">
+			<div class="cell">
+				<div class="cell-item">
+					<a class="show" href="printer_manage.html">打印机管理</a>
+				</div>
+			</div>
+			
+			<div class="cell">
+				<div class="cell-item">
+					<a class="show" href="device/config">Wi-Fi配置</a>
+				</div>
+			</div>
+			<div class="cell">
+				<div class="cell-item">
+					<a class="show" href="pt_manage.html">平台管理</a>
+				</div>
+			</div>
+			<div class="cell">
+				<div class="cell-item">
+					<a class="show" href="store.html">门店信息</a>
+				</div>
+			</div>
+			<div class="cell">
+				<div class="cell-item">
+					<a class="show" href="setting.html">系统设置</a>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<div class="cells-title">数据报表</div>
+	<div class="row">
+		<div class="cells">
+			<div class="cell">
+				<div class="cell-item">
+					<a href="data_form_order.html" class="show">订单数据报表</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="cells-title">订单管理</div>
+	<div class="row">
+		<div class="cells">
+			<!--<div class="cell">
+				<div class="cell-item">
+					<a href="order_list.html" class="show">订单管理</a>
+				</div>
+				
+			</div>-->
+			
+			<div class="cell">
+				<div class="cell-item">
+					<a href="order_list.html" class="show">今日订单</a>
+				</div>
+			</div>
+			
+			
+			<div class="cell">
+				<div class="cell-item">
+					<a href="order_pre_list.html" class="show">预订单</a>
+				</div>
+			</div>
+			
+			
+			
+			<div class="cell">
+				<div class="cell-item">
+					<a href="order_reprint_list.html" class="show">订单补打</a>
+				</div>
+			</div>
+			
+			
+			
+			<div class="cell">
+				<div class="cell-item">
+					<a href="order_search_list.html" class="show">订单查询</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="cells">
+			<div class="cell">
+				<a href="https://pro.modao.cc/app/dQbpq6MY6CbiHRy6rURJQryjYxqjWlI" class="show">原型</a>
+			</div>
+			<div class="cell">
+				<a href="echart.html" class="show">Echarts</a>
+			</div>
+			<div class="cell">
+				<a href="/content/scripts/LCalendar/dist/index.html" class="show">LCalendar</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="error hide">
+	<div class="error-mask"></div>
+	<div class="error-info">验证码错误</div>
+</div>
+<div class="loading-text hide">
+	<div class="loading-text-mask"></div>
+	<div class="loading-text-info">
+		<div class="loading-dot">
+			<div class="loading-dot-item loading-dot-1"></div>
+			<div class="loading-dot-item loading-dot-2"></div>
+			<div class="loading-dot-item loading-dot-3"></div>
+		</div>
+		<span class="loading-text-info-text">加载中</span>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+//	alert(document.cookie)
+//  alert(localStorage.getItem('ClientToken'))
+</script>
+</html>

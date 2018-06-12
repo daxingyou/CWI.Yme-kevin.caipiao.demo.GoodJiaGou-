@@ -1,0 +1,669 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单数据报表</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="/content/css/common.css">
+    <link rel="stylesheet" href="/content/css/main.css">
+    <link rel="stylesheet" href="/content/css/LCalendar/LCalendar.min.css">
+	<style>
+	
+           
+	</style>
+</head>
+<body>
+	<div class="container mgb-68">
+		<div class="bgW row" style="background-color:#fff">
+		<div class="">
+			<div class="cells mg_none">
+				<div class="cell padding-10">
+					<div class="cell-item">
+                       <span id="tipClick">
+                            业绩日报
+                            <i class="hover_i">
+                                <img src="/content/images/i.png" alt="">
+                            </i>
+                       </span>
+                    </div>
+					<div class="cell-icon"><i class="icon icon-date"></i> <input type="text"  onfocus='this.blur();' class="LCalendar_input" id="date_total"></div>
+				</div>
+			</div>
+		</div>
+		<div class="KaMo-flex report_list" id="report_total_content">
+			
+		</div>
+		
+        </div>
+        
+
+        <div class="row mgt-10 ">
+            <div class="KaMo-flex platform_head KaMo-flex-align">
+                <div class="KaMo-flex-item KaMo-flex-none">
+                    平台统计
+                </div>
+                <div class="KaMo-flex-item day_btns">
+                    <div data-type="1">近7天</div>
+                    <div data-type="2">近15天</div>
+                    <div class="active"  data-type="3">近30天</div>
+                    <div data-type="4">近90天</div>
+                </div>
+            </div>
+            <div id="echarts" class="bg-white" style="width: 100%;height: 400px;"></div>
+        </div>
+
+        
+
+		<!-- <div class="row">
+			<div class="cells mgt-10 pd-l-15 mg-offset-b">
+				<div class="cell pd-offset-l">
+					<div class="cell-item">平台统计</div>
+					<div class="cell-icon"><i class="icon icon-date"></i> <span id="date_report_start"></span>-<span id="date_report_end"></span></div>
+					<div class="cell-icon pd-l-10"><a class="serch" href="javascript:;">搜索</a></div>
+				</div>
+			</div>
+			<div id="echarts" class="bg-white" style="width: 100%;height: 400px;"></div>
+		</div> -->
+	</div>
+	<div class="bottombar KaMo-flex" >
+		<div class="bottombar-item KaMo-flex-item tc">
+			<a class="show bottombar-active" href="data_form_order.html">
+				<i class="icon icon-form-bottom-dd"></i>
+				<p class="text-info lh-1">订单</p>
+			</a>
+		</div>
+		<div class="bottombar-item KaMo-flex-item  tc">
+			<a class="show" href="data_form_food.html">
+				<i class="icon icon-form-bottom-cp"></i>
+				<p class="text-info lh-1">菜品</p>
+			</a>
+		</div>
+		<div class="bottombar-item KaMo-flex-item tc">
+			<a class="show" href="data_form_customer.html">
+				<i class="icon icon-form-bottom-kh"></i>
+				<p class="text-info lh-1">客户</p>
+			</a>
+		</div>
+    </div>
+    
+
+    <script id="report_total" type="text/html">
+        <% if(total){ %>
+            <div class="KaMo-flex-item complete">
+                <div class="complete_title">已完成</div>
+                <div class="complete_count KaMo-flex">
+                    <div class="money_width">
+                        <div class="complete_money"><%= total.CompleteAmount %><i> 元</i></div>
+                        <p class="<%= total.CompleteAmountRatio>=0?'':'reduce_color' %>">
+                            <% if(total.CompleteAmountRatio != '--'){ %>
+                                <%= total.CompleteAmountRatio>=0?(total.CompleteAmountRatio == 0 ? '':'+'):'-' %><%= window.Math.abs(total.CompleteAmountRatio) %>%&nbsp;
+                            <% } else { %>
+                                <span style="color:#000"> -- </span>
+                            <% } %> 
+                        </p>
+                    </div>
+                    <div class="count_width">
+                        <div class="complete_number"><%= total.CompleteTotal %><i> 单</i></div>
+                        <p class="<%= total.CompleteTotalRatio>=0?'':'reduce_color' %>">
+                            <% if(total.CompleteTotalRatio != '--'){ %>
+                                <%= total.CompleteTotalRatio>=0?(total.CompleteTotalRatio == 0 ? '':'+'):'-' %><%= window.Math.abs(total.CompleteTotalRatio) %>%&nbsp;
+                            <% } else { %>
+                                <span style="color:#000"> -- </span>
+                            <% } %> 
+                        </p>
+                    
+                    </div>
+
+                </div>
+            </div>
+            <div class="KaMo-flex-item border-right cancel_bg">
+                <div class="cancel_title">已取消</div>
+                <div class="cancel_count  KaMo-flex">
+                    <div class="money_width">
+                        <div class="complete_money"><%= total.CancelAmount %><i> 元</i></div>
+                        <p class="<%= total.CancelAmountRatio>=0?'':'reduce_color' %>">
+                            <% if(total.CancelAmountRatio != '--'){ %>
+                                <%= total.CancelAmountRatio>=0? (total.CancelAmountRatio == 0 ? '': '+' ):'-' %>
+                                <%= window.Math.abs(total.CancelAmountRatio) %>%&nbsp;
+                            <% } else { %>
+                                <span style="color:#000"> -- </span>
+                            <% } %>   
+                        </p>
+                    </div>
+                    <div class="count_width">
+                        <div class="complete_number"><%= total.CancelTotal %><i> 单</i></div>
+                        <p class="<%= total.CancelTotalRatio>=0?'':'reduce_color' %>">
+                            <% if(total.CancelTotalRatio != '--'){ %>
+                                <%= total.CancelTotalRatio>=0?(total.CancelTotalRatio == 0 ? '': '+'):'-' %><%= window.Math.abs(total.CancelTotalRatio) %>%&nbsp;
+                            <% } else { %>
+                                <span style="color:#000"> -- </span>
+                            <% } %>    
+                        </p>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </script>
+
+
+
+
+    <!-- 订单总量 -->
+    <script id="tpl_odr_total" type="text/html">
+        <% if(total){ %>
+        <div class="cell br-b bg-e1f5f0 pd-lr-8" style="padding-top:5px;padding-bottom:5px">
+            <div class="cell-item">
+                <h4 class="text-info fw">订单总量(单)</h4>
+                <div style="font-size: 1.3rem;" class="fs-big"><%= total.OrderTotal %>
+                	
+            <p class="fl-r"><i class="icon icon-<%= total.TotalRelativeRatio >= 0 ? 'rise':'decline' %>"></i><%= window.Math.abs(total.TotalRelativeRatio) %>%</p>
+                	
+                </div>
+            </div>
+            <!--<div class="cell-icon"><i class="icon icon-<%= total.TotalRelativeRatio >= 0 ? 'rise':'decline' %>"></i><%= window.Math.abs(total.TotalRelativeRatio) %>%</div>-->
+        </div>
+        <div class="cell br-b pd-lr-8" style="padding-top:5px;padding-bottom:5px">
+            <div class="cell-item">取消订单</div>
+            <div class="cell-icon"><%= total.CancelTotal %></div>
+        </div>
+        <% } %>
+    </script>
+    <!-- 订单总额 -->
+    <script id="tpl_odr_amount" type="text/html">
+        <% if(amount){ %>
+        <div class="cell br-b bg-f1eae4 pd-lr-8" style="padding-top:5px;padding-bottom:5px">
+            <div class="cell-item">
+                <h4 class="text-info fw">订单总额(元)</h4>
+                <div style="font-size: 1.3rem;" class="fs-big"><%= amount.OrderAmount %>
+            <p class="fl-r"><i class="icon icon-<%= amount.AmountRelativeRatio >= 0 ? 'rise':'decline' %>"></i><%= window.Math.abs(amount.AmountRelativeRatio) %>%</p>
+                	
+                	
+                </div>
+            </div>
+            <!--<div class="cell-icon"><i class="icon icon-<%= amount.AmountRelativeRatio >= 0 ? 'rise':'decline' %>"></i><%= window.Math.abs(amount.AmountRelativeRatio) %>%</div>-->
+        </div>
+        <div class="cell pd-lr-8" style="padding-top:5px;padding-bottom:5px">
+            <div class="cell-item">取消金额</div>
+            <div class="cell-icon"><%= amount.CancelAmount %></div>
+        </div>
+        <% } %>
+    </script>
+    <script type="text/javascript" src="/content/scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.js"></script>
+    <script type="text/javascript" src="/content/scripts/g.app.js"></script>
+    <script type="text/javascript" src="/content/scripts/art-template/lib/template.min.js"></script>
+    <script type="text/javascript" src="/content/scripts/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="/content/scripts/LCalendar/LCalendar.js"></script>
+    <script type="text/javascript">
+        // var date_report = {
+        //     start: true,
+        //     end: false
+        // }
+        //G.loadingtext.show("加载中");
+        //统计日期
+        var default_date = getDate({ d: -1 });
+        console.log(default_date)
+        var calendar_total = new LCalendar();
+        calendar_total.init({
+            'trigger': '#date_total', //标签id
+            'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+            'minDate': '2010-1-1', //最小日期
+            'maxDate': default_date, //最大日期
+            'confirm': function (res) {
+                
+                get_order_day_rpt(res);
+            }
+        });
+
+    /*
+        //数据开始日期
+        var calendar_platform_start = new LCalendar();
+        calendar_platform_start.init({
+            'trigger': '#date_report_start', //标签id
+            'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+            'minDate': '2010-1-1', //最小日期
+            'maxDate': new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(), //最大日期
+            'confirm': function (res) {
+                this.innerText = res.replace(/-/g, ".");
+                var max_date = get_date({ date: res, m: 6 });
+                calendar_platform_end.setOption({
+                    maxDate: max_date,
+                    minDate: res
+                });
+                if (date_report.end) {
+                    G.loadingtext.show("加载中");
+                    get_platform_order_rpt({
+                        BeginDate: res,
+                        EndDate: date_report.end,
+                        PlatformId: 0
+                    });
+                    date_report.end = false;
+                    calendar_platform_end.setOption({
+                        minDate: "2010-1-1",
+                        maxDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
+                    });
+                }
+                date_report.start = res;
+            }
+        });
+        //数据结束日期
+        var calendar_platform_end = new LCalendar();
+        calendar_platform_end.init({
+            'trigger': '#date_report_end', //标签id
+            'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+            'minDate': get_date({ d: -1 }), //最小日期
+            'maxDate': get_date({ m: 6, d: -1 }), //最大日期
+            'confirm': function (res) {
+                this.innerText = res.replace(/-/g, ".");
+                var max_date = get_date({ date: res, m: -6 });
+                calendar_platform_start.setOption({
+                    minDate: max_date,
+                    maxDate: res
+                });
+                if (date_report.start) {
+                    G.loadingtext.show("加载中");
+                    get_platform_order_rpt({
+                        BeginDate: date_report.start,
+                        EndDate: res,
+                        PlatformId: 0
+                    });
+                    date_report.end = false;
+                    calendar_platform_start.setOption({
+                        minDate: "2010-1-1",
+                        maxDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
+                    });
+                } else {
+                    date_report.end = res;
+                }
+            }
+        });
+*/
+
+/*
+var calendar_platform_start = new LCalendar();
+calendar_platform_start.init({
+    'trigger': '#date_report_start', //标签id
+    'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+    'minDate': '2010-1-1', //最小日期
+    'maxDate': getDate(), //最大日期
+    'confirm': function(res){
+    	this.innerText = res.replace(/-/g,".");
+    	var max_date = getDate({date: res, m: 6});
+        if(+new Date(max_date)>+new Date()){
+            max_date = getDate();
+        }
+    	serch.attr('starFlg',res);
+    	calendar_platform_end.setOption({
+    		maxDate: max_date,
+    		minDate: res
+    	});
+//		console.log(date_report);
+//  	if (date_report.end) {
+//  		G.loadingtext.show("加载中");
+//			get_platform_order_rpt({
+//				BeginDate: res,
+//				EndDate: date_report.end,
+//				PlatformId: 0
+//			});
+			//date_report.end = false;
+//	    	calendar_platform_end.setOption({
+//	    		minDate: res,
+//	    		maxDate: max_date  //new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
+//	    	});
+//  	}
+    	date_report.start = res;
+    }
+});
+
+
+var calendar_platform_end = new LCalendar();
+calendar_platform_end.init({
+    'trigger': '#date_report_end', //标签id
+    'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+    'minDate': getDate({y:-1,m:-6}), //最小日期
+    'maxDate': getDate(), //最大日期
+    'confirm': function(res){
+
+    	serch.attr('endFlg',res);
+    	this.innerText = res.replace(/-/g,".");
+    	var max_date = getDate({date: res, m: -6});
+
+    	calendar_platform_start.setOption({
+    		minDate: max_date,
+    		maxDate: res
+    	});
+//  	if (date_report.start) {
+//  		G.loadingtext.show("加载中");
+//			get_platform_order_rpt({
+//				BeginDate: date_report.start,
+//				EndDate: res,
+//				PlatformId: 0
+//			});
+			//date_report.end = false;
+//	    	calendar_platform_start.setOption({
+//	    		minDate: get_date({date: res, m: -6}),
+//	    		maxDate:  res
+//	    	});
+//  	} else {
+//  		
+//  	}
+		date_report.end = res;
+    }
+});
+var v = {
+	s: getDate({ d: -8 }),
+	e: getDate({ d: -1 })
+}
+var serch = $('.serch');
+//serch.attr('endflg',getDate({ d: -1 }));
+//serch.attr('starflg',getDate({ d: -8 }));
+serch.on('click', function(){
+	
+	var star = $(this).attr('starflg');
+	var end = $(this).attr('endflg');
+	
+	console.log(star,end);
+	if(star&&end){
+		console.log('开始结束时间为时间区间：',star,end)
+	}
+	if(!star&&!end){
+		star = v.s;
+		end = v.e;
+		console.log('1初始时间：', star, end)
+	}
+	if(star&&!end){
+		date_report.start = end = star;
+		$('#date_report_end').text(star.replace(/-/g,"."));
+		console.log('2只选择开始时间：',star,end)
+	}
+	if(!star&& end){
+		date_report.start =star = end;
+		$('#date_report_start').text(end.replace(/-/g,"."));
+		console.log('3只选择结束时间：',star,end)
+	}
+	$(this).attr('endflg','');
+	$(this).attr('starflg','');
+	console.log(star,end);
+	v.s = star;
+	v.e = end;
+	get_platform_order_rpt({
+		BeginDate: '2017-10-15'||star,
+		EndDate: '2017-11-08'||end,
+		PlatformId: 0
+	});
+	
+})
+*/
+
+
+        $('#tipClick').on('touchstart', function(){
+           G.dialog({
+                title:'',
+                text: `
+                    <p style="text-align:left;color:#666"><span style="font-size:1em;font-weight:700;">业绩日报：</span><sapn>已授权平台的一日业绩统计</span></p>
+                    <p style="text-align:left;color:#666"><span style="font-size:1em;font-weight:700;">已完成：</span><sapn>设定时间内交易成功且未发生退款的订单</span></p>
+                    <p style="text-align:left;color:#666"><span style="font-size:1em;font-weight:700;">已取消：</span><sapn>设定时间内已取消的订单</span></p>
+                `,
+                btns:['知道了']
+            })
+
+
+
+
+        })
+      
+        $("#date_total").val(default_date);
+        get_order_day_rpt(default_date);
+
+        function get_order_day_rpt(d) {
+            G.loader({
+                url: "/report/getOrderDayRpt?QueryDate=" + d,
+                method: "get",
+                headers: G.helper.get_common_header(),
+                before: function(){
+					G.Loading.show();
+				},
+                response: function (res) {
+                    G.Loading.hide();
+                    if (res.status == "1") {
+                        var report_html = template("report_total", { total: res.data, window: window });
+                        document.querySelector("#report_total_content").innerHTML = report_html;
+                        // var html_amount = template("tpl_odr_amount", { amount: res.data, window: window });
+                        // document.querySelector("#content_odr_amount").innerHTML = html_amount;
+                    } else {
+                        // if (G.check_login(res.status)) {
+                        //     G.prompt.error(res.data);
+                        // }
+                    }
+                }
+            });
+        }
+
+       
+		// date_report.start = getDate({d:-8});
+		// date_report.end = getDate({d:-1});
+        // $("#date_report_start").text(getDate({ d: -8, split: "." }));
+        // $("#date_report_end").text(getDate({ d: -1, split: "." }));
+        /**
+         * 获取平台数据
+         * @param  {[type]} param [description]
+         * @return {[type]}       [description]
+         */
+
+
+
+        /*
+        *
+        * 默认获取近七天数据
+        */
+        get_platform_order_rpt({
+            StatisticsType: 3,
+            PlatformId: 0
+        });
+
+        $('.day_btns').on('click','div', function(){
+            $(this).addClass('active').siblings().removeClass('active');
+            get_platform_order_rpt({
+                StatisticsType: $(this).attr('data-type'),
+                PlatformId: 0
+            });
+        })
+
+
+        function get_platform_order_rpt(param) {
+            G.loader({
+                url: "/report/getPlatformOrderDayRpt",
+                method: "get",
+                param: param,
+                headers: G.helper.get_common_header(),
+                before: function(){
+					G.Loading.show();
+				},
+                response: function (res) {
+                    G.Loading.hide();
+                    if (res.status == "1") {
+                        if(res.data.PlatformData.hasOwnProperty('0')){
+                            G.loader({
+                                url: "/platform/getList",
+                                headers: G.helper.get_common_header(),
+                                response: function (res_c) {
+                                    orderChart.init(res.data,res_c.data);
+                                }
+                            });
+                                
+                        }else{
+                            orderChart.init(res.data);
+                        }
+                    } else {
+                        if (G.check_login(res.status)) {
+                            G.prompt.error(res.data);
+                        }
+                    }
+                }
+            });
+        }
+
+        /**
+        * 生成平台订单统计图表
+        * @type {Object}
+        */
+
+  
+        var orderChart = {
+            i: 0,
+            limit: 3,
+            total: 0,
+            init: function (data,lable) {
+				this.lable = lable;
+                this.data = data;
+                this.total = data.Dates.length;
+                this.init_chart();
+            },
+            init_chart: function () {
+                var series = legend_data = [];
+                this.series = {};
+                var platform = { "1": "美团外卖", "2": "饿了么", "3": "百度外卖" };
+				
+				if(this.lable){
+					for(var i = 0;i<this.lable.Platforms.length;i++){
+						var _series = {
+							name: this.lable.Platforms[i].PlatformName,
+							type: "line",
+							data: this.data.PlatformData[0]
+						}
+						series.push(_series);
+						legend_data.push(this.lable.Platforms[i].PlatformName);
+						this.series[i] = _series;
+					}
+					
+				
+				}else{
+					 for (var platform_id in this.data.PlatformData) {
+						var _series = {
+							name: platform[platform_id],
+							type: "line",
+							data: this.data.PlatformData[platform_id]
+						}
+						series.push(_series);
+						legend_data.push(platform[platform_id]);
+						this.series[platform_id] = _series;
+					}
+				}
+               
+				
+                this.chart = echarts.init(document.getElementById('echarts'));
+
+
+                var option = {
+                    title: {
+                        // text: '这里是titletitle',
+                        // left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                    },
+                    legend: {
+                        right: "0",
+                        padding: [13,10,0,0],
+                        data: legend_data
+                    },
+                    xAxis: {
+                        type: 'category',
+                        name: '',
+                        boundaryGap: false,
+                        data: this.data.Dates
+                    },
+                    backgroundColor: {
+                        color: "#fff"
+                    },
+                    grid: {
+                        left: '4%',
+                        right: '5%',
+                        bottom: '4%',
+                        top:'14%',
+                        containLabel: true
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: '订单量(单)',
+                        nameLocation: 'middle',
+                        nameGap: 20,
+						// max: this.data.MaxVal
+                    },
+                    color: ["#5fdbab", "#7cb5ed", "#ff7b7b"],
+                    series: series
+                };
+
+
+
+                // var option = {
+                //     dataZoom: [
+                //         {
+                //             type: 'slider',
+                //             show: true,
+                //             start: 0,
+                //             end: 40,
+                //             handleSize: 8
+                //         },
+                //         {
+                //             type: 'inside',
+                //             start: 0,
+                //             end: 40
+                //         }
+                //     ],
+                //     tooltip: {
+                //         trigger: 'axis'
+                //     },
+                //     legend: {
+                //         data: legend_data,
+                //         right: "5%",
+						
+                //     },
+                //     backgroundColor: {
+                //         color: "#fff"
+                //     },
+                //     grid: {
+                //         left: "12%",
+                //         right: "12%"
+                //     },
+                //     xAxis: {
+                //         type: 'category',
+                //         boundaryGap: false,
+                //         data: this.data.Dates
+                //     },
+                //     yAxis: {
+                //         type: 'value',
+                //         name: '订单量(单)',
+                //         nameLocation: 'middle',
+                //         nameGap: 25,
+				// 		max: this.data.MaxVal
+                //     },
+                //     color: ["#90ed7d", "#434348", "#7cb5ec"],
+                //     series: series
+                // };
+                this.chart.setOption(option);
+                // this.update();
+            },
+            update: function () {
+                var series = [];
+                for (var platform_id in this.series) {
+                    var _series = this.series[platform_id];
+                    /*var t = this.data.PlatformData[platform_id].length;
+                    for (var i = 0; i < t / this.limit ; i++) {
+                        _series.data[i] = this.data.PlatformData[platform_id].slice(this.i * this.limit, (this.i * this.limit) + this.limit);
+                    }*/
+                    _series.data = this.data.PlatformData[platform_id];
+                    series.push(_series);
+                }
+                var option = {
+                    xAxis: {
+                        data: this.data.Dates
+                    },
+                    series: series
+                }
+                this.chart.setOption(option);
+            }
+        }
+    </script>
+</body>
+</html>

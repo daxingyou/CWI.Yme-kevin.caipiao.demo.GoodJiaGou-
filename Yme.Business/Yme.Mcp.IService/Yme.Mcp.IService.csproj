@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C1FC6F24-174E-4C92-8825-A895FC041952}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yme.Mcp.IService</RootNamespace>
+    <AssemblyName>Yme.Mcp.IService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Evt.Framework.Mvc">
+      <HintPath>..\..\Bin\Evt.Framework.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseManage\IBilltemplateService.cs" />
+    <Compile Include="BaseManage\IMerchantService.cs" />
+    <Compile Include="BaseManage\IPrinterConfigService.cs" />
+    <Compile Include="BaseManage\IShopService.cs" />
+    <Compile Include="BaseManage\IShopPlatformService.cs" />
+    <Compile Include="BaseManage\IShopPrinterService.cs" />
+    <Compile Include="BaseManage\IPlatformService.cs" />
+    <Compile Include="DemoManage\IDeviceService.cs" />
+    <Compile Include="DemoManage\IDeviceTaskService.cs" />
+    <Compile Include="DemoManage\ITaskService.cs" />
+    <Compile Include="OrderManage\IOrderDetailService.cs" />
+    <Compile Include="OrderManage\IOrderDishService.cs" />
+    <Compile Include="OrderManage\IOrderInvoiceService.cs" />
+    <Compile Include="OrderManage\IOrderService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportManage\ICustomerDaystatisService.cs" />
+    <Compile Include="ReportManage\IOrderDaystatisService.cs" />
+    <Compile Include="ReportManage\IPlatformdishDaystatisService.cs" />
+    <Compile Include="ReportManage\IPlatformorderDaystatisService.cs" />
+    <Compile Include="SystemManage\IAreaService.cs" />
+    <Compile Include="SystemManage\IDictCodeService.cs" />
+    <Compile Include="SystemManage\ILoginLogService.cs" />
+    <Compile Include="SystemManage\ILogService.cs" />
+    <Compile Include="SystemManage\IParameterService.cs" />
+    <Compile Include="SystemManage\ISmsService.cs" />
+    <Compile Include="SystemManage\ISystemService.cs" />
+    <Compile Include="SystemManage\IVerifyCodeService.cs" />
+    <Compile Include="WeChatManage\IWxJsapiticketService.cs" />
+    <Compile Include="WeChatManage\IWxTokenService.cs" />
+    <Compile Include="WeChatManage\IWxUserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Yme.Core\Code\Yme.Code\Yme.Code.csproj">
+      <Project>{79049299-93c1-4190-ac74-67f11025cb8f}</Project>
+      <Name>Yme.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Data\Yme.Data.Repository\Yme.Data.Repository.csproj">
+      <Project>{79f48b8f-215e-4231-a35d-52ce03e08710}</Project>
+      <Name>Yme.Data.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Util\Yme.Util.WebControl\Yme.Util.WebControl.csproj">
+      <Project>{a9feee7a-17ae-461e-9ecb-418c208ae31a}</Project>
+      <Name>Yme.Util.WebControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Core\Util\Yme.Util\Yme.Util.csproj">
+      <Project>{3c1a88ed-2c65-4509-9026-da0518ce42f7}</Project>
+      <Name>Yme.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Model\Yme.Mcp.Entity\Yme.Mcp.Entity.csproj">
+      <Project>{51642c1a-d01c-4f24-883a-0acdf72b4445}</Project>
+      <Name>Yme.Mcp.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Yme.Model\Yme.Mcp.Model\Yme.Mcp.Model.csproj">
+      <Project>{78761fb2-7697-4d7e-93f0-c21923aa3ffd}</Project>
+      <Name>Yme.Mcp.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
